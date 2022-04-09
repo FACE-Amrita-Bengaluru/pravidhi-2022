@@ -3662,6 +3662,7 @@ img.u-pull-left {
 }
 
 .timeline__desc p {
+    font-family: var(--font-2);
     margin: 0;
     padding-bottom: 3rem;
 }

@@ -4715,7 +4715,7 @@ body.search-is-visible .s-header__search-inner {
     background-color: #111111;
     padding-top: var(--vspace-1_75);
     padding-bottom: var(--vspace-1_75);
-    font-family: var(--font-2);
+    font-family: var(--font-1);
     font-size: calc(var(--text-size) * 0.8889);
     line-height: var(--vspace-1);
     color: rgba(255, 255, 255, 0.25);

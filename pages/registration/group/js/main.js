@@ -111,29 +111,6 @@
         if (pageWrap.classList.contains('ss-home')) {
             window.addEventListener('scroll', animateOnScroll);
         }
-        // animate on load
-        else {
-            window.addEventListener('load', function () {
-                // doAnimate(animateBlocks[0]);
-            });
-        }
-
-        // do animate
-        // function doAnimate(current) {
-        //     const els = current.querySelectorAll('[data-animate-el]');
-        //     const p = new Promise(function (resolve, reject) {
-        //         els.forEach(function (el, index, array) {
-        //             const dly = index * 200;
-
-        //             el.style.setProperty('--transition-delay', dly + 'ms');
-        //             if (index === array.length - 1) resolve();
-        //         });
-        //     });
-
-        //     p.then(function () {
-        //         current.classList.add('ss-animated');
-        //     });
-        // }
 
         // animate on scroll
         function animateOnScroll() {

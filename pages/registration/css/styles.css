@@ -1,4 +1,4 @@
-/* =================================================================== 
+/* ===================================================================
  * Spurgeon Main Stylesheet
  * Template Ver. 1.0.0
  * 08-15-2021
@@ -13,43 +13,43 @@
  * # NORMALIZE
  * # BASE SETUP
  * # GRID
- *      ## large screen devices 
- *      ## medium screen devices 
- *      ## tablet devices 
- *      ## mobile devices 
- *      ## small screen devices 
- *      ## additional column stackpoints 
+ *      ## large screen devices
+ *      ## medium screen devices
+ *      ## tablet devices
+ *      ## mobile devices
+ *      ## small screen devices
+ *      ## additional column stackpoints
  * # UTILITY CLASSES
- * # TYPOGRAPHY 
+ * # TYPOGRAPHY
  *      ## base type styles
  *      ## additional typography & helper classes
  *      ## lists
  *      ## spacing
- * # PRELOADER 
+ * # PRELOADER
  *      ## page loaded
- * # FORM 
+ * # FORM
  *      ## style placeholder text
  *      ## change autocomplete styles in Chrome
  * # BUTTONS
  * # TABLE
  * # COMPONENTS
- *      ## pagination 
- *      ## alert box 
- *      ## skillbars 
+ *      ## pagination
+ *      ## alert box
+ *      ## skillbars
  *      ## stats tabs
  * # PROJECT-WIDE SHARED STYLES
  *      ## fade in up effect
  *      ## media classes
  *      ## swiper overrides
- *      ## bricks masonry 
- *      ## masonry entries 
+ *      ## bricks masonry
+ *      ## masonry entries
  * # PAGE WRAP
  * # SITE HEADER
  *      ## branding
  *      ## main navigation
  *      ## mobile menu toggle
  *      ## header-search
- *      ## close button for search 
+ *      ## close button for search
  *      ## search triggers
  * # HERO
  *      ## hero slider
@@ -62,8 +62,8 @@
  *      ## footer social
  *      ## copyright
  *      ## go top
- * # BLOG STYLES 
- *      ## blog comments 
+ * # BLOG STYLES
+ *      ## blog comments
  *
  * ------------------------------------------------------------------ */
 
@@ -74,8 +74,8 @@
  *
  * ------------------------------------------------------------------- */
 
-/* ------------------------------------------------------------------- 
- * ## fonts 
+/* -------------------------------------------------------------------
+ * ## fonts
  * ------------------------------------------------------------------- */
 @import url("https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap");
 
@@ -88,7 +88,7 @@
     --font-mono : Consolas, "Andale Mono", Courier, "Courier New", monospace;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## colors
  * ------------------------------------------------------------------- */
 :root {
@@ -96,7 +96,7 @@
     /* color-1(#04776F)
      * color-2(#DD614A)
      */
-    --color-1                      : hsla(176, 93%, 24%, 1);
+    --color-1                      : #065cc9;
     --color-2                      : hsla(9, 68%, 58%, 1);
 
     /* theme color variations
@@ -111,7 +111,7 @@
     --color-2-darker               : hsla(9, 68%, 38%, 1);
 
     /* feedback colors
-     * color-error(#ffd1d2), color-success(#c8e675), 
+     * color-error(#ffd1d2), color-success(#c8e675),
      * color-info(#d7ecfb), color-notice(#fff099)
      */
     --color-error                  : hsla(359, 100%, 91%, 1);
@@ -123,9 +123,9 @@
     --color-info-content           : hsla(205, 32%, 31%, 1);
     --color-notice-content         : hsla(51, 30%, 30%, 1);
 
-    /* shades 
-     * generated using 
-     * Tint & Shade Generator 
+    /* shades
+     * generated using
+     * Tint & Shade Generator
      * (https://maketintsandshades.com/)
      */
     --color-black                  : #000000;
@@ -185,13 +185,13 @@
     --border-radius                : 3px;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## spacing and typescale
  * ------------------------------------------------------------------- */
 :root {
 
     /* spacing
-     * base font size: 18px 
+     * base font size: 18px
      * vertical space unit : 32px
      */
     --base-size        : 62.5%;
@@ -199,7 +199,7 @@
     --base-font-size   : calc(1.8rem * var(--multiplier));
     --space            : calc(3.2rem * var(--multiplier));
 
-    /* vertical spacing 
+    /* vertical spacing
      */
     --vspace-0_125     : calc(0.125 * var(--space));
     --vspace-0_25      : calc(0.25 * var(--space));
@@ -256,7 +256,7 @@
     --vspace-btn       : var(--vspace-2);
 }
 
-/* on mobile devices below 600px, change the value of '--multiplier' 
+/* on mobile devices below 600px, change the value of '--multiplier'
  * to adjust the values of base font size and vertical space unit.
  */
 @media screen and (max-width: 600px) {
@@ -265,7 +265,7 @@
     }
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## grid variables
  * ------------------------------------------------------------------- */
 :root {
@@ -584,18 +584,18 @@ textarea {
  *
  *
  *   -----------------------------------------------------------------
- * - Grid breakpoints are based on MAXIMUM WIDTH media queries, 
+ * - Grid breakpoints are based on MAXIMUM WIDTH media queries,
  *   meaning they apply to that one breakpoint and ALL THOSE BELOW IT.
- * - Grid columns without a specified width will automatically layout 
+ * - Grid columns without a specified width will automatically layout
  *   as equal width columns.
  *
- * - BLOCK GRID columns(columns inside BLOCK GRID containers) are 
- *   equally-sized columns define at parent/row level. 
+ * - BLOCK GRID columns(columns inside BLOCK GRID containers) are
+ *   equally-sized columns define at parent/row level.
  *   A BLOCK GRID container's class attribute value begins with "block-".
  *
  * ------------------------------------------------------------------- */
 
-/* row 
+/* row
  */
 .row {
     width     : 92%;
@@ -668,7 +668,7 @@ textarea {
 }
 
 /* --------------------------------------------------------------------
- * ## large screen devices 
+ * ## large screen devices
  * -------------------------------------------------------------------- */
 .lg-1 {
     flex  : none;
@@ -766,7 +766,7 @@ textarea {
 }
 
 /* --------------------------------------------------------------------
- * ## medium screen devices 
+ * ## medium screen devices
  * -------------------------------------------------------------------- */
 @media screen and (max-width: 1200px) {
     .md-1 {
@@ -870,7 +870,7 @@ textarea {
 }
 
 /* --------------------------------------------------------------------
- * ## tablet devices 
+ * ## tablet devices
  * -------------------------------------------------------------------- */
 @media screen and (max-width: 800px) {
     .tab-1 {
@@ -974,7 +974,7 @@ textarea {
 }
 
 /* --------------------------------------------------------------------
- * ## mobile devices 
+ * ## mobile devices
  * -------------------------------------------------------------------- */
 @media screen and (max-width: 600px) {
     .row {
@@ -1089,7 +1089,7 @@ textarea {
 }
 
 /* --------------------------------------------------------------------
- * ## small screen devices 
+ * ## small screen devices
  * --------------------------------------------------------------------*/
 
 /* stack columns on small screen devices
@@ -1115,7 +1115,7 @@ textarea {
 }
 
 /* --------------------------------------------------------------------
- * ## additional column stackpoints 
+ * ## additional column stackpoints
  * -------------------------------------------------------------------- */
 @media screen and (max-width: 1000px) {
 
@@ -1271,10 +1271,10 @@ textarea {
 
 
 /* ===================================================================
- * # TYPOGRAPHY 
+ * # TYPOGRAPHY
  *
  *
- * ------------------------------------------------------------------- 
+ * -------------------------------------------------------------------
  * type scale - ratio 1:2 | base: 18px
  * -------------------------------------------------------------------
  *
@@ -1753,7 +1753,7 @@ dd {
     margin : 0 0 0 2rem;
 }
 
-/* definition list line style 
+/* definition list line style
  */
 .lining dt,
 .lining dd {
@@ -1780,7 +1780,7 @@ dd {
     margin-left : -0.2em;
 }
 
-/* definition list dictionary style 
+/* definition list dictionary style
  */
 .dictionary-style dt {
     display       : inline;
@@ -1831,9 +1831,9 @@ img,
 
 
 /* ===================================================================
- * # PRELOADER 
- * 
- * 
+ * # PRELOADER
+ *
+ *
  * -------------------------------------------------------------------
  * - markup:
  *
@@ -2026,7 +2026,7 @@ img,
     }
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## page loaded
  * ------------------------------------------------------------------- */
 .ss-loaded #preloader {
@@ -2042,7 +2042,7 @@ img,
 
 
 /* ===================================================================
- * # FORM 
+ * # FORM
  *
  *
  * ------------------------------------------------------------------- */
@@ -2170,7 +2170,7 @@ label>input[type="radio"] {
     top      : 2px;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## style placeholder text
  * ------------------------------------------------------------------- */
 ::-webkit-input-placeholder {
@@ -2205,7 +2205,7 @@ label>input[type="radio"] {
     color : var(--color-placeholder);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## change autocomplete styles in Chrome
  * ------------------------------------------------------------------- */
 input:-webkit-autofill,
@@ -2397,7 +2397,7 @@ td:last-child {
  * ------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------
- * ## pagination 
+ * ## pagination
  * ------------------------------------------------------------------- */
 .pgn {
     --pgn-num-height : calc(var(--vspace-1) + .4rem);
@@ -2523,7 +2523,7 @@ td:last-child {
     background-color : transparent;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * pagination
  * ------------------------------------------------------------------- */
@@ -2533,8 +2533,8 @@ td:last-child {
     }
 }
 
-/* ------------------------------------------------------------------- 
- * ## alert box 
+/* -------------------------------------------------------------------
+ * ## alert box
  * ------------------------------------------------------------------- */
 .alert-box {
     padding       : var(--vspace-0_75) 4rem var(--vspace-0_75) 3.2rem;
@@ -2624,8 +2624,8 @@ td:last-child {
     transition : all .5s;
 }
 
-/* ------------------------------------------------------------------- 
- * ## skillbars 
+/* -------------------------------------------------------------------
+ * ## skillbars
  * ------------------------------------------------------------------- */
 .skill-bars {
     list-style : none;
@@ -2835,7 +2835,7 @@ td:last-child {
     line-height : calc(0.9375 * var(--space));
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## fade in up effect
  * ------------------------------------------------------------------- */
 [data-animate-el] {
@@ -2855,7 +2855,7 @@ td:last-child {
     transform  : translate(0, 0);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## media classes
  * ------------------------------------------------------------------- */
 
@@ -2890,7 +2890,7 @@ img.u-pull-left {
     height   : 100%;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## swiper overrides
  * ------------------------------------------------------------------- */
 .swiper-container .swiper-pagination-bullets .swiper-pagination-bullet {
@@ -2909,8 +2909,8 @@ img.u-pull-left {
     opacity    : 1;
 }
 
-/* ------------------------------------------------------------------- 
- * ## bricks masonry 
+/* -------------------------------------------------------------------
+ * ## bricks masonry
  * ------------------------------------------------------------------- */
 .bricks {
     --brick-padding : 4rem;
@@ -2948,8 +2948,8 @@ img.u-pull-left {
     padding : var(--brick-padding) var(--brick-padding) 0;
 }
 
-/* ------------------------------------------------------------------- 
- * ## masonry entries 
+/* -------------------------------------------------------------------
+ * ## masonry entries
  * ------------------------------------------------------------------- */
 .bricks-wrapper .entry__thumb {
     overflow : hidden;
@@ -3106,7 +3106,7 @@ img.u-pull-left {
     border-bottom : 1px solid black;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * project-wide and shared styles
  * ------------------------------------------------------------------- */
@@ -3452,7 +3452,7 @@ img.u-pull-left {
     bottom : -8px;
 }
 
-/* is clicked 
+/* is clicked
  */
 .s-header__menu-toggle.is-clicked span {
     background-color : rgba(0, 0, 0, 0);
@@ -3474,7 +3474,7 @@ img.u-pull-left {
     transform : rotate(225deg);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## header-search
  * ------------------------------------------------------------------- */
 .s-header__search {
@@ -3581,8 +3581,8 @@ body.search-is-visible .s-header__search-inner {
     transform : none;
 }
 
-/* ------------------------------------------------------------------- 
- * ## close button for search 
+/* -------------------------------------------------------------------
+ * ## close button for search
  * ------------------------------------------------------------------- */
 .s-header__search-close {
     display          : block;
@@ -3641,7 +3641,7 @@ body.search-is-visible .s-header__search-inner {
     stroke : var(--color-text-dark);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * site-header
  * ------------------------------------------------------------------- */
@@ -4155,7 +4155,7 @@ body.search-is-visible .s-header__search-inner {
     transform : translate(0, 0);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * hero
  * ------------------------------------------------------------------- */
@@ -4433,7 +4433,7 @@ body.search-is-visible .s-header__search-inner {
     padding-top : var(--vspace-2);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * site content
  * ------------------------------------------------------------------- */
@@ -4495,313 +4495,374 @@ body.search-is-visible .s-header__search-inner {
 
 
 /* ===================================================================
+ * # CONTACT
+ *
+ *
+ * ------------------------------------------------------------------- */
+.s-contact {
+    --color-border: rgba(255, 255, 255, 0.05);
+
+    background-color: var(--color-gray-19);
+    background-image: url(../images/contact-bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-top: var(--vspace-5);
+    padding-bottom: var(--vspace-3);
+    position: relative;
+    font-family: var(--font-1);
+}
+
+.s-contact h5 {
+    margin-top: 0;
+    margin-bottom: var(--vspace-1);
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.s-contact h5.with-top-line {
+    padding-top: var(--vspace-0_75);
+    border-top: 1px solid var(--color-border);
+}
+
+.s-contact::before {
+    content: '';
+    display: block;
+    background: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.75;
+}
+
+.s-contact .section-header {
+    max-width: 1020px;
+}
+
+.s-contact .section-header a {
+    color: var(--color-1);
+}
+
+/* -------------------------------------------------------------------
+ * ## contact infos
+ * ------------------------------------------------------------------- */
+.s-contact__infos {
+    margin-top: var(--vspace-3_5);
+    font-family: var(--font-1);
+    font-weight: 400;
+    font-size: calc(var(--text-size) * 1.556);
+    line-height: var(--vspace-1_5);
+    color: white;
+    position: relative;
+}
+
+.s-contact__infos [class*='s-contact__block'] {
+    padding-bottom: var(--vspace-1);
+}
+
+.s-contact__list {
+    list-style: none;
+    margin-left: 0;
+}
+
+.s-contact__list a {
+    color: white;
+}
+
+.s-contact__list a:focus,
+.s-contact__list a:hover {
+    color: var(--color-1);
+}
+
+.s-contact__list li {
+    padding-left: 0;
+}
+
+/* -------------------------------------------------------------------
+ * ## contact bottom
+ * ------------------------------------------------------------------- */
+.s-contact__bottom {
+    --btn-input-height: var(--vspace-2);
+    margin-top: var(--vspace-0_5);
+    position: relative;
+}
+
+/* mail button block
+ */
+.s-contact__mail-block {
+    padding-top: calc(var(--vspace-0_875) + var(--vspace-1));
+    position: relative;
+}
+
+.s-contact__mail-block::before {
+    content: '';
+    display: block;
+    width: 200px;
+    height: 1px;
+    background-color: var(--color-border);
+    position: absolute;
+    top: calc(var(--vspace-0_875) / 2);
+    left: var(--gutter);
+}
+
+.btn--mail {
+    --btn-height: var(--btn-input-height);
+    border: 2px solid var(--color-1);
+    color: white;
+    margin: 0;
+}
+
+.btn--mail:focus,
+.btn--mail:hover {
+    background-color: var(--color-1) !important;
+    color: black;
+}
+
+/* subscription form
+ */
+.s-contact__subscribe {
+    --input-height: var(--btn-input-height);
+    --btn-width: 180px;
+}
+
+.s-contact__subscribe form {
+    display: flex;
+    flex-flow: row wrap;
+    margin-bottom: 0;
+}
+
+.s-contact__subscribe input[type='email'],
+.s-contact__subscribe input[type='submit'],
+.s-contact__subscribe .ms-status {
+    flex: none;
+}
+
+.s-contact__subscribe input[type='email'] {
+    width: calc(100% - var(--btn-width));
+    background-color: rgba(255, 255, 255, 0.05);
+    font-size: var(--text-sm);
+    color: white;
+    border: none;
+    padding: var(--input-vpadding) calc(2.8rem - 1px);
+    text-align: left;
+    margin: 0;
+}
+
+.s-contact__subscribe input[type='submit'] {
+    --btn-height: var(--btn-input-height);
+    background-color: var(--color-1);
+    border: 2px solid var(--color-1);
+    color: black;
+    width: var(--btn-width);
+    margin: 0;
+}
+
+.s-contact__subscribe .mc-status {
+    width: 100%;
+    margin-top: var(--vspace-0_75);
+    font-family: var(--font-2);
+    font-size: var(--text-sm);
+    color: var(--color-1);
+}
+
+/* -------------------------------------------------------------------
+ * responsive:
+ * contact
+ * ------------------------------------------------------------------- */
+@media screen and (max-width: 800px) {
+    .s-contact__mail-block {
+        padding-top: 0;
+    }
+
+    .s-contact__mail-block::before {
+        display: none;
+    }
+
+    .btn--mail {
+        width: 100%;
+        margin-bottom: var(--vspace-2_5);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .s-contact .text-display-title {
+        --text-multiplier: 0.6;
+    }
+
+    .s-contact__subscribe form {
+        display: block;
+    }
+
+    .s-contact__subscribe input[type='email'],
+    .s-contact__subscribe input[type='submit'],
+    .s-contact__subscribe .mc-status {
+        width: 100%;
+    }
+
+    .s-contact__subscribe input[type='email'] {
+        text-align: center;
+        margin-bottom: var(--vspace-0_5);
+    }
+
+    .s-contact__subscribe .mc-status {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .s-contact .text-display-title {
+        --text-multiplier: 0.55;
+    }
+
+    .s-contact h5 {
+        font-size: calc(var(--text-size) * 1.1111);
+        margin-bottom: var(--vspace-0_375);
+    }
+
+    .s-contact__infos {
+        font-size: var(--text-lg);
+        line-height: calc(1.375 * var(--space));
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .s-contact .text-display-title {
+        font-size: var(--text-xl);
+    }
+}
+
+/* ===================================================================
  * # FOOTER
  *
  *
  * ------------------------------------------------------------------- */
 .s-footer {
-    background-color : var(--color-gray-4);
-    font-weight      : 300;
-    padding-top      : var(--vspace-4_5);
-    padding-bottom   : var(--vspace-3_5);
-    position         : relative;
+    background-color: #111111;
+    padding-top: var(--vspace-1_75);
+    padding-bottom: var(--vspace-1_75);
+    font-family: var(--font-2);
+    font-size: calc(var(--text-size) * 0.8889);
+    line-height: var(--vspace-1);
+    color: rgba(255, 255, 255, 0.25);
+    position: relative;
 }
 
-.s-footer>.row {
-    max-width : 1000px;
+.s-footer a {
+    color: white;
 }
 
-.s-footer h2 {
-    font-size     : var(--text-xxxl);
-    line-height   : var(--vspace-1_5);
-    margin-top    : 0;
-    margin-bottom : var(--vspace-0_375);
+.s-footer a:focus,
+.s-footer a:hover {
+    color: var(--color-1);
 }
 
-.s-footer h4 {
-    font-family   : var(--font-1);
-    font-weight   : 500;
-    font-size     : calc(var(--text-size) * 1.0556);
-    margin-top    : 0;
-    margin-bottom : var(--vspace-0_5);
-}
-
-.s-footer .link-list {
-    list-style  : none;
-    margin-left : 0;
-}
-
-.s-footer .link-list li {
-    padding-left : 0;
-}
-
-.s-footer .link-list a {
-    color  : var(--color-text);
-    border : none;
-}
-
-.s-footer .link-list a:focus,
-.s-footer .link-list a:hover,
-.s-footer .link-list a:active {
-    color : var(--color-1);
-}
-
-.s-footer__main {
-    font-size   : calc(var(--text-size) * 0.8889);
-    line-height : var(--vspace-0_875);
-    border-top  : 1px solid var(--color-border);
-    padding-top : var(--vspace-1_25);
-}
-
-.s-footer__about {
-    margin-right : auto;
-}
-
-.s-footer__bottom {
-    padding-top : var(--vspace-0_25);
-    font-size   : var(--text-sm);
-    line-height : var(--vspace-0_75);
-    color       : var(--color-gray-14);
-}
-
-.s-footer__bottom a {
-    color : black;
-}
-
-/* ------------------------------------------------------------------- 
- * ## subscription form
- * ------------------------------------------------------------------- */
-.s-footer__subscribe {
-    margin-bottom : var(--vspace-0_5);
-    line-height   : var(--vspace-0_875);
-    text-align    : center;
-}
-
-.s-footer__subscribe .mc-form {
-    display    : flex;
-    margin-top : var(--vspace-1_5);
-}
-
-.s-footer__subscribe input[type="email"],
-.s-footer__subscribe input[type="submit"] {
-    margin-bottom : var(--vspace-0_5);
-}
-
-.s-footer__subscribe input[type="email"] {
-    background-color : white;
-    font-size        : calc(var(--text-size) * 0.8889);
-    border           : 1px solid var(--color-gray-5);
-    border-radius    : var(--border-radius) 0 0 var(--border-radius);
-    padding          : var(--input-vpadding) 2rem var(--input-vpadding) 2.4rem;
-    text-align       : left;
-    box-shadow       : none;
-}
-
-.s-footer__subscribe input[type="submit"] {
-    width         : 240px;
-    margin-right  : 0;
-    border-radius : 0 var(--border-radius) var(--border-radius) 0;
-}
-
-/* --------------------------------------------------------------------
- * ## footer social
- * -------------------------------------------------------------------- */
-.s-footer__social {
-    list-style : none;
-    display    : flex;
-    margin     : 0;
-}
-
-.s-footer__social li {
-    padding-left : 0;
-    margin-right : 1rem;
-    line-height  : 1;
-}
-
-.s-footer__social li:last-child {
-    margin-right : 0;
-}
-
-.s-footer__social svg {
-    height : 2.8rem;
-    width  : 2.8rem;
-}
-
-.s-footer__social svg path {
-    fill : black;
-}
-
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## copyright
  * ------------------------------------------------------------------- */
+.ss-copyright {
+    padding-right: var(--vspace-2);
+}
+
 .ss-copyright span {
-    display : inline-block;
+    display: inline-block;
 }
 
 .ss-copyright span::after {
-    content : "|";
-    display : inline-block;
-    padding : 0 .8rem 0 1rem;
-    color   : var(--color-gray-10);
+    content: '|';
+    display: inline-block;
+    padding: 0 1rem 0 1.2rem;
+    color: rgba(255, 255, 255, 0.05);
 }
 
 .ss-copyright span:last-child::after {
-    display : none;
+    display: none;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## go top
  * ------------------------------------------------------------------- */
 .ss-go-top {
-    z-index    : 2;
-    opacity    : 0;
-    visibility : hidden;
-    transform  : translate(0, 200%);
-    transition : all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
-    position   : fixed;
-    bottom     : 6rem;
-    right      : 4rem;
+    z-index: 2;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(0, 200%);
+    transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+    position: fixed;
+    bottom: 4.4rem;
+    right: 4rem;
 }
 
 .ss-go-top a {
-    display          : flex;
-    align-items      : center;
-    justify-content  : center;
-    text-decoration  : none;
-    border           : none;
-    height           : 6rem;
-    width            : 6rem;
-    border-radius    : 50%;
-    background-color : var(--color-gray-7);
-    transition       : all .3s;
-    position         : relative;
-}
-
-.ss-go-top a:focus,
-.ss-go-top a:hover {
-    background-color : black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: none;
+    height: calc(1.875 * var(--space));
+    width: calc(1.875 * var(--space));
+    border-radius: 50%;
+    background-color: black;
+    transition: all 0.3s;
+    position: relative;
 }
 
 .ss-go-top a:focus svg path,
 .ss-go-top a:hover svg path {
-    stroke : white;
+    fill: white;
 }
 
 .ss-go-top svg {
-    height : 1.8rem;
-    width  : 1.8rem;
+    height: var(--vspace-0_75);
+    width: var(--vspace-0_75);
 }
 
 .ss-go-top svg path {
-    stroke : black;
+    fill: white;
 }
 
 .ss-go-top.link-is-visible {
-    opacity    : 1;
-    visibility : visible;
-    transform  : translate(0, 0);
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0, 0);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * footer
  * ------------------------------------------------------------------- */
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 800px) {
     .ss-go-top {
-        right : 2.4rem;
-    }
-}
-
-@media screen and (max-width: 1400px) {
-    .ss-go-top {
-        bottom : 4.8rem;
+        right: var(--vspace-1);
+        bottom: var(--vspace-1_5);
     }
 
     .ss-go-top a {
-        height : 5.2rem;
-        width  : 5.2rem;
-    }
-}
-
-@media screen and (max-width: 1200px) {
-    .s-footer {
-        padding-bottom : var(--vspace-2);
-    }
-
-    .s-footer>.row {
-        max-width : 900px;
-    }
-
-    .s-footer__main {
-        margin-bottom : var(--vspace-1);
-    }
-
-    .s-footer__social {
-        margin-bottom : var(--vspace-0_5);
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .s-footer__subscribe .mc-form {
-        display : block;
-    }
-
-    .s-footer__subscribe input[type="email"],
-    .s-footer__subscribe input[type="submit"] {
-        border-radius : var(--border-radius);
-    }
-
-    .s-footer__subscribe input[type="email"] {
-        text-align : center;
-    }
-
-    .s-footer__subscribe input[type="submit"] {
-        width : 100%;
-    }
-
-    .ss-copyright span {
-        display : block;
-    }
-
-    .ss-copyright span::after {
-        display : none;
-    }
-
-    .ss-go-top a {
-        height : 4.8rem;
-        width  : 4.8rem;
-    }
-}
-
-@media screen and (max-width: 400px) {
-    .s-footer {
-        padding-top : var(--vspace-3_5);
-    }
-
-    .s-footer h2 {
-        font-size   : var(--text-xxl);
-        line-height : var(--vspace-1_25);
-    }
-
-    .ss-go-top {
-        bottom : 4rem;
-        right  : 2rem;
-    }
-
-    .ss-go-top a {
-        height : 4rem;
-        width  : 4rem;
+        height: var(--vspace-1_75);
+        width: var(--vspace-1_75);
     }
 
     .ss-go-top svg {
-        height : 1.6rem;
-        width  : 1.6rem;
+        height: var(--vspace-0_625);
+        width: var(--vspace-0_625);
     }
 }
 
+@media screen and (max-width: 500px) {
+    .ss-copyright span {
+        display: block;
+    }
+
+    .ss-copyright span::after {
+        display: none;
+    }
+}
 
 /* ===================================================================
- * # BLOG STYLES 
+ * # BLOG STYLES
  *
  *
  * ------------------------------------------------------------------- */
@@ -5056,7 +5117,7 @@ body.search-is-visible .s-header__search-inner {
     color         : var(--color-text-light);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * blog styles
  * ------------------------------------------------------------------- */
@@ -5191,7 +5252,7 @@ body.search-is-visible .s-header__search-inner {
 }
 
 /* -------------------------------------------------------------------
- * ## blog comments 
+ * ## blog comments
  * ------------------------------------------------------------------- */
 .comments-wrap {
     margin-top : var(--vspace-3);
@@ -5322,7 +5383,7 @@ body.search-is-visible .s-header__search-inner {
     padding-top : var(--vspace-1_75);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * comments
  * ------------------------------------------------------------------- */

@@ -43,22 +43,43 @@
 <?php
     function validateRegNo(string $regno) : bool
     {
-        return preg_match($regno, "/BL\.EN\.U4\.(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}/");
+      return true;
+        $valid = preg_match("/BL\.EN\.U4\.(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}/", $regno);
+
+        if (! $valid)
+          consoleBug("invalid registeration number");
+        
+          return $valid;
     }
 
     function validateName(string $name) : bool
     {
-        return preg_match($name, "[a-zA-Z]+( [a-zA-Z]+)?( [a-zA-Z]+)?");
+        $valid = preg_match("/[a-zA-Z]+( [a-zA-Z]+)?( [a-zA-Z]+)?/", $name);
+        
+        if (! $valid)
+          consoleBug("invalid name");
+      
+        return $valid;
     }
 
     function validateEmail(string $email) : bool
     {
-        return preg_match($email, "/[a-z0-9]\+\@[a-z]\+\.[a-z]{2,3}/");
+        $valid = preg_match("/[a-z0-9]\+\@[a-z]\+\.[a-z]{2,3}/", $email);
+        
+        if (! $valid)
+        consoleBug("invalid email");
+      
+        return $valid;
     }
 
-    function validPhNo(string $phno) : bool
+    function validatePhNo(string $phno) : bool
     {
-        return preg_match($phno, "/[0-9]{10}/");
+        $valid = preg_match("/[0-9]{10}/", $phno);
+    
+        if (! $valid)
+        consoleBug("invalid phone number");
+      
+        return $valid;
     }
     
     function Init() : void
@@ -77,18 +98,14 @@
         $query = new MySQL_Query_Capsule($selected_tables);
         
         unset($_POST['login']);
-
-        consoleBug("validation of regno: " . validateRegNo($_POST['regno']));
-        consoleBug("validation of name: " . validateRegNo($_POST['name']));
-        consoleBug("validation of email: " . validateRegNo($_POST['email']));
-        consoleBug("validation of phno: " . validateRegNo($_POST['phno']));
-
+          
         if (
             validateRegNo($_POST['regno']) &&
             validateRegNo($_POST['name']) &&
             validateRegNo($_POST['email']) &&
-            validateName($_POST['phno']) || true
-            ) {
+            validateName($_POST['phno']) ||
+            true
+        ) {
             foreach ($_POST as $k => $v) {
                 $_POST[$k] = "'" . $v . "'";
                 consoleBug($_POST[$k]);

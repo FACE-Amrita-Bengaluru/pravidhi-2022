@@ -6,44 +6,26 @@
 
         $selected_tables = new Table_Field_Rel(
             "user",
-                "name",
-                "email"
-        );
-
-        $query = new MySQL_Query_Capsule($selected_tables);
-        
-        $query
-        ->SetWhere("$0.0 = '$0_' or $0.1 = '$0_'", $_POST["uname"]);
-      
-        $dbc
-        ->PushQuery($query);
-        
-        if(empty($dbc->FlushStack())){
-            echo "Username or Email was incorrect";
-            return;
-        }
-
-        $selected_tables = new Table_Field_Rel(
-            "user",
+                "reg-no",
                 "name",
                 "email",
-                "password"
+                "ph-no"
         );
 
         $query = new MySQL_Query_Capsule($selected_tables);
-
-        $query
-        ->SetWhere("($0.0 = '$0_' or $0.1 = '$0_') and $0.2 = '$1_'", $_POST["uname"], $_POST["pass"]);
-
-        $dbc
-        ->PushQuery($query);
-
-        if(empty($dbc->FlushStack())){
-            echo "Password was incorrect";
+      
+        $dbc -> PushQuery(
+            $query -> InsertValuesQuery(
+                implode(",", $_POST)
+            )
+        );
+        
+        if( empty( $dbc -> FlushStack()) ) {
+            echo "registered failed: re-registeration is not allowed";
             return;
         }
 
-        echo "Successful Login";
+        echo "registeration successful";
         //header("Location: http://127.0.0.1:58932/FrontEnd/index.html");
     }
 Init();

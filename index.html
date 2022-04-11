@@ -35,12 +35,14 @@
         <!-- page wrap
     ================================================== -->
         <div id="page" class="s-pagewrap">
+            <div id="particles-js"></div>
+
             <!-- # site header 
         ================================================== -->
             <header class="s-header">
                 <div class="s-header__logo">
                     <a class="logo" href="index.html">
-                        <img src="images/logo.svg" alt="Homepage" />
+                        <img src="images/logo.png" alt="Homepage" />
                     </a>
                 </div>
             </header>
@@ -58,12 +60,6 @@
                         <div class="column lg-12 s-intro__content-inner">
                             <h3 class="s-intro__pretitle">Unleash the future</h3>
                             <h1 class="s-intro__title">Pravidhi</h1>
-
-                            <div class="s-intro__more">
-                                <a class="smoothscroll btn btn--stroke s-intro__more-btn" href="#about">
-                                    Learn More
-                                </a>
-                            </div>
                         </div>
                         <!-- s-intro__content-inner -->
                     </div>
@@ -201,115 +197,6 @@
                 <section id="services" class="s-services">
                     <div class="s-services__bg"></div>
 
-                    <div class="row narrow section-header section-header--dark has-bottom-sep">
-                        <div class="column lg-12">
-                            <h3 class="text-pretitle">Events</h3>
-                            <h1 class="text-display-title">What We Do.</h1>
-                        </div>
-                        <!-- end column -->
-                    </div>
-                    <!-- end section header -->
-
-                    <section id="events" class="s-events target-section">
-                        <div class="row events-content events-content--timeline">
-                            <div class="col-six tab-full left">
-                                <div class="timeline">
-                                    <div class="timeline__block">
-                                        <div class="timeline__bullet"></div>
-                                        <div class="timeline__header">
-                                            <p class="timeline__timeframe">July 2015 - Present</p>
-                                            <h3>Awesome Studio</h3>
-                                            <h5>Lead Designer</h5>
-                                        </div>
-                                        <div class="timeline__desc">
-                                            <p>
-                                                Lorem ipsum Occaecat do esse ex et dolor culpa nisi ex in
-                                                magna consectetur nisi cupidatat laboris esse eiusmod deserunt
-                                                aute do quis velit esse sed Ut proident cupidatat nulla esse
-                                                cillum laborum occaecat nostrud sit dolor incididunt amet est
-                                                occaecat nisi.
-                                            </p>
-                                            <p>
-                                                Venue:
-                                                <span style="color: rgba(255, 255, 255, 0.7)"
-                                                    ><strong>Venue goes here</strong></span
-                                                >
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <!-- end timeline__block -->
-
-                                    <div class="timeline__block">
-                                        <div class="timeline__bullet"></div>
-                                        <div class="timeline__header">
-                                            <p class="timeline__timeframe">July 2014 - June 2015</p>
-                                            <h3>Super Cool Agency</h3>
-                                            <h5>Front-end Developer</h5>
-                                        </div>
-                                        <div class="timeline__desc">
-                                            <p>
-                                                Lorem ipsum Occaecat do esse ex et dolor culpa nisi ex in
-                                                magna consectetur nisi cupidatat laboris esse eiusmod deserunt
-                                                aute do quis velit esse sed Ut proident cupidatat nulla esse
-                                                cillum laborum occaecat nostrud sit dolor incididunt amet est
-                                                occaecat nisi incididunt.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <!-- end timeline__block -->
-                                </div>
-                                <!-- end timeline -->
-                            </div>
-                            <!-- end left -->
-
-                            <div class="col-six tab-full right">
-                                <div class="timeline">
-                                    <div class="timeline__block">
-                                        <div class="timeline__bullet"></div>
-                                        <div class="timeline__header">
-                                            <p class="timeline__timeframe">July 2012 - June 2014</p>
-                                            <h3>Great Design Studio</h3>
-                                            <h5>Web Designer</h5>
-                                        </div>
-                                        <div class="timeline__desc">
-                                            <p>
-                                                Lorem ipsum Occaecat do esse ex et dolor culpa nisi ex in
-                                                magna consectetur nisi cupidatat laboris esse eiusmod deserunt
-                                                aute do quis velit esse sed Ut proident cupidatat nulla esse
-                                                cillum laborum occaecat nostrud sit dolor incididunt amet est
-                                                occaecat nisi.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <!-- end timeline__block -->
-
-                                    <div class="timeline__block">
-                                        <div class="timeline__bullet"></div>
-                                        <div class="timeline__header">
-                                            <p class="timeline__timeframe">July 2011 - June 2012</p>
-                                            <h3>Epic Design Agency</h3>
-                                            <h5>Web Designer</h5>
-                                        </div>
-                                        <div class="timeline__desc">
-                                            <p>
-                                                Lorem ipsum Occaecat do esse ex et dolor culpa nisi ex in
-                                                magna consectetur nisi cupidatat laboris esse eiusmod deserunt
-                                                aute do quis velit esse sed Ut proident cupidatat nulla esse
-                                                cillum laborum occaecat nostrud sit dolor incididunt amet est
-                                                occaecat nisi incididunt.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <!-- end timeline__block -->
-                                </div>
-                                <!-- end timeline -->
-                            </div>
-                            <!-- end right -->
-                        </div>
-                        <!-- end events-content timeline -->
-                    </section>
-                    <!-- end events -->
-
                     <div class="s-services__content">
                         <h3 class="text-pretitle" style="color: rgba(255, 255, 255, 0.7); text-align: center">
                             Overview
@@ -421,6 +308,542 @@
                         <!-- end services-list -->
                     </div>
                     <!-- end services-content -->
+
+                    <div
+                        class="row narrow section-header section-header--dark has-bottom-sep"
+                        style="margin-top: 200px"
+                    >
+                        <div class="column lg-12">
+                            <h3 class="text-pretitle">Events</h3>
+                            <h1 class="text-display-title">What We Do.</h1>
+                        </div>
+                        <!-- end column -->
+                    </div>
+                    <!-- end section header -->
+
+                    <section id="events" class="s-events target-section">
+                        <div class="row events-content events-content--timeline">
+                            <div class="col-six tab-full left">
+                                <div class="timeline">
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">9:00 - 11:00</p>
+                                            <a href="#"><h3>Circuit - component hunt</h3></a>
+                                            <h5>ECCIF</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>
+                                                The event is similar to treasure hunt wherein the groups have
+                                                to decode the clues given to them to identify a component and
+                                                will have to rig up a circuit .
+                                            </p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>Yoga Hall</strong></span
+                                                >
+                                            </p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>Venue goes here</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- end timeline__block -->
+
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">9:00 - 11:00</p>
+                                            <a href="#"><h3>Wispher Challenge</h3></a>
+                                            <h5>IEEECOMSOC</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p></p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong></strong
+                                                ></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">9:00 - 12:00</p>
+                                            <a href="#"><h3>faulty circuitry/ circuit rig up</h3></a>
+                                            <h5>Vidyuth</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>
+                                                technical game consisting of 3 rounds like finding the faulty
+                                                circuits, solving the puzzle and finally rigging up the
+                                                circuit with given components.
+                                            </p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>Yoga Hall</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">9:00 - 10:30</p>
+                                            <a href="#"><h3>Technology Trends in EMobility</h3></a>
+                                            <h5>IEEE Student body</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>A tech Talk from a guest invited from outside.</p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>A block Conference room</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">9:00 - 12:00</p>
+                                            <a href="#"><h3>Mini - Hackathon</h3></a>
+                                            <h5>FACE</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p></p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>CS Lab 3, Lab 4</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">9:00 - 7:00</p>
+                                            <a href="#"><h3>Gaming</h3></a>
+                                            <h5>FORGE</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p></p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>MBA - Reading Room</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">9:30 - 10:30</p>
+                                            <a href="#"><h3>Ideathon</h3></a>
+                                            <h5>IEEE Sight</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>
+                                                Our goal is to get developers, designers and programmers come
+                                                together, team up and apply their skills to create something
+                                                of great value in terms of innovation and creativity. The
+                                                ideathon will be in an intellectually stimulating environment
+                                                that will spur innovation and collaboration and get the best
+                                                out of the technologists.
+                                            </p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>Krishna Hall</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">9:30 -11:30</p>
+                                            <a href="#"><h3>Workshop</h3></a>
+                                            <h5>IEEE Sensors Council</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>Workshop on design ,implementation of sensors</p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong></strong
+                                                ></span>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">10:00 - 12:00</p>
+                                            <a href="#"><h3>f.a.c.e-OFF</h3></a>
+                                            <h5>CodeChef</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>
+                                                Pairs of programmers will be given a question, the first one
+                                                to solve will win the face-off.
+                                            </p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>CS Lab 1, Lab 2</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">10:00 - 12:00</p>
+                                            <a href="#"><h3>How fast can you code</h3></a>
+                                            <h5>ACM/ACM-W</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>
+                                                A coding competition consisting of multiple rounds and
+                                                increasingly difficult challenges, all within a limited time
+                                                for each challenge
+                                            </p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>Ai Lab</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">10:00 - 12:00</p>
+                                            <a href="#"><h3>StockX</h3></a>
+                                            <h5>ACE</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>The virtual Stock Simulation Game</p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>Rama Hall</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">10:00 - 12:30</p>
+                                            <a href="#"><h3>A demo in Mech Lab</h3></a>
+                                            <h5>Ingenium</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>
+                                                Have a tech talk and then continue with a demo in the
+                                                mechanical lab
+                                            </p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>E block - 209 (ClassRoom)</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <!-- end timeline__block -->
+                                </div>
+                                <!-- end timeline -->
+                            </div>
+                            <!-- end left -->
+
+                            <div class="col-six tab-full right">
+                                <div class="timeline">
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">11:00 - 12:00</p>
+                                            <a href="#"><h3>Tech Charades</h3></a>
+                                            <h5>SAE</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>
+                                                Students have to guess the part from the pictures displayed to
+                                                them. Similar to Dumb Charades but instead of movies it would
+                                                be technical tools or terms.
+                                            </p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>Valmiki Hall</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">11:00-1:00</p>
+                                            <a href="#"><h3>Inter Department Challenge</h3></a>
+                                            <h5>Aavishkara + Sankhya</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>
+                                                Students from different departments will participate in Round
+                                                -1 which of science and maths questions and 3 to 5 from will
+                                                selected to 2nd round where they get to represent their
+                                                department.
+                                            </p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>Amriteshwari Hall / Yoga Hall</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">11:30 - 1:00</p>
+                                            <a href="#"><h3>Botsemble</h3></a>
+                                            <h5>ACROM/IEEERAS</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>
+                                                Teams of 3 students should dissemble the bot and then assemble
+                                                it again. The fastest teams win.
+                                            </p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>Krishna Hall</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">2:00-3:30</p>
+                                            <a href="#"><h3>Coding Obstacle Course</h3></a>
+                                            <h5>ACM/ACM-W</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>
+                                                A competition modelled after a triathlon consisting of
+                                                multiple (3-4) successive coding-themed games & challenges.
+                                            </p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>E block - 208,209,210 (ClassRooms)</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">2:30-4:00</p>
+                                            <a href="#"><h3>Technical treasure hunt</h3></a>
+                                            <h5>IEEE WIE</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>
+                                                Each team is presented with a group of technical puzzles, or
+                                                algorithmic clues, pseudocodes which teams solve in order to
+                                                find a piece of information to get final solution at the end
+                                                of hunt.
+                                            </p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>CS Lab 1, Lab 2</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- end timeline__block -->
+
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">2:00 - 3:30</p>
+                                            <a href="#"><h3>BizQuiz</h3></a>
+                                            <h5>ACE</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>A quiz designed to unleash the entrepreneur inside you.</p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>Rama Hall</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">2:00 - 3:30</p>
+                                            <a href="#"><h3>Tech Triathlon</h3></a>
+                                            <h5>FACE</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p></p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>CS lab 3, Lab 4</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">2:00 - 3:30</p>
+                                            <a href="#"><h3>VR</h3></a>
+                                            <h5>FORGE</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p></p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong></strong
+                                                ></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">3:30 - 6:30</p>
+                                            <a href="#"><h3>Space hunt</h3></a>
+                                            <h5>VYOM</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>
+                                                This is a treasure hunt related to space. There will be team
+                                                of 3 members and each team will have a time limit of 3mins.
+                                                The team which completes early wins. There will be 3 winning
+                                                teams ie 9 winners
+                                            </p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>Yoga Hall</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">3:30 - 5:00</p>
+                                            <a href="#"><h3>UI/UX Compete</h3></a>
+                                            <h5>FACE</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p></p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>Ai Lab</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">5:00 - 7:00</p>
+                                            <a href="#"><h3>Mini Auction</h3></a>
+                                            <h5>IEEE PES & IAS, Vidyuth, IEEE PELS</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>
+                                                "A token of 1L or 2L will be given to participants, house
+                                                appliances to be bought for a HOME such as Ac, Tv, Fridge,
+                                                Geyser, Wasing machine. Each team has to purchase each every
+                                                item, till end. At final, the most economical home( like the
+                                                home which consumes less power and spend less tokens on it) -
+                                                will Win the game. "
+                                            </p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>Rama Hall</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">5:00 - 7:00</p>
+                                            <a href="#"><h3>Tinkercad competition</h3></a>
+                                            <h5>ACROM/IEEERAS</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p>
+                                                Students have to compete individually and complete given
+                                                problem statements in time limit.
+                                            </p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>CS Lab 3, Lab 4</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="timeline__block">
+                                        <div class="timeline__bullet"></div>
+                                        <div class="timeline__header">
+                                            <p class="timeline__timeframe">2:00 - 3:30</p>
+                                            <a href="#"><h3>UI/UX Compete</h3></a>
+                                            <h5>FACE</h5>
+                                        </div>
+                                        <div class="timeline__desc">
+                                            <p></p>
+                                            <p>
+                                                Venue:
+                                                <span style="color: rgba(255, 255, 255, 0.7)"
+                                                    ><strong>Ai Lab</strong></span
+                                                >
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- end timeline__block -->
+                                </div>
+                                <!-- end timeline -->
+                            </div>
+                            <!-- end right -->
+                        </div>
+                        <!-- end events-content timeline -->
+                    </section>
+                    <!-- end events -->
                 </section>
                 <!-- end services -->
 
@@ -764,17 +1187,23 @@
                                         class="swiper-wrapper clients__content"
                                         style="display: flex; justify-content: center"
                                     >
-                                        <a href="#0" title="" class="swiper-slide clients__slide"
-                                            ><img src="images/icons/clients/dropbox.svg"
+                                        <a
+                                            href="https://www.abzer.com/"
+                                            title=""
+                                            class="swiper-slide clients__slide"
+                                            ><img src="images/abzer_logo.png"
                                         /></a>
-                                        <a href="#0" title="" class="swiper-slide clients__slide"
-                                            ><img src="images/icons/clients/atom.svg"
+                                        <a
+                                            href="https://twitter.com/thehacksociety?lang=en"
+                                            title=""
+                                            class="swiper-slide clients__slide"
+                                            ><img src="images/hacksociety_logo.png"
                                         /></a>
-                                        <a href="#0" title="" class="swiper-slide clients__slide"
-                                            ><img src="images/icons/clients/github.svg"
-                                        /></a>
-                                        <a href="#0" title="" class="swiper-slide clients__slide"
-                                            ><img src="images/icons/clients/redhat.svg"
+                                        <a
+                                            href="https://janitri.in/"
+                                            title=""
+                                            class="swiper-slide clients__slide"
+                                            ><img src="images/janitri_logo.png"
                                         /></a>
                                     </div>
                                 </div>
@@ -800,7 +1229,7 @@
 
                                 <a
                                     class="smoothscroll btn btn--stroke s-intro__more-btn"
-                                    href="#events"
+                                    href="#services"
                                     style="font-weight: 900; margin-top: 30px"
                                 >
                                     Register Now
@@ -837,7 +1266,7 @@
 
                             <ul class="s-contact__list">
                                 <li><a href="mailto:#0">info@infinity.com</a></li>
-                                <li><a href="tel:197-543-2345">+91 9663377885</a></li>
+                                <li><a href="tel:7708653574">+91 77086 53574</a></li>
                             </ul>
                         </div>
                     </div>
@@ -932,6 +1361,7 @@
         <!-- Java Script
     ================================================== -->
         <script src="js/plugins.js"></script>
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>

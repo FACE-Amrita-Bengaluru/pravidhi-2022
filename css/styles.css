@@ -1,4 +1,4 @@
-/* =================================================================== 
+/* ===================================================================
  * Infinity Main Stylesheet
  * Template Ver. 2.0.0
  * 12-17-2021
@@ -6,21 +6,21 @@
  *
  * TOC:
  * # SETTINGS
- *      ## fonts 
+ *      ## fonts
  *      ## colors
  *      ## spacing and typescale
  *      ## grid variables
  * # NORMALIZE
  * # BASE SETUP
  * # GRID
- *      ## large screen devices 
- *      ## medium screen devices 
- *      ## tablet devices 
- *      ## mobile devices 
- *      ## small screen devices 
- *      ## additional column stackpoints 
+ *      ## large screen devices
+ *      ## medium screen devices
+ *      ## tablet devices
+ *      ## mobile devices
+ *      ## small screen devices
+ *      ## additional column stackpoints
  * # UTILITY CLASSES
- * # TYPOGRAPHY 
+ * # TYPOGRAPHY
  *      ## base type styles
  *      ## additional typography & helper classes
  *      ## lists
@@ -33,7 +33,7 @@
  * # TABLE
  * # COMPONENTS
  *      ## pagination
- *      ## alert box 
+ *      ## alert box
  *      ## skillbars
  *      ## stats tabs
  * # PROJECT-WIDE SHARED STYLES
@@ -75,8 +75,8 @@
  *
  * ------------------------------------------------------------------- */
 
-/* ------------------------------------------------------------------- 
- * ## fonts 
+/* -------------------------------------------------------------------
+ * ## fonts
  * ------------------------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import url('fonts.css');
@@ -90,7 +90,7 @@
     --font-mono: Consolas, 'Andale Mono', Courier, 'Courier New', monospace;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## colors
  * ------------------------------------------------------------------- */
 :root {
@@ -112,7 +112,7 @@
     --color-2-darker: hsla(194, 89%, 10%, 1);
 
     /* feedback colors
-     * color-error(#ffd1d2), color-success(#c8e675), 
+     * color-error(#ffd1d2), color-success(#c8e675),
      * color-info(#d7ecfb), color-notice(#fff099)
      */
     --color-error: hsla(359, 100%, 91%, 1);
@@ -124,9 +124,9 @@
     --color-info-content: hsla(205, 32%, 31%, 1);
     --color-notice-content: hsla(51, 30%, 30%, 1);
 
-    /* shades 
-     * generated using 
-     * Tint & Shade Generator 
+    /* shades
+     * generated using
+     * Tint & Shade Generator
      * (https://maketintsandshades.com/)
      */
     --color-black: #000000;
@@ -186,12 +186,12 @@
     --border-radius: 3px;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## spacing and typescale
  * ------------------------------------------------------------------- */
 :root {
     /* spacing
-     * base font size: 18px 
+     * base font size: 18px
      * vertical space unit : 32px
      */
     --base-size: 62.5%;
@@ -199,7 +199,7 @@
     --base-font-size: calc(1.8rem * var(--multiplier));
     --space: calc(3.2rem * var(--multiplier));
 
-    /* vertical spacing 
+    /* vertical spacing
      */
     --vspace-0_125: calc(0.125 * var(--space));
     --vspace-0_25: calc(0.25 * var(--space));
@@ -258,7 +258,7 @@
     --vspace-btn: var(--vspace-2);
 }
 
-/* on mobile devices below 600px, change the value of '--multiplier' 
+/* on mobile devices below 600px, change the value of '--multiplier'
  * to adjust the values of base font size and vertical space unit.
  */
 @media screen and (max-width: 600px) {
@@ -267,7 +267,7 @@
     }
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## grid variables
  * ------------------------------------------------------------------- */
 :root {
@@ -582,13 +582,13 @@ textarea {
  *
  *
  *   -----------------------------------------------------------------
- * - Grid breakpoints are based on MAXIMUM WIDTH media queries, 
+ * - Grid breakpoints are based on MAXIMUM WIDTH media queries,
  *   meaning they apply to that one breakpoint and ALL THOSE BELOW IT.
- * - Grid columns without a specified width will automatically layout 
+ * - Grid columns without a specified width will automatically layout
  *   as equal width columns.
  *
- * - BLOCK GRID columns(columns inside BLOCK GRID containers) are 
- *   equally-sized columns define at parent/row level. 
+ * - BLOCK GRID columns(columns inside BLOCK GRID containers) are
+ *   equally-sized columns define at parent/row level.
  *   A BLOCK GRID container's class attribute value begins with "block-".
  *
  * ------------------------------------------------------------------- */
@@ -632,7 +632,7 @@ textarea {
     padding: 0 20px;
 }
 
-/* column width classes 
+/* column width classes
  * -------------------------------------- */
 
 .col-one {
@@ -691,7 +691,405 @@ textarea {
     width: 100%;
 }
 
-/* row 
+/* -------------------------------------------------------------------
+ * ## medium size devices - (_grid.scss)
+ * ------------------------------------------------------------------- */
+
+@media only screen and (max-width: 1200px) {
+    .row .row {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+    [class*='col-'] {
+        padding: 0 15px;
+    }
+    .md-two,
+    .md-1-6 {
+        width: 16.66667%;
+    }
+    .md-one {
+        width: 8.33333%;
+    }
+    .md-three,
+    .md-1-4 {
+        width: 25%;
+    }
+    .md-four,
+    .md-1-3 {
+        width: 33.33333%;
+    }
+    .md-five {
+        width: 41.66667%;
+    }
+    .md-six,
+    .md-1-2 {
+        width: 50%;
+    }
+    .md-seven {
+        width: 58.33333%;
+    }
+    .md-eight,
+    .md-2-3 {
+        width: 66.66667%;
+    }
+    .md-nine,
+    .md-3-4 {
+        width: 75%;
+    }
+    .md-ten,
+    .md-5-6 {
+        width: 83.33333%;
+    }
+    .md-eleven {
+        width: 91.66667%;
+    }
+    .md-twelve,
+    .md-full {
+        width: 100%;
+    }
+}
+
+/* -------------------------------------------------------------------
+ * ## tablets - (_grid.scss)
+ * ------------------------------------------------------------------- */
+
+@media only screen and (max-width: 800px) {
+    .row {
+        width: 90%;
+    }
+    .tab-1-4 {
+        width: 25%;
+    }
+    .tab-1-3 {
+        width: 33.33333%;
+    }
+    .tab-1-2 {
+        width: 50%;
+    }
+    .tab-2-3 {
+        width: 66.66667%;
+    }
+    .tab-3-4 {
+        width: 75%;
+    }
+    .tab-full {
+        width: 100%;
+    }
+}
+
+/* -------------------------------------------------------------------
+ * ## mobile devices - (_grid.scss)
+ * ------------------------------------------------------------------- */
+
+@media only screen and (max-width: 600px) {
+    .row {
+        width: auto;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+    .row .row {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+    [class*='col-'] {
+        padding: 0 10px;
+    }
+    .mob-1-4 {
+        width: 25%;
+    }
+    .mob-1-3 {
+        width: 33.33333%;
+    }
+    .mob-1-2 {
+        width: 50%;
+    }
+    .mob-2-3 {
+        width: 66.66667%;
+    }
+    .mob-3-4 {
+        width: 75%;
+    }
+    .mob-full {
+        width: 100%;
+    }
+}
+
+/* -------------------------------------------------------------------
+ * ## small mobile devices - (_grid.scss)
+ * ------------------------------------------------------------------- */
+
+/* stack columns on small mobile devices
+ * ------------------------------------------------------------------- */
+
+@media only screen and (max-width: 400px) {
+    .row .row {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    [class*='col-'] {
+        width: 100% !important;
+        float: none !important;
+        clear: both !important;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 0;
+    }
+    [class*='col-'] + [class*='col-'].end {
+        float: none;
+    }
+}
+
+/* ===================================================================
+ * # block grids - (_grid.scss)
+ * ------------------------------------------------------------------- */
+
+/*   Equally-sized columns define at row level
+ * ------------------------------------------------------------------- */
+
+[class*='block-']:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.block-1-6 .col-block {
+    width: 16.66667%;
+}
+
+.block-1-5 .col-block {
+    width: 20%;
+}
+
+.block-1-4 .col-block {
+    width: 25%;
+}
+
+.block-1-3 .col-block {
+    width: 33.33333%;
+}
+
+.block-1-2 .col-block {
+    width: 50%;
+}
+
+/**
+ * Clearing for block grid columns. Allow columns with
+ * different heights to align properly.
+ */
+
+.block-1-6 .col-block:nth-child(6n + 1),
+.block-1-5 .col-block:nth-child(5n + 1),
+.block-1-4 .col-block:nth-child(4n + 1),
+.block-1-3 .col-block:nth-child(3n + 1),
+.block-1-2 .col-block:nth-child(2n + 1) {
+    clear: both;
+}
+
+/* -------------------------------------------------------------------
+ * ## medium size devices - (_grid.scss)
+ * ------------------------------------------------------------------- */
+
+@media only screen and (max-width: 1200px) {
+    .block-m-1-6 .col-block {
+        width: 16.66667%;
+    }
+    .block-m-1-5 .col-block {
+        width: 20%;
+    }
+    .block-m-1-4 .col-block {
+        width: 25%;
+    }
+    .block-m-1-3 .col-block {
+        width: 33.33333%;
+    }
+    .block-m-1-2 .col-block {
+        width: 50%;
+    }
+    .block-m-full .col-block {
+        width: 100%;
+        clear: both;
+    }
+    [class*='block-m-'] .bgrid:nth-child(n) {
+        clear: none;
+    }
+    .block-m-1-6 .col-block:nth-child(6n + 1),
+    .block-m-1-5 .col-block:nth-child(5n + 1),
+    .block-m-1-4 .col-block:nth-child(4n + 1),
+    .block-m-1-3 .col-block:nth-child(3n + 1),
+    .block-m-1-2 .col-block:nth-child(2n + 1) {
+        clear: both;
+    }
+}
+
+/* -------------------------------------------------------------------
+ * ## tablets - (_grid.scss)
+ * ------------------------------------------------------------------- */
+
+@media only screen and (max-width: 800px) {
+    .block-tab-1-6 .col-block {
+        width: 16.66667%;
+    }
+    .block-tab-1-5 .col-block {
+        width: 20%;
+    }
+    .block-tab-1-4 .col-block {
+        width: 25%;
+    }
+    .block-tab-1-3 .col-block {
+        width: 33.33333%;
+    }
+    .block-tab-1-2 .col-block {
+        width: 50%;
+    }
+    .block-tab-full .col-block {
+        width: 100%;
+        clear: both;
+    }
+    [class*='block-tab-'] .bgrid:nth-child(n) {
+        clear: none;
+    }
+    .block-tab-1-6 .col-block:nth-child(6n + 1),
+    .block-tab-1-6 .col-block:nth-child(5n + 1),
+    .block-tab-1-4 .col-block:nth-child(4n + 1),
+    .block-tab-1-3 .col-block:nth-child(3n + 1),
+    .block-tab-1-2 .col-block:nth-child(2n + 1) {
+        clear: both;
+    }
+}
+
+/* -------------------------------------------------------------------
+ * ## mobile devices - (_grid.scss)
+ * ------------------------------------------------------------------- */
+
+@media only screen and (max-width: 600px) {
+    .block-mob-1-6 .col-block {
+        width: 16.66667%;
+    }
+    .block-mob-1-5 .col-block {
+        width: 20%;
+    }
+    .block-mob-1-4 .col-block {
+        width: 25%;
+    }
+    .block-mob-1-3 .col-block {
+        width: 33.33333%;
+    }
+    .block-mob-1-2 .col-block {
+        width: 50%;
+    }
+    .block-mob-full .col-block {
+        width: 100%;
+        clear: both;
+    }
+    [class*='block-mob-'] .bgrid:nth-child(n) {
+        clear: none;
+    }
+    .block-mob-1-6 .col-block:nth-child(6n + 1),
+    .block-mob-1-5 .col-block:nth-child(5n + 1),
+    .block-mob-1-4 .col-block:nth-child(4n + 1),
+    .block-mob-1-3 .col-block:nth-child(3n + 1),
+    .block-mob-1-2 .col-block:nth-child(2n + 1) {
+        clear: both;
+    }
+}
+
+/* -------------------------------------------------------------------
+ * ## small mobile devices - (_grid.scss)
+ * ------------------------------------------------------------------- */
+
+/* stack columns on small mobile devices
+ * ------------------------------------------------------------------- */
+
+@media only screen and (max-width: 400px) {
+    .stack .col-block {
+        width: 100% !important;
+        float: none !important;
+        clear: both !important;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+/* ===================================================================
+ * # MISC  - (_grid.scss)
+ *
+ * ------------------------------------------------------------------- */
+
+.group:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+/* Misc Helper Styles
+ * -------------------------------------- */
+
+.is-hidden {
+    display: none;
+}
+
+.is-invisible {
+    visibility: hidden;
+}
+
+.antialiased {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.remove-bottom {
+    margin-bottom: 0;
+}
+
+.half-bottom {
+    margin-bottom: 1.5rem !important;
+}
+
+.add-bottom {
+    margin-bottom: 3rem !important;
+}
+
+.no-border {
+    border: none;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.align-center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+/* row
  */
 .row {
     width: 92%;
@@ -764,7 +1162,7 @@ textarea {
 }
 
 /* --------------------------------------------------------------------
- * ## large screen devices 
+ * ## large screen devices
  * -------------------------------------------------------------------- */
 .lg-1 {
     flex: none;
@@ -862,7 +1260,7 @@ textarea {
 }
 
 /* --------------------------------------------------------------------
- * ## medium screen devices 
+ * ## medium screen devices
  * -------------------------------------------------------------------- */
 @media screen and (max-width: 1200px) {
     .md-1 {
@@ -966,7 +1364,7 @@ textarea {
 }
 
 /* --------------------------------------------------------------------
- * ## tablet devices 
+ * ## tablet devices
  * -------------------------------------------------------------------- */
 @media screen and (max-width: 800px) {
     .tab-1 {
@@ -1070,7 +1468,7 @@ textarea {
 }
 
 /* --------------------------------------------------------------------
- * ## mobile devices 
+ * ## mobile devices
  * -------------------------------------------------------------------- */
 @media screen and (max-width: 600px) {
     .row {
@@ -1185,7 +1583,7 @@ textarea {
 }
 
 /* --------------------------------------------------------------------
- * ## small screen devices 
+ * ## small screen devices
  * --------------------------------------------------------------------*/
 
 /* stack columns on small screen devices
@@ -1211,7 +1609,7 @@ textarea {
 }
 
 /* --------------------------------------------------------------------
- * ## additional column stackpoints 
+ * ## additional column stackpoints
  * -------------------------------------------------------------------- */
 @media screen and (max-width: 1000px) {
     .stack-on-1000,
@@ -1372,10 +1770,10 @@ textarea {
 }
 
 /* ===================================================================
- * # TYPOGRAPHY 
+ * # TYPOGRAPHY
  *
  *
- * ------------------------------------------------------------------- 
+ * -------------------------------------------------------------------
  * type scale - ratio 1:2 | base: 18px
  * -------------------------------------------------------------------
  *
@@ -1837,7 +2235,7 @@ dd {
     margin: 0 0 0 2rem;
 }
 
-/* definition list line style 
+/* definition list line style
  */
 .lining dt,
 .lining dd {
@@ -1864,7 +2262,7 @@ dd {
     margin-left: -0.2em;
 }
 
-/* definition list dictionary style 
+/* definition list dictionary style
  */
 .dictionary-style dt {
     display: inline;
@@ -1915,8 +2313,8 @@ img,
 
 /* ===================================================================
  * # PRELOADER
- * 
- * 
+ *
+ *
  * -------------------------------------------------------------------
  * - markup:
  *
@@ -2102,7 +2500,7 @@ label > input[type='radio'] {
     top: 2px;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## style placeholder text
  * ------------------------------------------------------------------- */
 ::-webkit-input-placeholder {
@@ -2137,7 +2535,7 @@ label > input[type='radio'] {
     color: var(--color-placeholder);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## change autocomplete styles in Chrome
  * ------------------------------------------------------------------- */
 input:-webkit-autofill,
@@ -2450,7 +2848,7 @@ td:last-child {
     background-color: transparent;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * pagination
  * ------------------------------------------------------------------- */
@@ -2460,8 +2858,8 @@ td:last-child {
     }
 }
 
-/* ------------------------------------------------------------------- 
- * ## alert box 
+/* -------------------------------------------------------------------
+ * ## alert box
  * ------------------------------------------------------------------- */
 .alert-box {
     padding: var(--vspace-0_75) 4rem var(--vspace-0_75) 3.2rem;
@@ -2551,7 +2949,7 @@ td:last-child {
     transition: all 0.5s;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## skillbars
  * ------------------------------------------------------------------- */
 .skill-bars {
@@ -2783,7 +3181,7 @@ td:last-child {
     aspect-ratio: 16/9;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## media classes
  * ------------------------------------------------------------------- */
 
@@ -2818,7 +3216,7 @@ img.u-pull-left {
     height: 100%;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## swiper overrides
  * ------------------------------------------------------------------- */
 .swiper-container .swiper-pagination-bullets .swiper-pagination-bullet {
@@ -2837,7 +3235,7 @@ img.u-pull-left {
     opacity: 1;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## section header
  * ------------------------------------------------------------------- */
 .section-header {
@@ -2880,7 +3278,7 @@ img.u-pull-left {
     background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## theme-specific typography classes
  * ------------------------------------------------------------------- */
 .text-pretitle {
@@ -2906,7 +3304,7 @@ img.u-pull-left {
     margin-top: 0;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * project-wide shared styles
  * ------------------------------------------------------------------- */
@@ -2949,6 +3347,15 @@ img.u-pull-left {
  *
  *
  * ------------------------------------------------------------------- */
+#particles-js {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+}
+
 .s-pagewrap {
     --header-height: 7.2rem;
 
@@ -2971,7 +3378,7 @@ img.u-pull-left {
 .s-header__logo {
     z-index: 102;
     position: absolute;
-    top: 3.2rem;
+    top: 2.2rem;
     left: 2.8rem;
 }
 
@@ -2984,12 +3391,12 @@ img.u-pull-left {
 }
 
 .s-header__logo img {
-    width: 40px;
+    width: 120px;
     margin: 0;
     vertical-align: bottom;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## menu toggle
  * ------------------------------------------------------------------- */
 .s-header__menu-toggle {
@@ -3149,7 +3556,7 @@ img.u-pull-left {
     transform: rotate(45deg);
 }
 
-/* menu is open 
+/* menu is open
  */
 .menu-is-open .s-header__nav {
     transform: translateX(0);
@@ -3191,7 +3598,7 @@ img.u-pull-left {
     fill: white;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * site-header
  * ------------------------------------------------------------------- */
@@ -3237,10 +3644,7 @@ img.u-pull-left {
     bottom: 0;
     width: 100%;
     height: 100%;
-    background-image: url(../images/hero-bg.jpg);
-    background-repeat: no-repeat;
-    background-position: center 30%;
-    background-size: cover;
+    background-color: #000;
 }
 
 .s-intro__bg::before {
@@ -3403,7 +3807,7 @@ img.u-pull-left {
     fill: white;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * intro
  * ------------------------------------------------------------------- */
@@ -3524,7 +3928,7 @@ img.u-pull-left {
     color: var(--color-2);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * about
  * ------------------------------------------------------------------- */
@@ -3600,8 +4004,8 @@ img.u-pull-left {
     padding-left: 40px;
 }
 
-/* ------------------------------------------------------------------- 
- * ## timeline - (_site-layout.scss) 
+/* -------------------------------------------------------------------
+ * ## timeline - (_site-layout.scss)
  * ------------------------------------------------------------------- */
 
 .timeline {
@@ -3649,17 +4053,26 @@ img.u-pull-left {
     font-family: 'montserrat-bold', sans-serif;
 }
 
+.timeline__header a h3:hover,
+.timeline__header a h3:focus,
+.timeline__header a h3:active {
+    color: var(--color-1);
+    transition: all 0.2s ease-in-out;
+}
+
 .timeline__header h3 {
     color: #f2f5f4;
     font-family: 'montserrat-medium', sans-serif;
     line-height: 1.25;
     margin: 0 0 0.3rem 0;
+    text-transform: capitalize;
 }
 
 .timeline__header h5 {
     color: #f2f5f4;
     font-family: 'montserrat-medium', sans-serif;
     margin-top: 0;
+    text-transform: capitalize;
 }
 
 .timeline__desc p {
@@ -3668,7 +4081,7 @@ img.u-pull-left {
     padding-bottom: 3rem;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * events
  * ------------------------------------------------------------------- */
@@ -3821,7 +4234,7 @@ img.u-pull-left {
     fill: var(--color-1);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * services
  * ------------------------------------------------------------------- */
@@ -3873,7 +4286,7 @@ img.u-pull-left {
     padding-bottom: calc(6.5 * var(--space));
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## portfolio list
  * ------------------------------------------------------------------- */
 .folio-list {
@@ -4047,7 +4460,7 @@ img.u-pull-left {
     transform: translateX(0);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## testimonials
  * ------------------------------------------------------------------- */
 .testimonials {
@@ -4068,7 +4481,7 @@ img.u-pull-left {
     padding-bottom: var(--vspace-1_5);
 }
 
-/* testimonial slider 
+/* testimonial slider
  */
 .testimonial-slider__slide {
     position: relative;
@@ -4119,7 +4532,7 @@ img.u-pull-left {
     color: var(--color-text-light);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## clients
  * ------------------------------------------------------------------- */
 .clients-block {
@@ -4135,7 +4548,7 @@ img.u-pull-left {
 
 .clients__slide img {
     margin: 0;
-    opacity: 0.4;
+    opacity: 0.7;
     transform: scale(0.85);
     transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
@@ -4146,7 +4559,7 @@ img.u-pull-left {
     opacity: 1;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * works
  * ------------------------------------------------------------------- */
@@ -4253,7 +4666,7 @@ img.u-pull-left {
     color: var(--color-1);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## contact infos
  * ------------------------------------------------------------------- */
 .s-contact__infos {
@@ -4288,7 +4701,7 @@ img.u-pull-left {
     padding-left: 0;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## contact bottom
  * ------------------------------------------------------------------- */
 .s-contact__bottom {
@@ -4375,7 +4788,7 @@ img.u-pull-left {
     color: var(--color-1);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * contact
  * ------------------------------------------------------------------- */
@@ -4466,7 +4879,7 @@ img.u-pull-left {
     color: var(--color-1);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## copyright
  * ------------------------------------------------------------------- */
 .ss-copyright {
@@ -4488,7 +4901,7 @@ img.u-pull-left {
     display: none;
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * ## go top
  * ------------------------------------------------------------------- */
 .ss-go-top {
@@ -4536,7 +4949,7 @@ img.u-pull-left {
     transform: translate(0, 0);
 }
 
-/* ------------------------------------------------------------------- 
+/* -------------------------------------------------------------------
  * responsive:
  * footer
  * ------------------------------------------------------------------- */

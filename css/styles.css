@@ -3351,7 +3351,7 @@ img.u-pull-left {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 2;
     width: 100vw;
     height: 100vh;
 }
@@ -3715,16 +3715,12 @@ img.u-pull-left {
 
 .s-intro__more {
     --vspace-btn: var(--vspace-1_5);
-    position:absolute;
-    z-index: 2;
-    right: 490px;
 }
 
 .s-intro__more-btn {
     border: 2px solid white;
     color: white;
     margin: 0;
-
 }
 
 .s-intro__more-btn:focus,

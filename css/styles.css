@@ -97,7 +97,7 @@
     /* color-1(#F9A828)
      * color-2(#07617D)
      */
-    --color-1: hsla(37, 95%, 57%, 1);
+    --color-1: #065cc9;
     --color-2: hsla(194, 89%, 26%, 1);
 
     /* theme color variations
@@ -3306,6 +3306,7 @@ img.u-pull-left {
     color: white;
     margin-top: 0;
     margin-bottom: var(--vspace-2_5);
+    text-transform: uppercase;
 }
 
 .s-intro__more {

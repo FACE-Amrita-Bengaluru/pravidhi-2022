@@ -41,17 +41,30 @@
 </html>
 
 <?php
-    function Init()
+    function validateRegNo(string $regno) : bool
+    {
+        return preg_match($regno, "/BL\.EN\.U4\.(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}/");
+    }
+
+    function validateName(string $name) : bool
+    {
+        return preg_match($name, "[a-zA-Z]+( [a-zA-Z]+)?( [a-zA-Z]+)?");
+    }
+
+    function validateEmail(string $email) : bool
+    {
+        return preg_match($email, "/[a-z0-9]\+\@[a-z]\+\.[a-z]{2,3}/");
+    }
+
+    function validPhNo(string $phno) : bool
+    {
+        return preg_match($phno, "/[0-9]{10}/");
+    }
+    
+    function Init() : void
     {
         require_once "connect_to_db.php";
         require_once "query_capsule.php";
-        // $pdo = new PDO('mysql:host=localhost;dbname=pravidhi','root','root');
-        // $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // if ($pdo) {
-        //     consoleBug 'connected';
-        //   } else {
-        //     consoleBug 'not connected';
-        //   }
 
         $selected_tables = new Table_Field_Rel(
             "registration",
@@ -65,32 +78,42 @@
         
         unset($_POST['login']);
 
-        
+        consoleBug("validation of regno: " . validateRegNo($_POST['regno']));
+        consoleBug("validation of name: " . validateRegNo($_POST['name']));
+        consoleBug("validation of email: " . validateRegNo($_POST['email']));
+        consoleBug("validation of phno: " . validateRegNo($_POST['phno']));
 
-        foreach ($_POST as $k => $v) {
-            $_POST[$k] = "'" . $v . "'";
-            consoleBug($_POST[$k]);
+        if (
+            validateRegNo($_POST['regno']) &&
+            validateRegNo($_POST['name']) &&
+            validateRegNo($_POST['email']) &&
+            validateName($_POST['phno']) || true
+            ) {
+            foreach ($_POST as $k => $v) {
+                $_POST[$k] = "'" . $v . "'";
+                consoleBug($_POST[$k]);
+            }
+    
+            $insertion = $query -> InsertValuesQuery(
+                implode(",", $_POST)
+            );
+    
+            consoleBug($insertion);
+            
+            $dbc -> PushQuery(
+                $insertion  
+            );
+            
+            $return = $dbc -> FlushStack();
+            consoleBug($return);
+            
+            if( empty($return) ) {
+                consoleBug("registered failed: re-registeration is not allowed");
+                return;
+            }
+    
+            consoleBug("registeration successful");
         }
-
-        $insertion = $query -> InsertValuesQuery(
-            implode(",", $_POST)
-        );
-
-        consoleBug($insertion);
-        
-        $dbc -> PushQuery(
-            $insertion  
-        );
-        
-        $return = $dbc -> FlushStack();
-        consoleBug($return);
-        
-        if( empty($return) ) {
-            consoleBug("registered failed: re-registeration is not allowed");
-            return;
-        }
-
-        consoleBug("registeration successful");
 
         foreach ($_POST as $k=>$v) {
             unset($_POST[$k]);

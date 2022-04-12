@@ -7,28 +7,39 @@
   </head>
   <body>
     <div class="center">
-      <h1>User Login</h1>
+      <h1>Register</h1>
       <form method="post">
+      <div class="txt_field">
+          <input type="text" name='name' required>
+          <span></span>
+          <label>Name</label>
+        </div>
       <div class="txt_field">
           <input type="text" name='regno' required>
           <span></span>
           <label>Reg</label>
         </div>
         <div class="txt_field">
-          <input type="text" name='name' required>
+          <input type="text" name='sem' required>
           <span></span>
-          <label>Name</label>
+          <label>Sem</label>
         </div>
         <div class="txt_field">
-          <input type="text" name='email' required>
+          <input type="text" name='branch' required>
           <span></span>
-          <label>Email</label>
+          <label>Branch</label>
         </div>
         <div class="txt_field">
           <input type="text" name='phno' required>
           <span></span>
           <label>phno</label>
         </div>
+        <div class="txt_field">
+          <input type="text" name='email' required>
+          <span></span>
+          <label>Email</label>
+        </div>
+        
         <div class="pass">Forgot Password?</div>
         <input type="submit" name='login' value="Login">
         <div class="signup_link">
@@ -88,11 +99,14 @@
         require_once "query_capsule.php";
 
         $selected_tables = new Table_Field_Rel(
-            "registration",
-                "regno",
+            "register",
+                
                 "name",
-                "email",
-                "phno"
+                "regno",
+                "sem",
+                "branch",
+                "phno",
+                "email"
         );
 
         $query = new MySQL_Query_Capsule($selected_tables);
@@ -101,9 +115,9 @@
           
         if (
             validateRegNo($_POST['regno']) &&
-            validateRegNo($_POST['name']) &&
-            validateRegNo($_POST['email']) &&
-            validateName($_POST['phno']) ||
+            validateName($_POST['name']) &&
+            validateEmail($_POST['email']) &&
+            validatePhNo($_POST['phno']) ||
             true
         ) {
             foreach ($_POST as $k => $v) {

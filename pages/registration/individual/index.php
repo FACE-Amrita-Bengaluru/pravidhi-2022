@@ -190,46 +190,47 @@
           require_once "connect_to_db.php";
           require_once "query_capsule.php";
           
-          $select = new Table_Field_Rel(
-            "events", 
-                 
-                "eventid",
-                "name",
-                "description",
-                "start",
-                "end"           
-        );
+            $select = new Table_Field_Rel(
+                "events", 
+                    
+                    "eventid",
+                    "name",
+                    "description",
+                    "start",
+                    "end"           
+            );
+            
+            $query = new MySQL_Query_Capsule($select);
+            consoleBug($query);
         
-        $query = new MySQL_Query_Capsule($select);
-        consoleBug($query);
-    
-        $out = $dbc -> RelayQuery($query);
-        $a=array();
-        foreach ($out as $key => $value) {
-          consoleBug($key . "=>");
-          $b=array();
-          foreach ($value as $k => $v){
-            array_push($b,$v); }
-            array_push($a,$b);
-          
-        }
-        echo('<div class="column lg-12">');
-        echo('<div class="ss-custom-select">');
-        echo('<select class="u-fullwidth" id="sampleRecipientInput">');
-        echo('<option value="" hidden>Events</option>');
-        $i=0;
-        foreach ($a as $k => $v){
-          
+            $out = $dbc -> RelayQuery($query);
+            $a = array();
 
-                  echo('<option value='."vol".$i.'>'.$v[1].'</option>');
-                  
-                  $i=$i+1;
-               
-              
+            foreach ($out as $key => $value) {
+            $b = array();
+
+            foreach ($value as $k => $v){
+                array_push($b,$v); }
+                array_push($a,$b);          
+            }
+            echo('<div class="column lg-12">');
+            echo('<div class="ss-custom-select">');
+            echo('<select class="u-fullwidth" name="event" id="sampleRecipientInput">');
+            echo('<option value="" hidden>Events</option>');
+            $i=0;
+            foreach ($a as $k => $v){
+            
+
+                    echo('<option value='."vol".$i.'>'.$v[1].'</option>');
+                    
+                    $i=$i+1;
+                
+                
+            }
+            echo("</select>");
         }
-        echo("</select>");
-      }
-      fetchEvents(); 
+
+        fetchEvents(); 
         ?>
         <br>
 
@@ -385,12 +386,11 @@
 
     function validateEmail(string $email) : bool
     {
-      $valid = preg_match("/^[a-zA-Z_][a-zA-Z0-9_]*\@[a-zA-Z_][a-zA-Z0-9_]*\.[a-z]{2,3}$/", $email);
-      
-      if (! $valid)
-      consoleBug("invalid email");
-    
-      return $valid;
+        $valid = preg_match("/^([a-zA-Z_][a-zA-Z0-9_]*\.)*([a-zA-Z_][a-zA-Z0-9_]*)\@([a-zA-Z_][a-zA-Z0-9_]*\.)*[a-z]{2,3}$/", $email);      
+        if (! $valid)
+            consoleBug("invalid email");
+        
+        return $valid;
     }
 
     function validatePhNo(string $phno) : bool
@@ -398,74 +398,88 @@
       $valid = preg_match("/^[0-9]{10}$/", $phno);
   
       if (! $valid)
-      consoleBug("invalid phone number");
+        consoleBug("invalid phone number");
     
       return $valid;
     }
     
     function pushRegistration() : void
     {
-      require_once "connect_to_db.php";
-      require_once "query_capsule.php";
-      
-      
-      if (count($_POST) > 0) {
-        $selected_tables = new Table_Field_Rel(
-            "register",
-                 
-                "name",
-                "regno",
-                "sem",
-                "branch",
-                "phno",
-                "email"
+        if (count($_POST) > 0) {
+            require_once "connect_to_db.php";
+            require_once "query_capsule.php";
+     
+            $selected_tables = new Table_Field_Rel(
+                "register",
+                    
+                    "name",
+                    "regno",
+                    "sem",
+                    "branch",
+                    "phno",
+                    "email"
+                    
+            );
+
+            $query = new MySQL_Query_Capsule($selected_tables);
+            
+            unset($_POST['login']);
+
+            $event = $_POST['event'];
+            unset($_POST['event']);
+            
+            if (
+                validateRegNo($_POST['regno']) &&
+                validateName($_POST['name']) &&
+                validateEmail($_POST['email']) &&
+                validatePhNo($_POST['phno'])
+            ) {
+                $insertion = $query -> InsertValuesQuery(
+                    implode(",", $_POST)
+                );
+        
+                consoleBug($insertion);
                 
-        );
+                $dbc -> PushQuery(
+                    $insertion  
+                );
+                
+                $selected_tables = new Table_Field_Rel(
+                    "userevents",
+                        "regno",
+                        "eventid"
+                );
 
-        $query = new MySQL_Query_Capsule($selected_tables);
-        
-        unset($_POST['login']);
-          
-        if (
-            validateRegNo($_POST['regno']) &&
-            validateName($_POST['name']) &&
-            validateEmail($_POST['email']) &&
-            validatePhNo($_POST['phno']) ||
-            true
-        ) {
-            foreach ($_POST as $k => $v) {
-                $_POST[$k] = "'" . $v . "'";
-                consoleBug($_POST[$k]);
-            }
-    
-            $insertion = $query -> InsertValuesQuery(
-                implode(",", $_POST)
-            );
-    
-            consoleBug($insertion);
-            
-            $dbc -> PushQuery(
-                $insertion  
-            );
-            
-            $return = $dbc -> FlushStack();
-            consoleBug($return);
-            
-            if( empty($return) ) {
-                consoleBug("registered failed: re-registeration is not allowed");
-                return;
-            }
-    
-            consoleBug("registeration successful");
-        }
+                $joinInsertion =  new MySQL_Query_Capsule($selected_tables);
+                $regno = $_POST['regno'];
 
-        foreach ($_POST as $k=>$v) {
-            unset($_POST[$k]);
-        }
+                $insertion = $query -> InsertValuesQuery(
+                    "'$regno','$event'"
+                );
         
-        //header("Location: http://127.0.0.1:58932/FrontEnd/index.html"); 
-      }
-      
+                consoleBug($insertion);
+                
+                $dbc -> PushQuery(
+                    $insertion
+                );
+
+                $return = $dbc -> FlushStack();
+                consoleBug($return);
+                
+                if( empty($return) ) {
+                    consoleBug("registered failed: re-registeration is not allowed");
+                    return;
+                }
+        
+                consoleBug("registeration successful");
+            }
+
+            foreach ($_POST as $k=>$v) {
+                unset($_POST[$k]);
+            }
+            
+            //header("Location: http://127.0.0.1:58932/FrontEnd/index.html"); 
+        }
     }
 
 pushRegistration();

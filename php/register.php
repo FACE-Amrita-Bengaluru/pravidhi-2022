@@ -115,9 +115,9 @@
           
         if (
             validateRegNo($_POST['regno']) &&
-            validateRegNo($_POST['name']) &&
-            validateRegNo($_POST['email']) &&
-            validateName($_POST['phno']) ||
+            validateName($_POST['name']) &&
+            validateEmail($_POST['email']) &&
+            validatePhNo($_POST['phno']) ||
             true
         ) {
             foreach ($_POST as $k => $v) {

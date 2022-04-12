@@ -39,56 +39,6 @@
           <span></span>
           <label>Email</label>
         </div>
-        <?php
-        function Init2() : void
-        {
-          require_once "connect_to_db.php";
-          require_once "query_capsule.php";
-          
-          $select = new Table_Field_Rel(
-            "events",
-                 
-                "eventid",
-                "name",
-                "description",
-                "start",
-                "end"           
-        );
-        
-        $query = new MySQL_Query_Capsule($select);
-        consoleBug($query);
-    
-        $out = $dbc -> RelayQuery($query);
-        $a=array();
-        foreach ($out as $key => $value) {
-          consoleBug($key . "=>");
-          $b=array();
-          foreach ($value as $k => $v){
-            array_push($b,$v); }
-            array_push($a,$b);
-          
-        }
-        echo('<select id="e" name="event" placeholder="Events">');
-        echo('<option value="e0">'."Events".'</option>');
-        $i=0;
-        foreach ($a as $k => $v){
-          
-                 
-
-         
-              
-        
-         
-                  echo('<option value='."vol".$i.'>'.$v[1].'</option>');
-                  
-                  $i=$i+1;
-               
-              
-        }
-        echo("</select>");
-      }
-      Init2();
-        ?>
         
         <div class="pass">Forgot Password?</div>
         <input type="submit" name='login' value="Login">
@@ -188,8 +138,7 @@
           validateRegNo($_POST['regno']) &&
           validateName($_POST['name']) &&
           validateEmail($_POST['email']) &&
-          validatePhNo($_POST['phno']) ||
-          true
+          validatePhNo($_POST['phno'])
       ) {
           foreach ($_POST as $k => $v) {
               $_POST[$k] = "'" . $v . "'";

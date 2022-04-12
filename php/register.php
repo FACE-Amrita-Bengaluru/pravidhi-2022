@@ -54,7 +54,6 @@
 <?php
     function validateRegNo(string $regno) : bool
     {
-      return true;
         $valid = preg_match("/^BL\.EN\.U4\.(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}$/", $regno);
 
         if (! $valid)
@@ -139,8 +138,7 @@
             validateRegNo($_POST['regno']) &&
             validateName($_POST['name']) &&
             validateEmail($_POST['email']) &&
-            validatePhNo($_POST['phno']) ||
-            true
+            validatePhNo($_POST['phno'])
         ) {
             foreach ($_POST as $k => $v) {
                 $_POST[$k] = "'" . $v . "'";

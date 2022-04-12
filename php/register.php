@@ -65,7 +65,7 @@
 
     function validateName(string $name) : bool
     {
-      $valid = preg_match("/^[a-zA-Z]+( [a-zA-Z]+)?( [a-zA-Z]+)?$/", $name);
+      $valid = preg_match("/^[a-zA-Z]+( [a-zA-Z]+){0,2}$/", $name);
       
       if (! $valid)
         consoleBug("invalid name");
@@ -85,15 +85,20 @@
 
     function validateBranch(string $branch) : bool
     {
-      $valid = preg_match("/^CSE|AIE|EAC|ECE|EEE|MEE$/", $branch)
+      $valid = preg_match("/^CSE|AIE|EAC|ECE|EEE|MEE$/", $branch);
+
+      if (! $valid)
+        consoleBug("invalid branch");
+
+      return $valid;
     }
 
     function validateEmail(string $email) : bool
     {
-      $valid = preg_match("/^[a-z0-9]\+\@[a-z]\+\.[a-z]{2,3}$/", $email);
+      $valid = preg_match("/^([a-zA-Z_][a-zA-Z0-9_]*\.)*([a-zA-Z_][a-zA-Z0-9_]*)@([a-zA-Z_][a-zA-Z0-9_]*\.)+[a-z]{2,3}$/", $email);
       
       if (! $valid)
-      consoleBug("invalid email");
+        consoleBug("invalid email");
     
       return $valid;
     }
@@ -103,7 +108,7 @@
       $valid = preg_match("/^[0-9]{10}$/", $phno);
   
       if (! $valid)
-      consoleBug("invalid phone number");
+        consoleBug("invalid phone number");
     
       return $valid;
     }

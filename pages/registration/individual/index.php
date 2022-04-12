@@ -191,7 +191,7 @@
           require_once "query_capsule.php";
           
           $select = new Table_Field_Rel(
-            "events",
+            "events", 
                  
                 "eventid",
                 "name",

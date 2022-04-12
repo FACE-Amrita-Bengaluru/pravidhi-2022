@@ -4072,7 +4072,7 @@ img.u-pull-left {
     color: #f2f5f4;
     font-family: 'montserrat-medium', sans-serif;
     margin-top: 0;
-    text-transform: capitalize;
+    text-transform: uppercase;
 }
 
 .timeline__desc p {

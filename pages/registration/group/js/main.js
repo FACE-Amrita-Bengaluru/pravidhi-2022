@@ -255,7 +255,7 @@ teamSizeInput.addEventListener('input', () => {
     });
 
     const teamSize = Number(teamSizeInput.value);
-    const eventList = document.querySelector('.events-list');
+    const teamSizeDiv = document.querySelector('.team-size-input');
     const nameHTML = `<div class="column lg-6 tab-12 form-field">
                         <input
                             name="cName"
@@ -276,7 +276,7 @@ teamSizeInput.addEventListener('input', () => {
                                             type="text"
                                         />
                                     </div>`;
-    const semesterHTML = `<div class="column lg-6 tab-12 form-field">
+    const semesterHTML = `<div class="column lg-6 tab-12 form-field dynamic-input">
                             <div class="ss-custom-select">
                                 <select class="u-fullwidth" id="sampleRecipientInput">
                                     <option value="" hidden>Semester</option>
@@ -285,7 +285,7 @@ teamSizeInput.addEventListener('input', () => {
                                 </select>
                             </div>
                         </div>`;
-    const branchHTML = `<div class="column lg-6 tab-12 form-field">
+    const branchHTML = `<div class="column lg-6 tab-12 form-field dynamic-input">
                             <div class="ss-custom-select">
                                 <select class="u-fullwidth" id="sampleRecipientInput">
                                     <option value="" hidden>Branch</option>
@@ -320,15 +320,15 @@ teamSizeInput.addEventListener('input', () => {
                             />
                         </div>`;
 
-    for (let i = 0; i < teamSize; i++) {
-        const teamNumberHTML = `<h4 class="dynamic-input" style="width: 100%">Team Member ${i + 1}</h4>`;
+    for (let i = teamSize; i > 0; i--) {
+        const teamNumberHTML = `<h4 class="dynamic-input" style="width: 100%">Team Member ${i}</h4>`;
 
-        eventList.insertAdjacentHTML('beforebegin', teamNumberHTML);
-        eventList.insertAdjacentHTML('beforebegin', nameHTML);
-        eventList.insertAdjacentHTML('beforebegin', registrationNumberHTML);
-        eventList.insertAdjacentHTML('beforebegin', semesterHTML);
-        eventList.insertAdjacentHTML('beforebegin', branchHTML);
-        eventList.insertAdjacentHTML('beforebegin', whatsappNumberHTML);
-        eventList.insertAdjacentHTML('beforebegin', emailHTML);
+        teamSizeDiv.insertAdjacentHTML('afterend', emailHTML);
+        teamSizeDiv.insertAdjacentHTML('afterend', whatsappNumberHTML);
+        teamSizeDiv.insertAdjacentHTML('afterend', branchHTML);
+        teamSizeDiv.insertAdjacentHTML('afterend', semesterHTML);
+        teamSizeDiv.insertAdjacentHTML('afterend', registrationNumberHTML);
+        teamSizeDiv.insertAdjacentHTML('afterend', nameHTML);
+        teamSizeDiv.insertAdjacentHTML('afterend', teamNumberHTML);
     }
 });

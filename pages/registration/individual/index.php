@@ -19,10 +19,10 @@
 
         <!-- favicons
     ================================================== -->
-        <link rel="apple-touch-icon" sizes="180x180" href="./../../../images/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="./../../../images/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="./../../../images/favicon-16x16.png" />
-        <link rel="manifest" href="./../../../site.webmanifest" />
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+        <link rel="manifest" href="site.webmanifest" />
     </head>
 
     <body id="top">
@@ -44,7 +44,7 @@
             <header id="masthead" class="s-header">
                 <div class="s-header__branding">
                     <p class="site-title">
-                        <a href="./../../../index.html" rel="home">
+                        <a href="index.html" rel="home">
                             <img
                                 src="./images/logo.png"
                                 alt="Logo"
@@ -122,7 +122,7 @@
                                         <fieldset class="row">
                                             <div class="column lg-6 tab-12 form-field">
                                                 <input
-                                                    name="cName"
+                                                    name="name"
                                                     id="cName"
                                                     class="u-fullwidth"
                                                     placeholder="Name"
@@ -133,7 +133,7 @@
 
                                             <div class="column lg-6 tab-12 form-field">
                                                 <input
-                                                    name="cEmail"
+                                                    name="regno"
                                                     id="cEmail"
                                                     class="u-fullwidth"
                                                     placeholder="Registration Number"
@@ -143,16 +143,16 @@
                                             </div>
                                             <div class="column lg-6 tab-12 form-field">
                                                 <div class="ss-custom-select">
-                                                    <select class="u-fullwidth" id="sampleRecipientInput">
+                                                    <select class="u-fullwidth" name="sem" id="sampleRecipientInput">
                                                         <option value="" hidden>Semester</option>
-                                                        <option value="">4</option>
-                                                        <option value="">6</option>
+                                                        <option value="4">4</option>
+                                                        <option value="6">6</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="column lg-6 tab-12 form-field">
                                                 <div class="ss-custom-select">
-                                                    <select class="u-fullwidth" id="sampleRecipientInput">
+                                                    <select class="u-fullwidth" name="branch" id="sampleRecipientInput">
                                                         <option value="" hidden>Branch</option>
                                                         <option value="CSE">CSE</option>
                                                         <option value="AIE">AIE</option>
@@ -165,7 +165,7 @@
                                             </div>
                                             <div class="column lg-6 tab-12 form-field">
                                                 <input
-                                                    name="cEmail"
+                                                    name="phno"
                                                     id="cEmail"
                                                     class="u-fullwidth"
                                                     placeholder="WhatsApp Number"
@@ -175,7 +175,7 @@
                                             </div>
                                             <div class="column lg-6 tab-12 form-field">
                                                 <input
-                                                    name="cEmail"
+                                                    name="email"
                                                     id="cEmail"
                                                     class="u-fullwidth"
                                                     placeholder="Email"
@@ -184,19 +184,59 @@
                                                 />
                                             </div>
 
-                                            <div class="column lg-12">
-                                                <div class="ss-custom-select">
-                                                    <select class="u-fullwidth" id="sampleRecipientInput">
-                                                        <option value="" hidden>Events</option>
-                                                        <option value="">Event 1</option>
-                                                        <option value="">Event 2</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                            <?php 
+        function fetchEvents() : void
+        {
+          require_once "connect_to_db.php";
+          require_once "query_capsule.php";
+          
+            $select = new Table_Field_Rel(
+                "events", 
+                    
+                    "eventid",
+                    "name",
+                    "description",
+                    "start",
+                    "end"           
+            );
+            
+            $query = new MySQL_Query_Capsule($select);
+            consoleBug($query);
+        
+            $out = $dbc -> RelayQuery($query);
+            $a = array();
+
+            foreach ($out as $key => $value) {
+            $b = array();
+
+            foreach ($value as $k => $v){
+                array_push($b,$v); }
+                array_push($a,$b);          
+            }
+            echo('<div class="column lg-12">');
+            echo('<div class="ss-custom-select">');
+            echo('<select class="u-fullwidth" name="event" id="sampleRecipientInput">');
+            echo('<option value="" hidden>Events</option>');
+            $i=0;
+            foreach ($a as $k => $v){
+            
+
+                    echo('<option value='."vol".$i.'>'.$v[1].'</option>');
+                    
+                    $i=$i+1;
+                
+                
+            }
+            echo("</select>");
+        }
+
+        fetchEvents(); 
+        ?>
+        <br>
 
                                             <div class="column lg-12">
                                                 <input
-                                                    name="submit"
+                                                    name="login"
                                                     id="submit"
                                                     class="btn btn--primary btn-wide btn--large u-fullwidth"
                                                     value="Register"
@@ -300,3 +340,146 @@
         <script src="js/main.js"></script>
     </body>
 </html>
+
+<?php
+
+    function validateRegNo(string $regno) : bool
+    {
+      return true;
+        $valid = preg_match("/^BL\.EN\.U4\.(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}$/", $regno);
+
+        if (! $valid)
+          consoleBug("invalid registeration number");
+        
+          return $valid;
+    }
+
+    function validateName(string $name) : bool
+    {
+      $valid = preg_match("/^[a-zA-Z]+( [a-zA-Z]+)?( [a-zA-Z]+)?$/", $name);
+      
+      if (! $valid)
+        consoleBug("invalid name");
+    
+      return $valid;
+    }
+
+    function validateSem(string $sem) : bool
+    {
+      $valid = preg_match("/^4|6$/", $sem);
+
+      if (! $valid)
+        consoleBug("invalid semester");
+
+      return $valid;
+    }
+    
+    function validateBranch(string $branch) : bool
+    {
+      $valid = preg_match("/^CSE|AIE|EAC|ECE|EEE|MEE$/", $branch);
+
+      if (! $valid)
+        consoleBug("invalid branch");
+  
+      return $valid;
+    }
+
+    function validateEmail(string $email) : bool
+    {
+        $valid = preg_match("/^([a-zA-Z_][a-zA-Z0-9_]*\.)*([a-zA-Z_][a-zA-Z0-9_]*)\@([a-zA-Z_][a-zA-Z0-9_]*\.)*[a-z]{2,3}$/", $email);      
+        if (! $valid)
+            consoleBug("invalid email");
+        
+        return $valid;
+    }
+
+    function validatePhNo(string $phno) : bool
+    {
+      $valid = preg_match("/^[0-9]{10}$/", $phno);
+  
+      if (! $valid)
+        consoleBug("invalid phone number");
+    
+      return $valid;
+    }
+    
+    function pushRegistration() : void
+    {
+        if (count($_POST) > 0) {
+            require_once "connect_to_db.php";
+            require_once "query_capsule.php";
+     
+            $selected_tables = new Table_Field_Rel(
+                "register",
+                    
+                    "name",
+                    "regno",
+                    "sem",
+                    "branch",
+                    "phno",
+                    "email"
+                    
+            );
+
+            $query = new MySQL_Query_Capsule($selected_tables);
+            
+            unset($_POST['login']);
+
+            $event = $_POST['event'];
+            unset($_POST['event']);
+            
+            if (
+                validateRegNo($_POST['regno']) &&
+                validateName($_POST['name']) &&
+                validateEmail($_POST['email']) &&
+                validatePhNo($_POST['phno'])
+            ) {
+                $insertion = $query -> InsertValuesQuery(
+                    implode(",", $_POST)
+                );
+        
+                consoleBug($insertion);
+                
+                $dbc -> PushQuery(
+                    $insertion  
+                );
+                
+                $selected_tables = new Table_Field_Rel(
+                    "userevents",
+                        "regno",
+                        "eventid"
+                );
+
+                $joinInsertion =  new MySQL_Query_Capsule($selected_tables);
+                $regno = $_POST['regno'];
+
+                $insertion = $query -> InsertValuesQuery(
+                    "'$regno','$event'"
+                );
+        
+                consoleBug($insertion);
+                
+                $dbc -> PushQuery(
+                    $insertion
+                );
+
+                $return = $dbc -> FlushStack();
+                consoleBug($return);
+                
+                if( empty($return) ) {
+                    consoleBug("registered failed: re-registeration is not allowed");
+                    return;
+                }
+        
+                consoleBug("registeration successful");
+            }
+
+            foreach ($_POST as $k=>$v) {
+                unset($_POST[$k]);
+            }
+            
+            //header("Location: http://127.0.0.1:58932/FrontEnd/index.html"); 
+        }
+    }
+
+pushRegistration();

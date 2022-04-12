@@ -55,7 +55,7 @@
     function validateRegNo(string $regno) : bool
     {
       return true;
-        $valid = preg_match("/BL\.EN\.U4\.(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}/", $regno);
+        $valid = preg_match("/^BL\.EN\.U4\.(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}$/", $regno);
 
         if (! $valid)
           consoleBug("invalid registeration number");
@@ -65,48 +65,65 @@
 
     function validateName(string $name) : bool
     {
-        $valid = preg_match("/[a-zA-Z]+( [a-zA-Z]+)?( [a-zA-Z]+)?/", $name);
-        
-        if (! $valid)
-          consoleBug("invalid name");
+      $valid = preg_match("/^[a-zA-Z]+( [a-zA-Z]+)?( [a-zA-Z]+)?$/", $name);
       
-        return $valid;
+      if (! $valid)
+        consoleBug("invalid name");
+    
+      return $valid;
+    }
+
+    function validateSem(string $sem) : bool
+    {
+      $valid = preg_match("/^4|6$/", $sem);
+
+      if (! $valid)
+        consoleBug("invalid name");
+
+      return $valid;
+    }
+
+    function validateBranch(string $branch) : bool
+    {
+      $valid = preg_match("/^CSE|AIE|EAC|ECE|EEE|MEE$/", $branch)
     }
 
     function validateEmail(string $email) : bool
     {
-        $valid = preg_match("/[a-z0-9]\+\@[a-z]\+\.[a-z]{2,3}/", $email);
-        
-        if (! $valid)
-        consoleBug("invalid email");
+      $valid = preg_match("/^[a-z0-9]\+\@[a-z]\+\.[a-z]{2,3}$/", $email);
       
-        return $valid;
+      if (! $valid)
+      consoleBug("invalid email");
+    
+      return $valid;
     }
 
     function validatePhNo(string $phno) : bool
     {
-        $valid = preg_match("/[0-9]{10}/", $phno);
+      $valid = preg_match("/^[0-9]{10}$/", $phno);
+  
+      if (! $valid)
+      consoleBug("invalid phone number");
     
-        if (! $valid)
-        consoleBug("invalid phone number");
-      
-        return $valid;
+      return $valid;
     }
     
     function Init() : void
     {
+      if (count($_POST) > 0) {
+
         require_once "connect_to_db.php";
         require_once "query_capsule.php";
 
         $selected_tables = new Table_Field_Rel(
             "register",
                 
-                "name",
                 "regno",
+                "name",
                 "sem",
                 "branch",
-                "phno",
-                "email"
+                "email",
+                "phno"
         );
 
         $query = new MySQL_Query_Capsule($selected_tables);
@@ -149,10 +166,8 @@
         foreach ($_POST as $k=>$v) {
             unset($_POST[$k]);
         }
-        foreach ($_POST as $k=>$v) {
-            consoleBug($k . " : " . $v);
-        }
-
+      
         //header("Location: http://127.0.0.1:58932/FrontEnd/index.html");
+      }
     }
 Init();

@@ -102,134 +102,130 @@
 </html>
 
 <?php
+  function validateRegNo(string $regno) : bool
+  {
+      $valid = preg_match("/^BL\.EN\.U4\.(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}$/", $regno);
 
-    function validateRegNo(string $regno) : bool
-    {
-      return true;
-        $valid = preg_match("/^BL\.EN\.U4\.(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}$/", $regno);
-
-        if (! $valid)
-          consoleBug("invalid registeration number");
-        
-          return $valid;
-    }
-
-    function validateName(string $name) : bool
-    {
-      $valid = preg_match("/^[a-zA-Z]+( [a-zA-Z]+)?( [a-zA-Z]+)?$/", $name);
+      if (! $valid)
+        consoleBug("invalid registeration number");
       
-      if (! $valid)
-        consoleBug("invalid name");
+        return $valid;
+  }
+
+  function validateName(string $name) : bool
+  {
+    $valid = preg_match("/^[a-zA-Z]+( [a-zA-Z]+)?( [a-zA-Z]+)?$/", $name);
     
-      return $valid;
-    }
+    if (! $valid)
+      consoleBug("invalid name");
 
-    function validateSem(string $sem) : bool
-    {
-      $valid = preg_match("/^4|6$/", $sem);
+    return $valid;
+  }
 
-      if (! $valid)
-        consoleBug("invalid semester");
+  function validateSem(string $sem) : bool
+  {
+    $valid = preg_match("/^4|6$/", $sem);
 
-      return $valid;
-    }
+    if (! $valid)
+      consoleBug("invalid semester");
+
+    return $valid;
+  }
+
+  function validateBranch(string $branch) : bool
+  {
+    $valid = preg_match("/^CSE|AIE|EAC|ECE|EEE|MEE$/", $branch);
+
+    if (! $valid)
+      consoleBug("invalid branch");
+
+    return $valid;
+  }
+
+  function validateEmail(string $email) : bool
+  {
+    $valid = preg_match("/^([a-zA-Z_][a-zA-Z0-9_]*\.)*([a-zA-Z_][a-zA-Z0-9_]*)\@([a-zA-Z_][a-zA-Z0-9_]*\.)*[a-z]{2,3}$/", $email);
     
-    function validateBranch(string $branch) : bool
-    {
-      $valid = preg_match("/^CSE|AIE|EAC|ECE|EEE|MEE$/", $branch);
+    if (! $valid)
+    consoleBug("invalid email");
 
-      if (! $valid)
-        consoleBug("invalid branch");
-  
-      return $valid;
-    }
+    return $valid;
+  }
 
-    function validateEmail(string $email) : bool
-    {
-      $valid = preg_match("/^[a-zA-Z_][a-zA-Z0-9_]*\@[a-zA-Z_][a-zA-Z0-9_]*\.[a-z]{2,3}$/", $email);
-      
-      if (! $valid)
-      consoleBug("invalid email");
+  function validatePhNo(string $phno) : bool
+  {
+    $valid = preg_match("/^[0-9]{10}$/", $phno);
+
+    if (! $valid)
+    consoleBug("invalid phone number");
+
+    return $valid;
+  }
     
-      return $valid;
-    }
+  function Init() : void
+  {
+    require_once "connect_to_db.php";
+    require_once "query_capsule.php";   
 
-    function validatePhNo(string $phno) : bool
-    {
-      $valid = preg_match("/^[0-9]{10}$/", $phno);
-  
-      if (! $valid)
-      consoleBug("invalid phone number");
-    
-      return $valid;
-    }
-    
-    function Init() : void
-    {
-      require_once "connect_to_db.php";
-      require_once "query_capsule.php";
-      
-     
-
-      if (count($_POST) > 0) {
-        $selected_tables = new Table_Field_Rel(
-            "register",
-                 
-                "name",
-                "regno",
-                "sem",
-                "branch",
-                "phno",
-                "email"
+    if (count($_POST) > 0) {
+      $selected_tables = new Table_Field_Rel(
+          "register",
                 
-        );
+              "name",
+              "regno",
+              "sem",
+              "branch",
+              "phno",
+              "email"
+              
+      );
 
-        $query = new MySQL_Query_Capsule($selected_tables);
+      $query = new MySQL_Query_Capsule($selected_tables);
+      
+      unset($_POST['login']);
         
-        unset($_POST['login']);
+      if (
+          validateRegNo($_POST['regno']) &&
+          validateName($_POST['name']) &&
+          validateEmail($_POST['email']) &&
+          validatePhNo($_POST['phno']) ||
+          true
+      ) {
+          foreach ($_POST as $k => $v) {
+              $_POST[$k] = "'" . $v . "'";
+              consoleBug($_POST[$k]);
+          }
+  
+          $insertion = $query -> InsertValuesQuery(
+              implode(",", $_POST)
+          );
+  
+          consoleBug($insertion);
           
-        if (
-            validateRegNo($_POST['regno']) &&
-            validateName($_POST['name']) &&
-            validateEmail($_POST['email']) &&
-            validatePhNo($_POST['phno']) ||
-            true
-        ) {
-            foreach ($_POST as $k => $v) {
-                $_POST[$k] = "'" . $v . "'";
-                consoleBug($_POST[$k]);
-            }
-    
-            $insertion = $query -> InsertValuesQuery(
-                implode(",", $_POST)
-            );
-    
-            consoleBug($insertion);
-            
-            $dbc -> PushQuery(
-                $insertion  
-            );
-            
-            $return = $dbc -> FlushStack();
-            consoleBug($return);
-            
-            if( empty($return) ) {
-                consoleBug("registered failed: re-registeration is not allowed");
-                return;
-            }
-    
-            consoleBug("registeration successful");
-        }
+          $dbc -> PushQuery(
+              $insertion  
+          );
+          
+          $return = $dbc -> FlushStack();
+          consoleBug($return);
+          
+          if( empty($return) ) {
+              consoleBug("registered failed: re-registeration is not allowed");
+              return;
+          }
+  
+          consoleBug("registeration successful");
+      }
 
-        foreach ($_POST as $k=>$v) {
-            unset($_POST[$k]);
-        }
-        
-    
-        //header("Location: http://127.0.0.1:58932/FrontEnd/index.html");
-        
-        
+      foreach ($_POST as $k=>$v) {
+          unset($_POST[$k]);
       }
       
+  
+      //header("Location: http://127.0.0.1:58932/FrontEnd/index.html");
+      
+      
     }
+    
+  }
 Init();

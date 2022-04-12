@@ -119,15 +119,14 @@
 
     if (count($_POST) > 0) {
       $selected_tables = new Table_Field_Rel(
-          "register",
+        "register",
                 
-              "name",
-              "regno",
-              "sem",
-              "branch",
-              "phno",
-              "email"
-              
+          "name",
+          "regno",
+          "sem",
+          "branch",
+          "phno",
+          "email" 
       );
 
       $query = new MySQL_Query_Capsule($selected_tables);

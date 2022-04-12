@@ -509,7 +509,7 @@
 particlesJS('particles-js', {
     particles: {
         number: { value: 300, density: { enable: true, value_area: 800 } },
-        color: { value: '#fff' },
+        color: { value: '#06FF00' },
         shape: {
             type: 'circle',
             stroke: { width: 0, color: '#000000' },

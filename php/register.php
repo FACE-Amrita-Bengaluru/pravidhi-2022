@@ -39,6 +39,56 @@
           <span></span>
           <label>Email</label>
         </div>
+        <?php
+        function Init2() : void
+        {
+          require_once "connect_to_db.php";
+          require_once "query_capsule.php";
+          
+          $select = new Table_Field_Rel(
+            "events",
+                 
+                "eventid",
+                "name",
+                "description",
+                "start",
+                "end"           
+        );
+        
+        $query = new MySQL_Query_Capsule($select);
+        consoleBug($query);
+    
+        $out = $dbc -> RelayQuery($query);
+        $a=array();
+        foreach ($out as $key => $value) {
+          consoleBug($key . "=>");
+          $b=array();
+          foreach ($value as $k => $v){
+            array_push($b,$v); }
+            array_push($a,$b);
+          
+        }
+        echo('<select id="e" name="event" placeholder="Events">');
+        echo('<option value="e0">'."Events".'</option>');
+        $i=0;
+        foreach ($a as $k => $v){
+          
+                 
+
+         
+              
+        
+         
+                  echo('<option value='."vol".$i.'>'.$v[1].'</option>');
+                  
+                  $i=$i+1;
+               
+              
+        }
+        echo("</select>");
+      }
+      Init2();
+        ?>
         
         <div class="pass">Forgot Password?</div>
         <input type="submit" name='login' value="Login">
@@ -52,8 +102,10 @@
 </html>
 
 <?php
+
     function validateRegNo(string $regno) : bool
     {
+      return true;
         $valid = preg_match("/^BL\.EN\.U4\.(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}$/", $regno);
 
         if (! $valid)
@@ -64,7 +116,7 @@
 
     function validateName(string $name) : bool
     {
-      $valid = preg_match("/^[a-zA-Z]+( [a-zA-Z]+){0,2}$/", $name);
+      $valid = preg_match("/^[a-zA-Z]+( [a-zA-Z]+)?( [a-zA-Z]+)?$/", $name);
       
       if (! $valid)
         consoleBug("invalid name");
@@ -77,27 +129,27 @@
       $valid = preg_match("/^4|6$/", $sem);
 
       if (! $valid)
-        consoleBug("invalid name");
+        consoleBug("invalid semester");
 
       return $valid;
     }
-
+    
     function validateBranch(string $branch) : bool
     {
       $valid = preg_match("/^CSE|AIE|EAC|ECE|EEE|MEE$/", $branch);
 
       if (! $valid)
         consoleBug("invalid branch");
-
+  
       return $valid;
     }
 
     function validateEmail(string $email) : bool
     {
-      $valid = preg_match("/^([a-zA-Z_][a-zA-Z0-9_]*\.)*([a-zA-Z_][a-zA-Z0-9_]*)@([a-zA-Z_][a-zA-Z0-9_]*\.)+[a-z]{2,3}$/", $email);
+      $valid = preg_match("/^[a-zA-Z_][a-zA-Z0-9_]*\@[a-zA-Z_][a-zA-Z0-9_]*\.[a-z]{2,3}$/", $email);
       
       if (! $valid)
-        consoleBug("invalid email");
+      consoleBug("invalid email");
     
       return $valid;
     }
@@ -107,27 +159,29 @@
       $valid = preg_match("/^[0-9]{10}$/", $phno);
   
       if (! $valid)
-        consoleBug("invalid phone number");
+      consoleBug("invalid phone number");
     
       return $valid;
     }
     
     function Init() : void
     {
+      require_once "connect_to_db.php";
+      require_once "query_capsule.php";
+      
+     
+
       if (count($_POST) > 0) {
-
-        require_once "connect_to_db.php";
-        require_once "query_capsule.php";
-
         $selected_tables = new Table_Field_Rel(
             "register",
-                
-                "regno",
+                 
                 "name",
+                "regno",
                 "sem",
                 "branch",
-                "email",
-                "phno"
+                "phno",
+                "email"
+                
         );
 
         $query = new MySQL_Query_Capsule($selected_tables);
@@ -138,7 +192,8 @@
             validateRegNo($_POST['regno']) &&
             validateName($_POST['name']) &&
             validateEmail($_POST['email']) &&
-            validatePhNo($_POST['phno'])
+            validatePhNo($_POST['phno']) ||
+            true
         ) {
             foreach ($_POST as $k => $v) {
                 $_POST[$k] = "'" . $v . "'";
@@ -169,8 +224,12 @@
         foreach ($_POST as $k=>$v) {
             unset($_POST[$k]);
         }
-      
+        
+    
         //header("Location: http://127.0.0.1:58932/FrontEnd/index.html");
+        
+        
       }
+      
     }
 Init();

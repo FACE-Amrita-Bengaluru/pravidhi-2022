@@ -185,7 +185,7 @@
                                             </div>
 
                                             <?php 
-        function Init2() : void
+        function fetchEvents() : void
         {
           require_once "connect_to_db.php";
           require_once "query_capsule.php";
@@ -229,7 +229,7 @@
         }
         echo("</select>");
       }
-      Init2(); 
+      fetchEvents(); 
         ?>
         <br>
 
@@ -340,9 +340,6 @@
     </body>
 </html>
 
-
-
-
 <?php
 
     function validateRegNo(string $regno) : bool
@@ -406,7 +403,7 @@
       return $valid;
     }
     
-    function Init() : void
+    function pushRegistration() : void
     {
       require_once "connect_to_db.php";
       require_once "query_capsule.php";
@@ -466,11 +463,9 @@
             unset($_POST[$k]);
         }
         
-    
-        //header("Location: http://127.0.0.1:58932/FrontEnd/index.html");
-        
-        
+        //header("Location: http://127.0.0.1:58932/FrontEnd/index.html"); 
       }
       
     }
-Init();
+
+pushRegistration();

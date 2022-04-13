@@ -124,15 +124,15 @@
                                         </div>
 
                                         <div class="column lg-6 tab-12 form-field">
-                                            <input name="name" id="cName" class="u-fullwidth" placeholder="Name" value="" type="text" />
+                                            <input name="cName" id="cName" class="u-fullwidth" placeholder="Name" value="" type="text" />
                                         </div>
 
                                         <div class="column lg-6 tab-12 form-field">
-                                            <input name="regno" id="cEmail" class="u-fullwidth" placeholder="Registration Number" value="" type="text" />
+                                            <input name="cReg" id="cReg" class="u-fullwidth" placeholder="Registration Number" value="" type="text" />
                                         </div>
                                         <div class="column lg-6 tab-12 form-field">
                                             <div class="ss-custom-select">
-                                                <select class="u-fullwidth" name="sem" id="sampleRecipientInput">
+                                                <select class="u-fullwidth" name="cSem" id="sampleRecipientInput">
                                                     <option value="" hidden>Semester</option>
                                                     <option value="4">4</option>
                                                     <option value="6">6</option>
@@ -141,7 +141,7 @@
                                         </div>
                                         <div class="column lg-6 tab-12 form-field">
                                             <div class="ss-custom-select">
-                                                <select class="u-fullwidth" name="branch" id="sampleRecipientInput">
+                                                <select class="u-fullwidth" name="cBranch" id="sampleRecipientInput">
                                                     <option value="" hidden>Branch</option>
                                                     <option value="CSE">CSE</option>
                                                     <option value="AIE">AIE</option>
@@ -153,10 +153,10 @@
                                             </div>
                                         </div>
                                         <div class="column lg-6 tab-12 form-field">
-                                            <input name="phno" id="cEmail" class="u-fullwidth" placeholder="WhatsApp Number" value="" type="text" />
+                                            <input name="cNumber" id="cNumber" class="u-fullwidth" placeholder="WhatsApp Number" value="" type="text" />
                                         </div>
                                         <div class="column lg-6 tab-12 form-field">
-                                            <input name="email" id="cEmail" class="u-fullwidth" placeholder="Email" value="" type="text" />
+                                            <input name="cEmail" id="cEmail" class="u-fullwidth" placeholder="Email" value="" type="text" />
                                         </div>
 
                                         <div class="column lg-12">
@@ -366,21 +366,21 @@ function pushRegistration(): void
         unset($_POST['event']);
 
         if (
-            validateRegNo($_POST['regno']) &&
-            validateName($_POST['name']) &&
-            validateEmail($_POST['email']) &&
-            validatePhNo($_POST['phno']) &&
-            validateSem($_POST['sem']) &&
-            validateBranch($_POST['branch'])
+            validateRegNo($_POST['cReg']) &&
+            validateName($_POST['cName']) &&
+            validateEmail($_POST['cEmail']) &&
+            validatePhNo($_POST['cNumber']) &&
+            validateSem($_POST['cSem']) &&
+            validateBranch($_POST['cBranch'])
         ) {
 
             $userList = array(
-                "'" . $_POST['regno'] . "'",
-                "'" . $_POST['name'] . "'",
-                "'" . $_POST['email'] . "'",
-                "'" . $_POST['phno'] . "'",
-                "'" . $_POST['sem'] . "'",
-                "'" . $_POST['branch'] . "'"
+                "'" . $_POST['cReg'] . "'",
+                "'" . $_POST['cName'] . "'",
+                "'" . $_POST['cEmail'] . "'",
+                "'" . $_POST['cNumber'] . "'",
+                "'" . $_POST['cSem'] . "'",
+                "'" . $_POST['cBranch'] . "'"
             );
 
 
@@ -405,7 +405,7 @@ function pushRegistration(): void
             );
 
             $usereventsSyringe =  new MySQL_Query_Capsule($usereventsTable);
-            $regno = $_POST['regno'];
+            $regno = $_POST['cReg'];
 
             $injection = $usereventsSyringe -> InsertValuesQuery(
                 "'$regno','$event'"

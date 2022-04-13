@@ -3719,7 +3719,7 @@ img.u-pull-left {
 
 .s-intro__more-btn {
     border: 2px solid white;
-    color: white;
+    color: white !important;
     margin: 0;
 }
 
@@ -3727,7 +3727,7 @@ img.u-pull-left {
 .s-intro__more-btn:hover {
     background-color: white !important;
     border: 2px solid white;
-    color: black;
+    color: black !important;
 }
 
 /* --------------------------------------------------------------------

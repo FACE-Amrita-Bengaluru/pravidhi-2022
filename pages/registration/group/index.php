@@ -123,29 +123,12 @@
                                         </div>
 
                                         <div class="column lg-12 form-field team-size-input">
-                                                <input
-                                                    name="cTeamName"
-                                                    id="cTeamName"
-                                                    class="u-fullwidth"
-                                                    placeholder="Team Name"
-                                                    value=""
-                                                    type="text"
-                                                />
-                                            </div>
+                                            <input name="cTeamName" id="cTeamName" class="u-fullwidth" placeholder="Team Name" value="" type="text" />
+                                        </div>
 
-                                            <div
-                                                class="column lg-12 form-field team-size-input"
-                                                style="margin-top: 50px"
-                                            >
-                                                <input
-                                                    name="cTeamSize"
-                                                    id="cTeamSize"
-                                                    class="u-fullwidth team-size"
-                                                    placeholder="Team Size"
-                                                    value=""
-                                                    type="text"
-                                                />
-                                            </div>
+                                        <div class="column lg-12 form-field team-size-input" style="margin-top: 50px">
+                                            <input name="cTeamSize" id="cTeamSize" class="u-fullwidth team-size" placeholder="Team Size" value="" type="text" />
+                                        </div>
 
                                         <div class="column lg-12">
                                             <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large u-fullwidth" value="Register" type="submit" />
@@ -304,7 +287,7 @@ function pushRegistration(): void
     /*
         Fetching group event details for selection
     */
-    $select = new Table_Field_Rel(
+    $eventFetch = new Table_Field_Rel(
         "events",
 
         "eventid", //0
@@ -316,30 +299,31 @@ function pushRegistration(): void
         "teamsize" //6
     );
 
-    $query = new MySQL_Query_Capsule($select);
-    $query->SetWhere("$0.6 > 1");
+    $queryFetch = new MySQL_Query_Capsule($eventFetch);
+    $queryFetch->SetWhere("$0.6 > 1");
 
-    consoleBug($query);
+    consoleBug($queryFetch);
 
-    $out = $dbc->RelayQuery($query);
-    
+    $queryResult = $dbc->RelayQuery($queryFetch);
+
     /* 
         Extracting event information and modifying/adding HTML tags
     */
-    $a = array();
+    $eventList = array();
 
-    foreach ($out as $key => $value) {
-        $b = array();
+    foreach ($queryResult as $_trivial => $value) {
+        $eventData = array();
 
-        foreach ($value as $k => $v) {
-            array_push($b, $v);
-        }
-        array_push($a, $b);
+        foreach ($value as $k => $v)
+            array_push($eventData, $v);
+
+        array_push($eventList, $eventData);
     }
 
-    $_SESSION["index1"] = $a;
+    $_SESSION["index1"] = $eventList; //to provide data to alter HTML selection tag's option tags
 
     if (count($_POST) > 0) {
+
         foreach ($_POST as $k => $v)
             consoleBug("$k:$v");
 
@@ -348,64 +332,71 @@ function pushRegistration(): void
         /*
             Adding new team to teams table
         */
-        $selected_tables = new Table_Field_Rel(
+        $teamsTable = new Table_Field_Rel(
             "teams",
-                "teamname"
+
+            "teamname"
         );
 
         $teamName = $_POST['cTeamName'];
         $event = $_POST['event'];
 
-        $insertion = new MySQL_Query_Capsule($selected_tables);
-        $insert = $insertion->InsertValuesQuery("'$teamName'");
-        
-        consoleBug($insert);
-        
-        $dbc->PushQuery($insert);
-        
+        $teamSyringe = new MySQL_Query_Capsule($teamsTable);
+        $injection = $teamSyringe->InsertValuesQuery("'$teamName'");
+
+        consoleBug($injection);
+
+        $dbc->PushQuery($injection);
+
         $response = $dbc->FlushStack();
 
         consoleBug($response);
 
+        if (!$response) {
+            consoleBug("Team name already taken. Please try again");
+            return;
+        }
+
         /*
-            Adding new teamevent entry in teamevents table
+            Adding new team event relationship in teamevents table
         */
-        $selected_tables = new Table_Field_Rel(
+        $teameventsTable = new Table_Field_Rel(
             "teamevents",
-                "teamname",
-                "eventid"
+
+            "teamname",
+            "eventid"
         );
 
-        $joinInsertion = new MySQL_Query_Capsule($selected_tables);
+        $teamEventSyringe = new MySQL_Query_Capsule($teameventsTable);
 
-        $insert = $joinInsertion->InsertValuesQuery(
+        $injection = $teamEventSyringe->InsertValuesQuery(
             "'$teamName', '$event'"
         );
 
-        consoleBug($insert);
+        consoleBug($injection);
 
         $dbc->PushQuery(
-            $insert
+            $injection
         );
 
         $response = $dbc->FlushStack();
 
         consoleBug($response);
 
-        if ($response) {
+        if ($response)
             for ($i = $size; $i > 0; --$i) {
                 if (
-                    validateRegNo($_POST["cReg-$i"]) &&
                     validateName($_POST["cName-$i"]) &&
-                    validateEmail($_POST["cEmail-$i"]) &&
-                    validatePhNo($_POST["cNumber-$i"]) &&
+                    validateRegNo($_POST["cReg-$i"]) &&
                     validateSem($_POST["cSem-$i"]) &&
-                    validateBranch($_POST["cBranch-$i"])
+                    validateBranch($_POST["cBranch-$i"]) &&
+                    validatePhNo($_POST["cNumber-$i"]) &&
+                    validateEmail($_POST["cEmail-$i"])
                 ) {
                     /*
                         Adding new user to register table
                     */
-                    $selected_tables = new Table_Field_Rel(
+                    $registerTable = new Table_Field_Rel(
                         "register",
 
                         "name",
@@ -416,82 +407,86 @@ function pushRegistration(): void
                         "email"
                     );
 
-                    $query = new MySQL_Query_Capsule($selected_tables);
+                    $userSyringe = new MySQL_Query_Capsule($registerTable);
 
-                    $userList = array("'" . $_POST["cName-$i"] . "'", "'" . $_POST["cReg-$i"] . "'", "'" . $_POST["cSem-$i"] . "'", "'" . $_POST["cBranch-$i"] . "'", "'" . $_POST["cNumber-$i"] . "'", "'" . $_POST["cEmail-$i"] . "'");
+                    $userList = array(
+                        "'" . $_POST["cName-$i"] . "'",
+                        "'" . $_POST["cReg-$i"] . "'",
+                        "'" . $_POST["cSem-$i"] . "'",
+                        "'" . $_POST["cBranch-$i"] . "'",
+                        "'" . $_POST["cNumber-$i"] . "'",
+                        "'" . $_POST["cEmail-$i"] . "'"
+                    );
 
-                    $insertion = $query->InsertValuesQuery(
+                    $injection = $userSyringe->InsertValuesQuery(
                         implode(",", $userList)
                     );
 
-                    consoleBug($insertion);
+                    consoleBug($injection);
 
                     $dbc->PushQuery(
-                        $insertion
+                        $injection
                     ); //relay for user info mismatch
 
-                    $return = $dbc->FlushStack();
-                    consoleBug($return);
-
-                    if (empty($return)) {
-                        consoleBug("registered failed: re-registeration is not allowed");
-                        return;
-                    }
+                    $response = $dbc->FlushStack();
+                    consoleBug($response);
                     /*
-                        Adding new user event entry in userevents table
+                        Adding new user event relation in userevents table
                     */
-                    $selected_tables = new Table_Field_Rel(
+                    $usereventsTable = new Table_Field_Rel(
                         "userevents",
-                            "regno",
-                            "eventid"
+
+                        "regno",
+                        "eventid"
                     );
 
-                    $joinInsertion = new MySQL_Query_Capsule($selected_tables);
-                    $regno = $_POST["cReg-$i"];
+                    $usereventsSyringe = new MySQL_Query_Capsule($usereventsTable);
+                    $regno = $userList[1];
 
-                    $insert = $joinInsertion->InsertValuesQuery(
+                    $injection = $usereventsSyringe -> InsertValuesQuery(
                         "'$regno','$event'"
                     );
 
-                    consoleBug($insert);
+                    consoleBug($injection);
 
-                    $dbc->PushQuery(
-                        $insert
+                    $dbc -> PushQuery(
+                        $injection
                     ); //relay for user event reregistration mismatch
 
-                    $return = $dbc->FlushStack();
-                    consoleBug($return);
+                    $response = $dbc->FlushStack();
+                    consoleBug($response);
 
-                    if (empty($return)) {
+                    if (! $response) {
                         consoleBug("registered failed: user reregistering for the event");
                         return;
                     }
+
                     /*
                         Adding new team user relation in teamusers table
                     */
-                    $selected_tables = new Table_Field_Rel(
+                    $teamusersTable = new Table_Field_Rel(
                         "userteams",
-                            "regno",
-                            "teamname"
+                        "regno",
+                        "teamname"
                     );
 
-                    $insertion = new MySQL_Query_Capsule($selected_tables);
+                    $teamusersSyringe = new MySQL_Query_Capsule($teamusersTable);
 
-                    $insert = $insertion->InsertValuesQuery(
+                    $injection = $teamusersSyringe -> InsertValuesQuery(
                         "'$regno','$teamName'"
                     );
 
-                    $dbc->PushQuery(
-                        $insert
+                    $dbc -> PushQuery(
+                        $injection
                     ); //relay for user reassignment to new team/same team
 
                     /*
-                        retrieving database response to query stack input
+                        Retrieving database response to query stack input
                     */
-                    $return = $dbc->FlushStack();
-                    consoleBug($return);
+                    $response = $dbc -> FlushStack();
+                    consoleBug($response);
 
-                    if (empty($return)) {
+                    if (! $response) {
                         consoleBug("registered failed: user already in a team");
                         return;
                     }
@@ -499,14 +494,13 @@ function pushRegistration(): void
                     consoleBug("registeration successful");
                 }
             }
-        }
         else {
             consoleBug("$teamName already registered for the event");
+            return;
         }
 
-        foreach ($_POST as $k => $v) {
+        foreach ($_POST as $k => $v)
             unset($_POST[$k]);
-        }
 
         //header("Location: http://127.0.0.1:58932/FrontEnd/index.html"); 
     }

@@ -383,14 +383,18 @@ function pushRegistration(): void
     $select = new Table_Field_Rel(
         "events",
 
-        "eventid",
-        "name",
-        "description",
-        "start",
-        "end"
+        "eventid", //0
+        "name", //1
+        "eventname", //2
+        "description", //3
+        "start", //4
+        "end", //5
+        "teamsize" //6
     );
 
     $query = new MySQL_Query_Capsule($select);
+    $query -> SetWhere("$0.0 == 1");
+
     consoleBug($query);
 
     $out = $dbc->RelayQuery($query);

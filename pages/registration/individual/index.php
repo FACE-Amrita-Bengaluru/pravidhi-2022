@@ -262,7 +262,7 @@ function validateRegNo(string $regno): bool
 
 function validateName(string $name): bool
 {
-    $valid = preg_match("/^[a-zA-Z]+( [a-zA-Z]+)?( [a-zA-Z]+)?$/", $name);
+    $valid = preg_match("/^[a-zA-Z]+( [a-zA-Z]+){0,2}$/", $name);
 
     if (!$valid)
         consoleBug("invalid name");
@@ -314,53 +314,53 @@ function pushRegistration(): void
     require_once "connect_to_db.php";
     require_once "query_capsule.php";
 
-    $select = new Table_Field_Rel(
+    $eventsTable = new Table_Field_Rel(
         "events",
 
-        "eventid", //0
-        "name", //1
-        "eventname", //2
-        "description", //3
-        "start", //4
-        "end", //5
-        "teamsize" //6
+            "eventid", //0
+            "name", //1
+            "eventname", //2
+            "description", //3
+            "start", //4
+            "end", //5
+            "teamsize" //6
     );
 
-    $query = new MySQL_Query_Capsule($select);
-    $query->SetWhere("$0.6 = 1");
+    $eventsFetch = new MySQL_Query_Capsule($eventsTable);
+    $queryFetch -> SetWhere("$0.6 = 1");
 
-    consoleBug($query);
+    consoleBug($queryFetch);
 
-    $out = $dbc->RelayQuery($query);
-    $a = array();
+    $queryResult = $dbc -> RelayQuery($queryFetch);
+    
+    $eventList = array();
 
-    foreach ($out as $key => $value) {
-        $b = array();
+    foreach ($queryResult as $_trivial => $value) {
+        $eventData = array();
 
-        foreach ($value as $k => $v) {
-            array_push($b, $v);
+        foreach ($value as $_trivial1 => $eventAttr) {
+            array_push($eventData, $eventAttr);
         }
-        array_push($a, $b);
+
+        array_push($eventList, $eventData);
     }
-    $_SESSION["index1"] = $a;
+
+    $_SESSION["index1"] = $eventList;
 
     if (count($_POST) > 0) {
 
-        $selected_tables = new Table_Field_Rel(
+        $registerTable = new Table_Field_Rel(
             "register",
 
-            "name",
-            "regno",
-            "sem",
-            "branch",
-            "phno",
-            "email"
-
+                "name",
+                "regno",
+                "sem",
+                "branch",
+                "phno",
+                "email"
         );
 
-        $query = new MySQL_Query_Capsule($selected_tables);
-
-        unset($_POST['login']);
+        $registerTableSyringe = new MySQL_Query_Capsule($registerTable);
 
         $event = $_POST['event'];
         unset($_POST['event']);
@@ -373,25 +373,34 @@ function pushRegistration(): void
             validateSem($_POST['sem']) &&
             validateBranch($_POST['branch'])
         ) {
-            foreach ($_POST as $k => $v) {
-                $_POST[$k] = "'" . $v . "'";
-                consoleBug("$k : " . $_POST[$k]);
-            }
-            $insertion = $query->InsertValuesQuery(
+
+            $userList = array(
+                "'" . $_POST['regno'] . "'",
+                "'" . $_POST['name'] . "'",
+                "'" . $_POST['email'] . "'",
+                "'" . $_POST['phno'] . "'",
+                "'" . $_POST['sem'] . "'",
+                "'" . $_POST['branch'] . "'"
+            );
+
+            $userSyringe = new 
+
+            $injection = $query -> InsertValuesQuery(
                 implode(",", $_POST)
             );
 
             consoleBug($insertion);
 
-            $dbc->PushQuery(
+            $dbc -> PushQuery(
                 $insertion
             );
             $return = $dbc->FlushStack();
             consoleBug($return);
             $selected_tables = new Table_Field_Rel(
                 "userevents",
-                "regno",
-                "eventid"
+              
+                    "regno",
+                    "eventid"
             );
 
             $joinInsertion =  new MySQL_Query_Capsule($selected_tables);
@@ -409,11 +418,6 @@ function pushRegistration(): void
 
             $return = $dbc->FlushStack();
             consoleBug($return);
-
-            if (empty($return)) {
-                consoleBug("registered failed: re-registeration is not allowed");
-                return;
-            }
 
             consoleBug("registeration successful");
         }

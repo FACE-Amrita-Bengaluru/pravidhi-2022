@@ -300,22 +300,22 @@ function pushRegistration(): void
     );
 
     $queryFetch = new MySQL_Query_Capsule($eventFetch);
-    $queryFetch->SetWhere("$0.6 > 1");
+    $queryFetch -> SetWhere("$0.6 > 1");
 
     consoleBug($queryFetch);
 
-    $queryResult = $dbc->RelayQuery($queryFetch);
+    $queryResult = $dbc -> RelayQuery($queryFetch);
 
     /* 
         Extracting event information and modifying/adding HTML tags
     */
     $eventList = array();
 
-    foreach ($queryResult as $_trivial => $value) {
+    foreach ($queryResult as $_trivial => $event) {
         $eventData = array();
 
-        foreach ($value as $k => $v)
-            array_push($eventData, $v);
+        foreach ($event as $_trivial1 => $eventAttr)
+            array_push($eventData, $eventAttr);
 
         array_push($eventList, $eventData);
     }
@@ -342,13 +342,13 @@ function pushRegistration(): void
         $event = $_POST['event'];
 
         $teamSyringe = new MySQL_Query_Capsule($teamsTable);
-        $injection = $teamSyringe->InsertValuesQuery("'$teamName'");
+        $injection = $teamSyringe -> InsertValuesQuery("'$teamName'");
 
         consoleBug($injection);
 
-        $dbc->PushQuery($injection);
+        $dbc -> PushQuery($injection);
 
-        $response = $dbc->FlushStack();
+        $response = $dbc -> FlushStack();
 
         consoleBug($response);
 
@@ -369,17 +369,17 @@ function pushRegistration(): void
 
         $teamEventSyringe = new MySQL_Query_Capsule($teameventsTable);
 
-        $injection = $teamEventSyringe->InsertValuesQuery(
+        $injection = $teamEventSyringe -> InsertValuesQuery(
             "'$teamName', '$event'"
         );
 
         consoleBug($injection);
 
-        $dbc->PushQuery(
+        $dbc -> PushQuery(
             $injection
         );
 
-        $response = $dbc->FlushStack();
+        $response = $dbc -> FlushStack();
 
         consoleBug($response);
 
@@ -424,11 +424,11 @@ function pushRegistration(): void
 
                     consoleBug($injection);
 
-                    $dbc->PushQuery(
+                    $dbc -> PushQuery(
                         $injection
                     ); //relay for user info mismatch
 
-                    $response = $dbc->FlushStack();
+                    $response = $dbc -> FlushStack();
                     consoleBug($response);
                     /*
                         Adding new user event relation in userevents table
@@ -453,7 +453,7 @@ function pushRegistration(): void
                         $injection
                     ); //relay for user event reregistration mismatch
 
-                    $response = $dbc->FlushStack();
+                    $response = $dbc -> FlushStack();
                     consoleBug($response);
 
                     if (! $response) {
@@ -478,7 +478,7 @@ function pushRegistration(): void
 
                     $dbc -> PushQuery(
                         $injection
-                    ); //relay for user reassignment to new team/same team
+                    ); //relay for user reassignment to same team
 
                     /*
                         Retrieving database response to query stack input

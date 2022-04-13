@@ -145,8 +145,8 @@
                                                 style="margin-top: 50px"
                                             >
                                                 <input
-                                                    name="cName"
-                                                    id="cName"
+                                                    name="teamSize"
+                                                    id="teamSize"
                                                     class="u-fullwidth team-size"
                                                     placeholder="Team Size"
                                                     value=""
@@ -356,10 +356,10 @@ function pushRegistration(): void
         }
         array_push($a, $b);
     }
+    
     $_SESSION["index1"] = $a;
 
     if (count($_POST) > 0) {
-
         $selected_tables = new Table_Field_Rel(
             "register",
 
@@ -369,7 +369,6 @@ function pushRegistration(): void
             "branch",
             "phno",
             "email"
-
         );
 
         $query = new MySQL_Query_Capsule($selected_tables);

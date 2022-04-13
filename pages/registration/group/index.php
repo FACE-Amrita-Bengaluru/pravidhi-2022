@@ -373,62 +373,97 @@ function pushRegistration(): void
 
         $query = new MySQL_Query_Capsule($selected_tables);
 
-        unset($_POST['login']);
+        foreach($_POST as $k => $v)
+            consoleBug("$k:$v");
 
-        $event = $_POST['event'];
-        unset($_POST['event']);
+        $size = $_POST['teamSize'];
 
-        if (
-            validateRegNo($_POST['regno']) &&
-            validateName($_POST['name']) &&
-            validateEmail($_POST['email']) &&
-            validatePhNo($_POST['phno']) &&
-            validateSem($_POST['sem']) &&
-            validateBranch($_POST['branch'])
-        ) {
-            foreach ($_POST as $k => $v) {
-                $_POST[$k] = "'" . $v . "'";
-                consoleBug("$k : " . $_POST[$k]);
-            }
-            $insertion = $query->InsertValuesQuery(
-                implode(",", $_POST)
-            );
+        $teamID = 0;
 
-            consoleBug($insertion);
-
-            $dbc->PushQuery(
-                $insertion
-            );
-            $return = $dbc->FlushStack();
-            consoleBug($return);
-            $selected_tables = new Table_Field_Rel(
-                "userevents",
-                "regno",
+        $selected_tables = new Table_Field_Rel(
+            "teamevent",
+                "teamid",
                 "eventid"
-            );
+        );
 
-            $joinInsertion =  new MySQL_Query_Capsule($selected_tables);
-            $regno = $_POST['regno'];
+        $joinInsertion = new MySQL_Query_Capsule($selected_tables);
+        
+        $insert = $joinInsertion->InsertValuesQuery(
+            "$teamID, $event"
+        );
 
-            $insert = $joinInsertion->InsertValuesQuery(
-                "$regno,'$event'"
-            );
+        consoleBug($insert);
 
-            consoleBug($insert);
+        $dbc->PushQuery(
+            $insert
+        );
 
-            $dbc->PushQuery(
-                $insert
-            );
+        for ($i = $size; $i > 0; --$i) {
+            if (
+                validateRegNo($_POST["cReg-$i"]) &&
+                validateName($_POST["cName-$i"]) &&
+                validateEmail($_POST["cEmail-$i"]) &&
+                validatePhNo($_POST["cNumber-$i"]) &&
+                validateSem($_POST["cSem-$i"]) &&
+                validateBranch($_POST["cBranch-$i"])
+            ) {
+                $insertion = $query->InsertValuesQuery(
+                    implode(",", $_POST)
+                );
 
-            $return = $dbc->FlushStack();
-            consoleBug($return);
+                consoleBug($insertion);
 
-            if (empty($return)) {
-                consoleBug("registered failed: re-registeration is not allowed");
-                return;
+                $dbc->PushQuery(
+                    $insertion
+                );
+                $return = $dbc->FlushStack();
+                consoleBug($return);
+
+                $selected_tables = new Table_Field_Rel(
+                    "userevents",
+                        "regno",
+                        "eventid"
+                );
+
+                $joinInsertion = new MySQL_Query_Capsule($selected_tables);
+                $regno = $_POST["cReg-$i"];
+
+                $insert = $joinInsertion->InsertValuesQuery(
+                    "$regno,'$event'"
+                );
+
+                consoleBug($insert);
+
+                $dbc->PushQuery(
+                    $insert
+                );
+
+                $selected_tables = new Table_Field_Rel(
+                    "teams",
+                        "regno",
+                        "teamid"
+                );
+
+                $insertion = new MySQL_Query_Capsule($selected_tables);
+
+                $insert = $insertion->InsertValuesQuery(
+                    "$regno,$teamid"
+                );
+
+                $dbc->PushQuery(
+                    $insert
+                );
+
+                $return = $dbc->FlushStack();
+                consoleBug($return);
+
+                if (empty($return)) {
+                    consoleBug("registered failed: re-registeration is not allowed");
+                    return;
+                }
+
+                consoleBug("registeration successful");
             }
-
-            consoleBug("registeration successful");
         }
 
         foreach ($_POST as $k => $v) {

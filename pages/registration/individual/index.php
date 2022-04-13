@@ -326,7 +326,7 @@ function pushRegistration(): void
             "teamsize" //6
     );
 
-    $eventsFetch = new MySQL_Query_Capsule($eventsTable);
+    $queryFetch = new MySQL_Query_Capsule($eventsTable);
     $queryFetch -> SetWhere("$0.6 = 1");
 
     consoleBug($queryFetch);

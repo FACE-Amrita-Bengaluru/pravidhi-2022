@@ -327,7 +327,7 @@ function pushRegistration(): void
     );
 
     $query = new MySQL_Query_Capsule($select);
-    $query->SetWhere("$0.6 == 1");
+    $query->SetWhere("$0.6 = 1");
 
     consoleBug($query);
 

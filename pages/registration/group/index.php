@@ -122,9 +122,30 @@
                                             </div>
                                         </div>
 
-                                        <div class="column lg-12 form-field team-size-input" style="margin-top: 50px">
-                                            <input name="teamSize" id="teamSize" class="u-fullwidth team-size" placeholder="Team Size" value="" type="text" />
-                                        </div>
+                                        <div class="column lg-12 form-field team-size-input">
+                                                <input
+                                                    name="cTeamName"
+                                                    id="cTeamName"
+                                                    class="u-fullwidth"
+                                                    placeholder="Team Name"
+                                                    value=""
+                                                    type="text"
+                                                />
+                                            </div>
+
+                                            <div
+                                                class="column lg-12 form-field team-size-input"
+                                                style="margin-top: 50px"
+                                            >
+                                                <input
+                                                    name="cTeamSize"
+                                                    id="cTeamSize"
+                                                    class="u-fullwidth team-size"
+                                                    placeholder="Team Size"
+                                                    value=""
+                                                    type="text"
+                                                />
+                                            </div>
 
                                         <div class="column lg-12">
                                             <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large u-fullwidth" value="Register" type="submit" />
@@ -322,7 +343,7 @@ function pushRegistration(): void
         foreach ($_POST as $k => $v)
             consoleBug("$k:$v");
 
-        $size = $_POST['teamSize'];
+        $size = $_POST['cTeamSize'];
 
         /*
             Adding new team to teams table
@@ -333,10 +354,18 @@ function pushRegistration(): void
         );
 
         $teamName = $_POST['cTeamName'];
+        $event = $_POST['event'];
 
         $insertion = new MySQL_Query_Capsule($selected_tables);
         $insert = $insertion->InsertValuesQuery("'$teamName'");
+        
+        consoleBug($insert);
+        
         $dbc->PushQuery($insert);
+        
+        $response = $dbc->FlushStack();
+
+        consoleBug($response);
 
         /*
             Adding new teamevent entry in teamevents table
@@ -350,7 +379,7 @@ function pushRegistration(): void
         $joinInsertion = new MySQL_Query_Capsule($selected_tables);
 
         $insert = $joinInsertion->InsertValuesQuery(
-            "$teamID, $event"
+            "'$teamName', '$event'"
         );
 
         consoleBug($insert);
@@ -360,6 +389,8 @@ function pushRegistration(): void
         );
 
         $response = $dbc->FlushStack();
+
+        consoleBug($response);
 
         if ($response) {
             for ($i = $size; $i > 0; --$i) {
@@ -387,8 +418,10 @@ function pushRegistration(): void
 
                     $query = new MySQL_Query_Capsule($selected_tables);
 
+                    $userList = array("'" . $_POST["cName-$i"] . "'", "'" . $_POST["cReg-$i"] . "'", "'" . $_POST["cSem-$i"] . "'", "'" . $_POST["cBranch-$i"] . "'", "'" . $_POST["cNumber-$i"] . "'", "'" . $_POST["cEmail-$i"] . "'");
+
                     $insertion = $query->InsertValuesQuery(
-                        implode(",", $_POST)
+                        implode(",", $userList)
                     );
 
                     consoleBug($insertion);
@@ -397,6 +430,13 @@ function pushRegistration(): void
                         $insertion
                     ); //relay for user info mismatch
 
+                    $return = $dbc->FlushStack();
+                    consoleBug($return);
+
+                    if (empty($return)) {
+                        consoleBug("registered failed: re-registeration is not allowed");
+                        return;
+                    }
                     /*
                         Adding new user event entry in userevents table
                     */
@@ -410,7 +450,7 @@ function pushRegistration(): void
                     $regno = $_POST["cReg-$i"];
 
                     $insert = $joinInsertion->InsertValuesQuery(
-                        "$regno,'$event'"
+                        "'$regno','$event'"
                     );
 
                     consoleBug($insert);
@@ -419,6 +459,13 @@ function pushRegistration(): void
                         $insert
                     ); //relay for user event reregistration mismatch
 
+                    $return = $dbc->FlushStack();
+                    consoleBug($return);
+
+                    if (empty($return)) {
+                        consoleBug("registered failed: user reregistering for the event");
+                        return;
+                    }
                     /*
                         Adding new team user relation in teamusers table
                     */
@@ -431,7 +478,7 @@ function pushRegistration(): void
                     $insertion = new MySQL_Query_Capsule($selected_tables);
 
                     $insert = $insertion->InsertValuesQuery(
-                        "$regno,'$teamname'"
+                        "'$regno','$teamName'"
                     );
 
                     $dbc->PushQuery(
@@ -445,7 +492,7 @@ function pushRegistration(): void
                     consoleBug($return);
 
                     if (empty($return)) {
-                        consoleBug("registered failed: re-registeration is not allowed");
+                        consoleBug("registered failed: user already in a team");
                         return;
                     }
 

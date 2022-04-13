@@ -444,7 +444,7 @@ function pushRegistration(): void
                     $regno = $userList[1];
 
                     $injection = $usereventsSyringe -> InsertValuesQuery(
-                        "'$regno','$event'"
+                        "$regno,'$event'"
                     );
 
                     consoleBug($injection);
@@ -473,7 +473,7 @@ function pushRegistration(): void
                     $teamusersSyringe = new MySQL_Query_Capsule($teamusersTable);
 
                     $injection = $teamusersSyringe -> InsertValuesQuery(
-                        "'$regno','$teamName'"
+                        "$regno,'$teamName'"
                     );
 
                     $dbc -> PushQuery(

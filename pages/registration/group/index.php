@@ -232,7 +232,7 @@ function validateRegNo(string $regno): bool
 
 function validateName(string $name): bool
 {
-    $valid = preg_match("/^[a-zA-Z]+( [a-zA-Z]+)?( [a-zA-Z]+)?$/", $name);
+    $valid = preg_match("/^[a-zA-Z]+( [a-zA-Z]+){0,2}$/", $name);
 
     if (!$valid)
         consoleBug("invalid name");
@@ -300,11 +300,11 @@ function pushRegistration(): void
     );
 
     $queryFetch = new MySQL_Query_Capsule($eventFetch);
-    $queryFetch -> SetWhere("$0.6 > 1");
+    $queryFetch->SetWhere("$0.6 > 1");
 
     consoleBug($queryFetch);
 
-    $queryResult = $dbc -> RelayQuery($queryFetch);
+    $queryResult = $dbc->RelayQuery($queryFetch);
 
     /* 
         Extracting event information and modifying/adding HTML tags
@@ -342,13 +342,13 @@ function pushRegistration(): void
         $event = $_POST['event'];
 
         $teamSyringe = new MySQL_Query_Capsule($teamsTable);
-        $injection = $teamSyringe -> InsertValuesQuery("'$teamName'");
+        $injection = $teamSyringe->InsertValuesQuery("'$teamName'");
 
         consoleBug($injection);
 
-        $dbc -> PushQuery($injection);
+        $dbc->PushQuery($injection);
 
-        $response = $dbc -> FlushStack();
+        $response = $dbc->FlushStack();
 
         consoleBug($response);
 
@@ -369,17 +369,17 @@ function pushRegistration(): void
 
         $teamEventSyringe = new MySQL_Query_Capsule($teameventsTable);
 
-        $injection = $teamEventSyringe -> InsertValuesQuery(
+        $injection = $teamEventSyringe->InsertValuesQuery(
             "'$teamName', '$event'"
         );
 
         consoleBug($injection);
 
-        $dbc -> PushQuery(
+        $dbc->PushQuery(
             $injection
         );
 
-        $response = $dbc -> FlushStack();
+        $response = $dbc->FlushStack();
 
         consoleBug($response);
 
@@ -424,11 +424,11 @@ function pushRegistration(): void
 
                     consoleBug($injection);
 
-                    $dbc -> PushQuery(
+                    $dbc->PushQuery(
                         $injection
                     ); //relay for user info mismatch
 
-                    $response = $dbc -> FlushStack();
+                    $response = $dbc->FlushStack();
                     consoleBug($response);
                     /*
                         Adding new user event relation in userevents table
@@ -443,20 +443,20 @@ function pushRegistration(): void
                     $usereventsSyringe = new MySQL_Query_Capsule($usereventsTable);
                     $regno = $userList[1];
 
-                    $injection = $usereventsSyringe -> InsertValuesQuery(
+                    $injection = $usereventsSyringe->InsertValuesQuery(
                         "'$regno','$event'"
                     );
 
                     consoleBug($injection);
 
-                    $dbc -> PushQuery(
+                    $dbc->PushQuery(
                         $injection
                     ); //relay for user event reregistration mismatch
 
-                    $response = $dbc -> FlushStack();
+                    $response = $dbc->FlushStack();
                     consoleBug($response);
 
-                    if (! $response) {
+                    if (!$response) {
                         consoleBug("registered failed: user reregistering for the event");
                         return;
                     }
@@ -472,21 +472,21 @@ function pushRegistration(): void
 
                     $teamusersSyringe = new MySQL_Query_Capsule($teamusersTable);
 
-                    $injection = $teamusersSyringe -> InsertValuesQuery(
+                    $injection = $teamusersSyringe->InsertValuesQuery(
                         "'$regno','$teamName'"
                     );
 
-                    $dbc -> PushQuery(
+                    $dbc->PushQuery(
                         $injection
                     ); //relay for user reassignment to same team
 
                     /*
                         Retrieving database response to query stack input
                     */
-                    $response = $dbc -> FlushStack();
+                    $response = $dbc->FlushStack();
                     consoleBug($response);
 
-                    if (! $response) {
+                    if (!$response) {
                         consoleBug("registered failed: user already in a team");
                         return;
                     }

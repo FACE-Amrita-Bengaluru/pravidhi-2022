@@ -418,17 +418,17 @@ function pushRegistration(): void
                         "'" . $_POST["cEmail-$i"] . "'"
                     );
 
-                    $injection = $userSyringe->InsertValuesQuery(
+                    $injection = $userSyringe -> InsertValuesQuery(
                         implode(",", $userList)
                     );
 
                     consoleBug($injection);
 
-                    $dbc->PushQuery(
+                    $dbc -> PushQuery(
                         $injection
                     ); //relay for user info mismatch
 
-                    $response = $dbc->FlushStack();
+                    $response = $dbc -> FlushStack();
                     consoleBug($response);
                     /*
                         Adding new user event relation in userevents table
@@ -443,17 +443,17 @@ function pushRegistration(): void
                     $usereventsSyringe = new MySQL_Query_Capsule($usereventsTable);
                     $regno = $userList[1];
 
-                    $injection = $usereventsSyringe->InsertValuesQuery(
+                    $injection = $usereventsSyringe -> InsertValuesQuery(
                         "'$regno','$event'"
                     );
 
                     consoleBug($injection);
 
-                    $dbc->PushQuery(
+                    $dbc -> PushQuery(
                         $injection
                     ); //relay for user event reregistration mismatch
 
-                    $response = $dbc->FlushStack();
+                    $response = $dbc -> FlushStack();
                     consoleBug($response);
 
                     if (!$response) {
@@ -472,18 +472,18 @@ function pushRegistration(): void
 
                     $teamusersSyringe = new MySQL_Query_Capsule($teamusersTable);
 
-                    $injection = $teamusersSyringe->InsertValuesQuery(
+                    $injection = $teamusersSyringe -> InsertValuesQuery(
                         "'$regno','$teamName'"
                     );
 
-                    $dbc->PushQuery(
+                    $dbc -> PushQuery(
                         $injection
                     ); //relay for user reassignment to same team
 
                     /*
                         Retrieving database response to query stack input
                     */
-                    $response = $dbc->FlushStack();
+                    $response = $dbc -> FlushStack();
                     consoleBug($response);
 
                     if (!$response) {

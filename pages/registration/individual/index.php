@@ -255,7 +255,7 @@ function validateRegNo(string $regno): bool
     $valid = preg_match("/^BL\.EN\.U4\.(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}$/", $regno);
 
     if (!$valid)
-        consoleBug("invalid registeration number");
+        consoleBug("invalid registration number");
 
     return $valid;
 }
@@ -383,10 +383,9 @@ function pushRegistration(): void
                 "'" . $_POST['branch'] . "'"
             );
 
-            $userSyringe = new 
 
-            $injection = $query -> InsertValuesQuery(
-                implode(",", $_POST)
+            $injection = $registerTableSyringe -> InsertValuesQuery(
+                implode(",", $userList)
             );
 
             consoleBug($insertion);
@@ -394,32 +393,34 @@ function pushRegistration(): void
             $dbc -> PushQuery(
                 $insertion
             );
-            $return = $dbc->FlushStack();
-            consoleBug($return);
-            $selected_tables = new Table_Field_Rel(
+
+            $response = $dbc -> FlushStack();
+            consoleBug($response);
+            
+            $usereventsTable = new Table_Field_Rel(
                 "userevents",
               
                     "regno",
                     "eventid"
             );
 
-            $joinInsertion =  new MySQL_Query_Capsule($selected_tables);
+            $usereventsSyringe =  new MySQL_Query_Capsule($usereventsTable);
             $regno = $_POST['regno'];
 
-            $insert = $joinInsertion->InsertValuesQuery(
-                "$regno,'$event'"
+            $injection = $usereventsSyringe -> InsertValuesQuery(
+                "'$regno','$event'"
             );
 
-            consoleBug($insert);
+            consoleBug($injection);
 
-            $dbc->PushQuery(
-                $insert
+            $dbc -> PushQuery(
+                $injection
             );
 
-            $return = $dbc->FlushStack();
-            consoleBug($return);
+            $response = $dbc -> FlushStack();
+            consoleBug($response);
 
-            consoleBug("registeration successful");
+            consoleBug("registration successful");
         }
 
         foreach ($_POST as $k => $v) {

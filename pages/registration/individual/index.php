@@ -261,8 +261,11 @@ function validatePhNo(string $phno): bool
 }
 function pushRegistration(): void
 {
-    require_once "connect_to_db.php";
-    require_once "query_capsule.php";
+    $_INCLUDE_DIR = $_SERVER['DOCUMENT_ROOT'] . "/../../../includes/"; 
+    require_once $_INCLUDE_DIR . "connect_to_db.php";
+    require_once $_INCLUDE_DIR . "query_capsule.php";
+    // require_once $_INCLUDE_DIR . "validation.php";
+
     $select = new Table_Field_Rel(
         "events",
         "eventid", //0

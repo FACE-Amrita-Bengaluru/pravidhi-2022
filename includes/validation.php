@@ -2,7 +2,7 @@
     class Validate {
         public static function RegNo(string $regno): bool
         {
-            $valid = preg_match("/^BL\.EN\.U4\.(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}$/", $regno);
+            $valid = preg_match("/^BL\.EN\.U4(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}$/", $regno);
     
             if (!$valid)
                 consoleBug("invalid registeration number");
@@ -63,7 +63,7 @@
     function validateRegNo(string $regno): bool
     {
         return true;
-        $valid = preg_match("/^BL\.EN\.U4\.(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}$/", $regno);
+        $valid = preg_match("/^BL\.EN\.U4(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}$/", $regno);
 
         if (!$valid)
             consoleBug("invalid registeration number");

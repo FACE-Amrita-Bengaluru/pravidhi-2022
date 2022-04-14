@@ -1,5 +1,9 @@
 <!DOCTYPE html>
+<?php
+session_start();
+?>
 <html lang="en" class="no-js">
+
 <head>
     <!--- basic page needs
     ================================================== -->
@@ -21,6 +25,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="./../../../images/favicon-16x16.png" />
     <link rel="manifest" href="./../../../site.webmanifest" />
 </head>
+
 <body id="top">
     <!-- preloader
     ================================================== -->
@@ -93,10 +98,9 @@
                                                 <select class="u-fullwidth" name="event" id="sampleRecipientInput">
                                                     <option value="" hidden>Events</option>
                                                     <?php
-                                                    session_start();
                                                     $i = 0;
                                                     foreach ($_SESSION["index1"] as $k => $v) {
-                                                        echo ('<option value=' . "'" . $v[0] . "'" . '>' . $v[2].' - '.$v[1] . '</option>');
+                                                        echo ('<option value=' . "'" . $v[0] . "'" . '>' . $v[2] . ' - ' . $v[1] . '</option>');
                                                         $i = $i + 1;
                                                     }
                                                     ?>
@@ -214,57 +218,14 @@
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>
 <?php
-function validateRegNo(string $regno): bool
-{
-    return true;
-    $valid = preg_match("/^BL\.EN\.U4\.(CSE|AIE|EAC|ECE|EEE|MEE)(19|20)[0-9]{3}$/", $regno);
-    if (!$valid)
-        consoleBug("invalid registeration number");
-    return $valid;
-}
-function validateName(string $name): bool
-{
-    $valid = preg_match("/^[a-zA-Z]+( [a-zA-Z]+)?( [a-zA-Z]+)?$/", $name);
-    if (!$valid)
-        consoleBug("invalid name");
-    return $valid;
-}
-function validateSem(string $sem): bool
-{
-    $valid = preg_match("/^4|6$/", $sem);
-    if (!$valid)
-        consoleBug("invalid semester");
-    return $valid;
-}
-function validateBranch(string $branch): bool
-{
-    $valid = preg_match("/^CSE|AIE|EAC|ECE|EEE|MEE$/", $branch);
-    if (!$valid)
-        consoleBug("invalid branch");
-    return $valid;
-}
-function validateEmail(string $email): bool
-{
-    $valid = preg_match("/^([a-zA-Z_][a-zA-Z0-9_]*\.)*([a-zA-Z_][a-zA-Z0-9_]*)\@([a-zA-Z_][a-zA-Z0-9_]*\.)*[a-z]{2,3}$/", $email);
-    if (!$valid)
-        consoleBug("invalid email");
-    return $valid;
-}
-function validatePhNo(string $phno): bool
-{
-    $valid = preg_match("/^[0-9]{10}$/", $phno);
-    if (!$valid)
-        consoleBug("invalid phone number");
-    return $valid;
-}
+
 function pushRegistration(): void
 {
-    $_INCLUDE_DIR = $_SERVER['DOCUMENT_ROOT'] . "/../../../includes/"; 
-    require_once $_INCLUDE_DIR . "connect_to_db.php";
-    require_once $_INCLUDE_DIR . "query_capsule.php";
-    // require_once $_INCLUDE_DIR . "validation.php";
+    $_INCLUDE_DIR = $_SERVER['DOCUMENT_ROOT'] . '/pravidhi-2022/includes/';
+    require_once $_INCLUDE_DIR . 'dependencies.php';
 
     $select = new Table_Field_Rel(
         "events",
@@ -282,73 +243,127 @@ function pushRegistration(): void
 
     consoleBug($query);
 
-    $out = $dbc->RelayQuery($query);
+    try {
+        $out = $dbc->RelayQuery($query);
+    } catch (Exception $e) {
+    }
+
     $a = array();
-    foreach ($out as $key => $value) {
+
+    foreach ($out as $_trivial => $value) {
         $b = array();
-        foreach ($value as $k => $v) {
+
+        foreach ($value as $_trivial1 => $v)
             array_push($b, $v);
-        }
+
         array_push($a, $b);
     }
+
     $_SESSION["index1"] = $a;
+
     if (count($_POST) > 0) {
         $selected_tables = new Table_Field_Rel(
             "register",
-            "name",
+
             "regno",
+            "name",
             "sem",
             "branch",
             "phno",
             "email"
         );
+
         $query = new MySQL_Query_Capsule($selected_tables);
-        unset($_POST['login']);
         $event = $_POST['event'];
-        unset($_POST['event']);
+
         if (
-            validateRegNo($_POST['regno']) &&
-            validateName($_POST['name']) &&
-            validateEmail($_POST['email']) &&
-            validatePhNo($_POST['phno']) &&
-            validateSem($_POST['sem']) &&
-            validateBranch($_POST['branch'])
+            Validate::RegNo($_POST['regno']) &&
+            Validate::Name($_POST['name']) &&
+            Validate::Sem($_POST['sem']) &&
+            Validate::Branch($_POST['branch']) &&
+            Validate::PhNo($_POST['phno']) &&
+            Validate::Email($_POST['email'])
         ) {
-            foreach ($_POST as $k => $v) {
-                $_POST[$k] = "'" . $v . "'";
-                consoleBug("$k : " . $_POST[$k]);
-            }
-            $insertion = $query->InsertValuesQuery(
-                implode(",", $_POST)
+            $userList = array(
+                "'" . $_POST['regno'] . "'",
+                "'" . $_POST['name'] . "'",
+                "'" . $_POST['sem'] . "'",
+                "'" . $_POST['branch'] . "'",
+                "'" . $_POST['phno'] . "'",
+                "'" . $_POST['email'] . "'"
             );
+
+            $insertion = $query->InsertValuesQuery(
+                implode(",", $userList)
+            );
+
             consoleBug($insertion);
+
             $dbc->PushQuery(
                 $insertion
             );
-            $return = $dbc->FlushStack();
-            consoleBug($return);
+            
+            try {
+                $return = $dbc->FlushStack();
+                consoleBug($return);
+            } catch(Exception $e) {
+                consoleBug($e -> getMessage());
+
+                $regno = $userList[0];
+                $query->SetWhere("$0.0 = $regno");
+                consoleBug($query);
+                try {
+                    $authentic = $dbc->RelayQuery($query);
+                } catch (Exception $e) {
+                    consoleBug($e -> getMessage());
+                    throwAlert('One/More of the given details is/are being used by other users. Try again please');
+                }
+
+                foreach ($authentic as $_trivial => $event) {
+                    $i = 0;
+
+                    foreach ($event as $_trivial1 => $eventAttr) {
+                        if ("'" . $eventAttr . "'" != $userList[$i++]) {
+                            throwAlert("User details inconsistent with previous entries");
+                            consoleBug($eventAttr . '!=' . $userList[$i - 1]);
+                            die('goodbye cruel world');
+                        }
+                    }
+                }
+                
+                consoleBug("user already registered, ignoring entry");
+            }
+
             $selected_tables = new Table_Field_Rel(
                 "userevents",
-                "regno",
-                "eventid"
+                    "regno",
+                    "eventid"
             );
+
             $joinInsertion =  new MySQL_Query_Capsule($selected_tables);
-            $regno = $_POST['regno'];
+
+            $regno = $userList[0];
+
             $insert = $joinInsertion->InsertValuesQuery(
                 "$regno,'$event'"
             );
             consoleBug($insert);
+
             $dbc->PushQuery(
                 $insert
             );
-            $return = $dbc->FlushStack();
-            consoleBug($return);
-            if (empty($return)) {
-                consoleBug("registered failed: re-registeration is not allowed");
+
+            try{
+                $return = $dbc->FlushStack();
+            } catch (Exception $e) {
+                throwAlert("registration failed: you have already registered for this event");
+                consoleBug($e -> getMessage());
                 return;
             }
+
             consoleBug("registeration successful");
         }
+
         foreach ($_POST as $k => $v) {
             unset($_POST[$k]);
         }
@@ -356,3 +371,4 @@ function pushRegistration(): void
     }
 }
 pushRegistration();
+?>

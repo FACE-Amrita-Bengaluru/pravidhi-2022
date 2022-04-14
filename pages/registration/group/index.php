@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php
+    session_start();
+?>
+
 <html lang="en" class="no-js">
 
 <head>
@@ -107,7 +111,6 @@
                                                 <select class="u-fullwidth" name="event" id="sampleRecipientInput">
                                                     <option value="" hidden>Events</option>
                                                     <?php
-                                                    session_start();
                                                     $i = 0;
 
                                                     foreach ($_SESSION["index1"] as $k => $v) {
@@ -221,10 +224,8 @@
 
 function pushRegistration(): void
 {
-    $_INCLUDE_DIR = $_SERVER['DOCUMENT_ROOT'] . "/../../../includes/";
-    require_once $_INCLUDE_DIR . "connect_to_db.php";
-    require_once $_INCLUDE_DIR . "query_capsule.php";
-    // require_once $_INCLUDE_DIR . "validation.php";
+    $_INCLUDE_DIR = $_SERVER['DOCUMENT_ROOT'] . '/pravidhi-2022/includes/';
+    require_once $_INCLUDE_DIR . 'dependencies.php';
 
     /*
         Fetching group event details for selection
@@ -232,13 +233,13 @@ function pushRegistration(): void
     $eventFetch = new Table_Field_Rel(
         "events",
 
-        "eventid", //0
-        "name", //1
-        "eventname", //2
-        "description", //3
-        "start", //4
-        "end", //5
-        "teamsize" //6
+            "eventid", //0
+            "name", //1
+            "eventname", //2
+            "description", //3
+            "start", //4
+            "end", //5
+            "teamsize" //6
     );
 
     $queryFetch = new MySQL_Query_Capsule($eventFetch);
@@ -246,8 +247,12 @@ function pushRegistration(): void
 
     consoleBug($queryFetch);
 
-    $queryResult = $dbc->RelayQuery($queryFetch);
-
+    try { 
+        $queryResult = $dbc->RelayQuery($queryFetch);
+    } catch (Exception $e) {
+        consoleBug($e -> getMessage());
+    }
+    
     /* 
         Extracting event information and modifying/adding HTML tags
     */
@@ -290,12 +295,11 @@ function pushRegistration(): void
 
         $dbc->PushQuery($injection);
 
-        $response = $dbc->FlushStack();
-
-        consoleBug($response);
-
-        if (!$response) {
-            consoleBug("Team name already taken. Please try again");
+        try {
+            $response = $dbc->FlushStack();
+        } catch (Exception $e) {
+            throwAlert("Team name already taken. Please try again");
+            consoleBug($e -> getMessage());
             return;
         }
 
@@ -321,125 +325,153 @@ function pushRegistration(): void
             $injection
         );
 
-        $response = $dbc->FlushStack();
-
-        consoleBug($response);
-
-        if ($response)
-            for ($i = $size; $i > 0; --$i) {
-                if (
-                    validateName($_POST["cName-$i"]) &&
-                    validateRegNo($_POST["cReg-$i"]) &&
-                    validateSem($_POST["cSem-$i"]) &&
-                    validateBranch($_POST["cBranch-$i"]) &&
-                    validatePhNo($_POST["cNumber-$i"]) &&
-                    validateEmail($_POST["cEmail-$i"])
-                ) {
-                    /*
-                        Adding new user to register table
-                    */
-                    $registerTable = new Table_Field_Rel(
-                        "register",
-
-                        "name",
-                        "regno",
-                        "sem",
-                        "branch",
-                        "phno",
-                        "email"
-                    );
-
-                    $userSyringe = new MySQL_Query_Capsule($registerTable);
-
-                    $userList = array(
-                        "'" . $_POST["cName-$i"] . "'",
-                        "'" . $_POST["cReg-$i"] . "'",
-                        "'" . $_POST["cSem-$i"] . "'",
-                        "'" . $_POST["cBranch-$i"] . "'",
-                        "'" . $_POST["cNumber-$i"] . "'",
-                        "'" . $_POST["cEmail-$i"] . "'"
-                    );
-
-                    $injection = $userSyringe -> InsertValuesQuery(
-                        implode(",", $userList)
-                    );
-
-                    consoleBug($injection);
-
-                    $dbc -> PushQuery(
-                        $injection
-                    ); //relay for user info mismatch
-
-                    $response = $dbc -> FlushStack();
-                    consoleBug($response);
-                    /*
-                        Adding new user event relation in userevents table
-                    */
-                    $usereventsTable = new Table_Field_Rel(
-                        "userevents",
-
-                        "regno",
-                        "eventid"
-                    );
-
-                    $usereventsSyringe = new MySQL_Query_Capsule($usereventsTable);
-                    $regno = $userList[1];
-
-                    $injection = $usereventsSyringe -> InsertValuesQuery(
-                        "$regno,'$event'"
-                    );
-
-                    consoleBug($injection);
-
-                    $dbc -> PushQuery(
-                        $injection
-                    ); //relay for user event reregistration mismatch
-
-                    $response = $dbc -> FlushStack();
-                    consoleBug($response);
-
-                    if (!$response) {
-                        consoleBug("registered failed: user reregistering for the event");
-                        return;
-                    }
-
-                    /*
-                        Adding new team user relation in teamusers table
-                    */
-                    $teamusersTable = new Table_Field_Rel(
-                        "userteams",
-                        "regno",
-                        "teamname"
-                    );
-
-                    $teamusersSyringe = new MySQL_Query_Capsule($teamusersTable);
-
-                    $injection = $teamusersSyringe -> InsertValuesQuery(
-                        "$regno,'$teamName'"
-                    );
-
-                    $dbc -> PushQuery(
-                        $injection
-                    ); //relay for user reassignment to same team
-
-                    /*
-                        Retrieving database response to query stack input
-                    */
-                    $response = $dbc -> FlushStack();
-                    consoleBug($response);
-
-                    if (!$response) {
-                        consoleBug("registered failed: user already in a team");
-                        return;
-                    }
-
-                    consoleBug("registeration successful");
-                }
-            }
-        else {
-            consoleBug("$teamName already registered for the event");
+        try {
+            $response = $dbc->FlushStack();
+        } catch (Exception $e) {
+            throwAlert("$teamName already registered for the event");
+            consoleBug($e -> getMessage());
             return;
         }
+
+        for ($i = $size; $i > 0; --$i)
+            if (
+                Validate::Name($_POST["cName-$i"]) &&
+                Validate::RegNo($_POST["cReg-$i"]) &&
+                Validate::Sem($_POST["cSem-$i"]) &&
+                Validate::Branch($_POST["cBranch-$i"]) &&
+                Validate::PhNo($_POST["cNumber-$i"]) &&
+                Validate::Email($_POST["cEmail-$i"])
+            ) {
+                /*
+                    Adding new user to register table
+                */
+                $registerTable = new Table_Field_Rel(
+                    "register",
+
+                    "name",
+                    "regno",
+                    "sem",
+                    "branch",
+                    "phno",
+                    "email"
+                );
+
+                $userSyringe = new MySQL_Query_Capsule($registerTable);
+
+                $userList = array(
+                    "'" . $_POST["cName-$i"] . "'",
+                    "'" . $_POST["cReg-$i"] . "'",
+                    "'" . $_POST["cSem-$i"] . "'",
+                    "'" . $_POST["cBranch-$i"] . "'",
+                    "'" . $_POST["cNumber-$i"] . "'",
+                    "'" . $_POST["cEmail-$i"] . "'"
+                );
+
+                $injection = $userSyringe -> InsertValuesQuery(
+                    implode(",", $userList)
+                );
+
+                consoleBug($injection);
+
+                $dbc -> PushQuery(
+                    $injection
+                ); //relay for user info mismatch
+
+                
+                try {
+                    $response = $dbc->FlushStack();
+                } catch(Exception $e) {
+                    consoleBug($e -> getMessage());
+
+                    $regno = $userList[1];
+                    $userSyringe->SetWhere("$0.0 = $regno");
+                    consoleBug($userSyringe);
+
+                    try {
+                        $authentic = $dbc->RelayQuery($userSyringe);
+
+                        foreach ($authentic as $_trivial => $event) {
+                            $i = 0;
+    
+                            foreach ($event as $_trivial1 => $eventAttr) {
+                                if ("'" . $eventAttr . "'" != $userList[$i++]) {
+                                    throwAlert("User details inconsistent with previous entries");
+                                    consoleBug($eventAttr . '!=' . $userList[$i - 1]);
+                                    die('goodbye cruel world');
+                                }
+                            }
+                        }
+                    
+                        consoleBug("User already registered, ignoring entry");
+                    } catch (Exception $e) {
+                        consoleBug($e -> getMessage());
+                        throwAlert('One/More of the given details is/are being used by other users. Try again please');
+                    }
+
+                }
+                /*
+                    Adding new user event relation in userevents table
+                */
+                $usereventsTable = new Table_Field_Rel(
+                    "userevents",
+
+                    "regno",
+                    "eventid"
+                );
+
+                $usereventsSyringe = new MySQL_Query_Capsule($usereventsTable);
+                $regno = $userList[1];
+
+                $injection = $usereventsSyringe -> InsertValuesQuery(
+                    "$regno,'$event'"
+                );
+
+                consoleBug($injection);
+
+                $dbc -> PushQuery(
+                    $injection
+                ); //relay for user event reregistration mismatch
+
+                try {
+                    $response = $dbc -> FlushStack();
+                } catch (Exception $e) {
+                    throwAlert("registered failed: user reregistering for the event");
+                    consoleBug($e -> getMessage());
+                    return;
+                }
+
+                /*
+                    Adding new team user relation in teamusers table
+                */
+                $teamusersTable = new Table_Field_Rel(
+                    "userteams",
+                    "regno",
+                    "teamname"
+                );
+
+                $teamusersSyringe = new MySQL_Query_Capsule($teamusersTable);
+
+                $injection = $teamusersSyringe -> InsertValuesQuery(
+                    "$regno,'$teamName'"
+                );
+
+                $dbc -> PushQuery(
+                    $injection
+                ); //relay for user reassignment to same team
+
+                /*
+                    Retrieving database response to query stack input
+                */
+                try {
+                    $response = $dbc -> FlushStack();
+                } catch (Exception $e) {
+                    consoleBug($e -> getMessage());
+                    throwAlert("registered failed: user already in a team for this event");
+                    return;
+                }
+
+                consoleBug("registeration successful");
+            }
 
         foreach ($_POST as $k => $v)
             unset($_POST[$k]);

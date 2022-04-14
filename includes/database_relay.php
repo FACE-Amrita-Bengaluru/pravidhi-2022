@@ -15,22 +15,42 @@
 
         public function RelayQuery(string $query): mysqli_result
         {
-            return @mysqli_query($this->GetLink(), $this->CleanQuery($query));
+            $result = mysqli_query($this->GetLink(), $this->CleanQuery($query));
+          
+            if (! $result)
+                throw "MySQL query failed" ;
+            
+            return $result;
         }
         
         public function RelayStack()
         {
-            return @mysqli_query($this->GetLink(), $this->_query_stack);
+            $result = mysqli_query($this->GetLink(), $this->_query_stack);
+            
+            if ($result -> errno)
+                throw "MySQL query failed:" . $result -> error;
+            
+            return $result;
         }
 
         public function PrepareQuery(string $query): mysqli_stmt
         {
-            return @mysqli_prepare($this->GetLink(), $this->CleanQuery($query));
+            $result = mysqli_prepare($this->GetLink(), $this->CleanQuery($query));
+            
+            if ($result -> errno)
+                throw "MySQL prepare failed:" . $result -> error;
+            
+            return $result;
         }
 
         public function PrepareStack(): mysqli_stmt
         {
-            return @mysqli_prepare($this->GetLink(), $this->_query_stack);
+            $result = mysqli_prepare($this->GetLink(), $this->_query_stack);
+            
+            if ($result -> errno)
+                throw "MySQL prepare failed:" . $result -> error;
+            
+            return $result;
         }
 
         public function PushQuery(string $query): void
@@ -93,7 +113,7 @@
             $socket = null
         ): void
         { 
-            $connect = @mysqli_connect(
+            $connect = mysqli_connect(
                 $host,
                 $user,
                 $password,

@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <?php
+
+use function PHPSTORM_META\type;
+
     session_start();
 ?>
 
@@ -385,26 +388,32 @@ function pushRegistration(): void
 
                     $regno = $userList[1];
                     $userSyringe->SetWhere("$0.0 = $regno");
-                    consoleBug($userSyringe);
 
                     try {
-                        $authentic = $dbc->RelayQuery($userSyringe);
+                        consoleBug($userSyringe);
+                        $queryFetch = $dbc->RelayQuery($userSyringe);
 
-                        foreach ($authentic as $_trivial => $event) {
+                        foreach ($queryFetch as $_trivial => $event) {
                             $i = 0;
-    
+                            
+                            consoleBug(">>");
                             foreach ($event as $_trivial1 => $eventAttr) {
+                                consoleBug("attr:$eventAttr");
+                                
                                 if ("'" . $eventAttr . "'" != $userList[$i++]) {
                                     throwAlert("User details inconsistent with previous entries");
                                     consoleBug($eventAttr . '!=' . $userList[$i - 1]);
-                                    die('goodbye cruel world');
+                                    return;
+                                    // die('goodbye cruel world');
+                                } else {
+                                    consoleBug($eventAttr . '=' . $userList[$i - 1]);
                                 }
                             }
                         }
-                    
+                        
                         consoleBug("User already registered, ignoring entry");
-                    } catch (Exception $e) {
-                        consoleBug($e -> getMessage());
+                    } catch (Exception $e1) {
+                        consoleBug($e1 -> getMessage());
                         throwAlert('One/More of the given details is/are being used by other users. Try again please');
                     }
 

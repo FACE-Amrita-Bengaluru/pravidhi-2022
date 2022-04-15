@@ -99,6 +99,11 @@
 
     class Query_Capsule
     {
+        public static function Begin(){}
+        public static function End(){}
+        public static function Commit(){}
+        public static function Rollback(){}
+
         function __construct(Table_Field_Rel ...$TFRs)
         {
             if($TFRs)
@@ -374,6 +379,23 @@
 
     class Oracle_Query_Capsule extends Query_Capsule
     {
+        public static function Begin() {
+            return "BEGIN";
+        }
+
+        public static function End() {
+            return "END";
+        }
+
+        public static function Commit() {
+            return "COMMIT";
+        }
+
+        public static function Rollback()
+        {
+            return "ROLLBACK";   
+        }
+
         public function SelectFrom(): string
         {
             if($this->_Selections)

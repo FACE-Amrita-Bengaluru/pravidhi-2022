@@ -1,6 +1,11 @@
 <?php
     class DB_Relay
     {
+        function Stack(): string
+        {
+            return $this -> _query_stack;
+        }
+
         function __construct($host = null, $user = null, $password = null, $database = null, $port = null, $socket = null)
         {
             $this->Link($host, $user, $password, $database, $port, $socket);
@@ -15,12 +20,12 @@
 
         public function RelayQuery(string $query): mysqli_result
         {
-            $result = mysqli_query($this->GetLink(), $this->CleanQuery($query));
-          
-            if (! $result)
-                throw "MySQL query failed" ;
-            
-            return $result;
+            try {
+                $result = mysqli_query($this->GetLink(), $this->CleanQuery($query));
+                return $result;
+            } catch (Exception $e) {
+                throw $e;
+            }
         }
         
         public function RelayStack()
@@ -82,9 +87,14 @@
         
         public function FlushStack()
         {
-            $response = $this->RelayStack();
-            $this->EmptyStack();
-            return $response;
+            try {
+                $response = $this->RelayStack();
+                $this->EmptyStack();
+                return $response;
+            } catch (Exception $e) {
+                $this->EmptyStack();
+                throw $e;
+            }
         }
 
         public function isEmptyStack(): bool

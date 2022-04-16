@@ -175,6 +175,12 @@ session_start();
                     <h5 class="with-top-line">Contact Us</h5>
                     <ul class="s-contact__list">
                         <li><a href="mailto:pravidhi@blr.amrita.edu">pravidhi@blr.amrita.edu</a></li>
+                        <li>
+                            <a href="https://www.instagram.com/pravidhi_aseb/">
+                                <i class="fa-brands fa-instagram"></i>
+                                <span>Instagram</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -247,12 +253,12 @@ function pushRegistration(): void
         $out = $dbc->RelayQuery($query);
     } catch (Exception $e) {
     }
-    
+
     $a = array();
-    
+
     foreach ($out as $_trivial => $eventTuple) {
         $b = array();
-        
+
         consoleBug(">>");
         foreach ($eventTuple     as $_trivial1 => $eventAttr) {
             consoleBug("attr: $eventAttr");
@@ -261,11 +267,11 @@ function pushRegistration(): void
 
         array_push($a, $b);
     }
-    
+
     consoleBug($a[0][0]);
 
     $_SESSION["index1"] = $a;
-    
+
     if (count($_POST) > 0) {
         $selected_tables = new Table_Field_Rel(
             "register",
@@ -277,11 +283,11 @@ function pushRegistration(): void
             "phno",
             "email"
         );
-        
+
         $query = new MySQL_Query_Capsule($selected_tables);
         $event = $_POST['cEvent'];
         consoleBug("event:$event");
-        
+
         if (
             Validate::RegNo($_POST['regno']) &&
             Validate::Name($_POST['name']) &&
@@ -289,90 +295,89 @@ function pushRegistration(): void
             Validate::Branch($_POST['branch']) &&
             Validate::PhNo($_POST['phno']) &&
             Validate::Email($_POST['email'])
-            ) {
-                $userList = array(
-                    "'" . $_POST['regno'] . "'",
-                    "'" . $_POST['name'] . "'",
-                    "'" . $_POST['sem'] . "'",
-                    "'" . $_POST['branch'] . "'",
-                    "'" . $_POST['phno'] . "'",
-                    "'" . $_POST['email'] . "'"
-                );
-                
-                $insertion = $query->InsertValuesQuery(
-                    implode(",", $userList)
-                );
-                
-                consoleBug($insertion);
-                
-                $dbc->PushQuery(
-                    $insertion
-                );
-                
-                try {
-                    $return = $dbc->FlushStack();
-                    consoleBug($return);
-                } catch(Exception $e) {
-                    consoleBug($e -> getMessage());
-                    
-                    $regno = $userList[0];
-                    $query->SetWhere("$0.0 = $regno");
-                    consoleBug($query);
-                    try {
-                        $authentic = $dbc->RelayQuery($query);
+        ) {
+            $userList = array(
+                "'" . $_POST['regno'] . "'",
+                "'" . $_POST['name'] . "'",
+                "'" . $_POST['sem'] . "'",
+                "'" . $_POST['branch'] . "'",
+                "'" . $_POST['phno'] . "'",
+                "'" . $_POST['email'] . "'"
+            );
 
-                        consoleBug(">$authentic");
-                        foreach ($authentic as $_trivial => $eventTuple) {
-                            $i = 0;
-                            
-                            consoleBug(">>$eventTuple");
-                            foreach ($eventTuple as $_trivial1 => $eventAttr) {
-                                if ("'" . $eventAttr . "'" != $userList[$i++]) {
-                                    throwAlert("User details inconsistent with previous entries");
-                                    consoleBug($eventAttr . '!=' . $userList[$i - 1]);
-                                    return;
-                                } else {
-                                    consoleBug($eventAttr . '=' . $userList[$i - 1]);
-                                }
+            $insertion = $query->InsertValuesQuery(
+                implode(",", $userList)
+            );
+
+            consoleBug($insertion);
+
+            $dbc->PushQuery(
+                $insertion
+            );
+
+            try {
+                $return = $dbc->FlushStack();
+                consoleBug($return);
+            } catch (Exception $e) {
+                consoleBug($e->getMessage());
+
+                $regno = $userList[0];
+                $query->SetWhere("$0.0 = $regno");
+                consoleBug($query);
+                try {
+                    $authentic = $dbc->RelayQuery($query);
+
+                    consoleBug(">$authentic");
+                    foreach ($authentic as $_trivial => $eventTuple) {
+                        $i = 0;
+
+                        consoleBug(">>$eventTuple");
+                        foreach ($eventTuple as $_trivial1 => $eventAttr) {
+                            if ("'" . $eventAttr . "'" != $userList[$i++]) {
+                                throwAlert("User details inconsistent with previous entries");
+                                consoleBug($eventAttr . '!=' . $userList[$i - 1]);
+                                return;
+                            } else {
+                                consoleBug($eventAttr . '=' . $userList[$i - 1]);
                             }
                         }
-                        
-                        consoleBug("User already registered, ignoring entry");
-                    } catch (Exception $e) {
-                        consoleBug($e -> getMessage());
-                        throwAlert('One/More of the given details is/are being used by other users. Try again please');
                     }
-                    
-                }
-                
-                $selected_tables = new Table_Field_Rel(
-                    "userevents",
-                    "regno",
-                    "eventid"
-                );
-                
-                $joinInsertion =  new MySQL_Query_Capsule($selected_tables);
-                
-                $regno = $userList[0];
-                
-                $insert = $joinInsertion->InsertValuesQuery(
-                    "$regno,'$event'"
-                );
-                consoleBug($insert);
-                
-                $dbc->PushQuery(
-                    $insert
-                );
-                
-                try{
-                    $response = $dbc->FlushStack();
-                } catch (Exception $e) {
-                    throwAlert("registration failed: you have already registered for this event");
-                    consoleBug($e -> getMessage());
-                    return;
-                }
 
-                consoleBug("registeration successful");
+                    consoleBug("User already registered, ignoring entry");
+                } catch (Exception $e) {
+                    consoleBug($e->getMessage());
+                    throwAlert('One/More of the given details is/are being used by other users. Try again please');
+                }
+            }
+
+            $selected_tables = new Table_Field_Rel(
+                "userevents",
+                "regno",
+                "eventid"
+            );
+
+            $joinInsertion =  new MySQL_Query_Capsule($selected_tables);
+
+            $regno = $userList[0];
+
+            $insert = $joinInsertion->InsertValuesQuery(
+                "$regno,'$event'"
+            );
+            consoleBug($insert);
+
+            $dbc->PushQuery(
+                $insert
+            );
+
+            try {
+                $response = $dbc->FlushStack();
+            } catch (Exception $e) {
+                throwAlert("registration failed: you have already registered for this event");
+                consoleBug($e->getMessage());
+                return;
+            }
+
+            consoleBug("registeration successful");
         }
 
         foreach ($_POST as $k => $v) {

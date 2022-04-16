@@ -3,7 +3,7 @@
 
 use function PHPSTORM_META\type;
 
-    session_start();
+session_start();
 ?>
 
 <html lang="en" class="no-js">
@@ -174,6 +174,12 @@ use function PHPSTORM_META\type;
 
                     <ul class="s-contact__list">
                         <li><a href="mailto:pravidhi@blr.amrita.edu">pravidhi@blr.amrita.edu</a></li>
+                        <li>
+                            <a href="https://www.instagram.com/pravidhi_aseb/">
+                                <i class="fa-brands fa-instagram"></i>
+                                <span>Instagram</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -236,13 +242,13 @@ function pushRegistration(): void
     $eventFetch = new Table_Field_Rel(
         "events",
 
-            "eventid", //0
-            "name", //1
-            "eventname", //2
-            "description", //3
-            "start", //4
-            "end", //5
-            "teamsize" //6
+        "eventid", //0
+        "name", //1
+        "eventname", //2
+        "description", //3
+        "start", //4
+        "end", //5
+        "teamsize" //6
     );
 
     $queryFetch = new MySQL_Query_Capsule($eventFetch);
@@ -250,12 +256,12 @@ function pushRegistration(): void
 
     consoleBug($queryFetch);
 
-    try { 
+    try {
         $queryResult = $dbc->RelayQuery($queryFetch);
     } catch (Exception $e) {
-        consoleBug($e -> getMessage());
+        consoleBug($e->getMessage());
     }
-    
+
     /* 
         Extracting event information and modifying/adding HTML tags
     */
@@ -302,7 +308,7 @@ function pushRegistration(): void
             $response = $dbc->FlushStack();
         } catch (Exception $e) {
             throwAlert("Team name already taken. Please try again");
-            consoleBug($e -> getMessage());
+            consoleBug($e->getMessage());
             return;
         }
 
@@ -332,7 +338,7 @@ function pushRegistration(): void
             $response = $dbc->FlushStack();
         } catch (Exception $e) {
             throwAlert("$teamName already registered for the event");
-            consoleBug($e -> getMessage());
+            consoleBug($e->getMessage());
             return;
         }
 
@@ -370,21 +376,21 @@ function pushRegistration(): void
                     "'" . $_POST["cEmail-$i"] . "'"
                 );
 
-                $injection = $userSyringe -> InsertValuesQuery(
+                $injection = $userSyringe->InsertValuesQuery(
                     implode(",", $userList)
                 );
 
                 consoleBug($injection);
 
-                $dbc -> PushQuery(
+                $dbc->PushQuery(
                     $injection
                 ); //relay for user info mismatch
 
-                
+
                 try {
                     $response = $dbc->FlushStack();
-                } catch(Exception $e) {
-                    consoleBug($e -> getMessage());
+                } catch (Exception $e) {
+                    consoleBug($e->getMessage());
 
                     $regno = $userList[1];
                     $userSyringe->SetWhere("$0.0 = $regno");
@@ -395,11 +401,11 @@ function pushRegistration(): void
 
                         foreach ($queryFetch as $_trivial => $event) {
                             $i = 0;
-                            
+
                             consoleBug(">>");
                             foreach ($event as $_trivial1 => $eventAttr) {
                                 consoleBug("attr:$eventAttr");
-                                
+
                                 if ("'" . $eventAttr . "'" != $userList[$i++]) {
                                     throwAlert("User details inconsistent with previous entries");
                                     consoleBug($eventAttr . '!=' . $userList[$i - 1]);
@@ -410,13 +416,12 @@ function pushRegistration(): void
                                 }
                             }
                         }
-                        
+
                         consoleBug("User already registered, ignoring entry");
                     } catch (Exception $e1) {
-                        consoleBug($e1 -> getMessage());
+                        consoleBug($e1->getMessage());
                         throwAlert('One/More of the given details is/are being used by other users. Try again please');
                     }
-
                 }
                 /*
                     Adding new user event relation in userevents table
@@ -431,21 +436,21 @@ function pushRegistration(): void
                 $usereventsSyringe = new MySQL_Query_Capsule($usereventsTable);
                 $regno = $userList[1];
 
-                $injection = $usereventsSyringe -> InsertValuesQuery(
+                $injection = $usereventsSyringe->InsertValuesQuery(
                     "$regno,'$event'"
                 );
 
                 consoleBug($injection);
 
-                $dbc -> PushQuery(
+                $dbc->PushQuery(
                     $injection
                 ); //relay for user event reregistration mismatch
 
                 try {
-                    $response = $dbc -> FlushStack();
+                    $response = $dbc->FlushStack();
                 } catch (Exception $e) {
                     throwAlert("registered failed: user reregistering for the event");
-                    consoleBug($e -> getMessage());
+                    consoleBug($e->getMessage());
                     return;
                 }
 
@@ -460,11 +465,11 @@ function pushRegistration(): void
 
                 $teamusersSyringe = new MySQL_Query_Capsule($teamusersTable);
 
-                $injection = $teamusersSyringe -> InsertValuesQuery(
+                $injection = $teamusersSyringe->InsertValuesQuery(
                     "$regno,'$teamName'"
                 );
 
-                $dbc -> PushQuery(
+                $dbc->PushQuery(
                     $injection
                 ); //relay for user reassignment to same team
 
@@ -472,9 +477,9 @@ function pushRegistration(): void
                     Retrieving database response to query stack input
                 */
                 try {
-                    $response = $dbc -> FlushStack();
+                    $response = $dbc->FlushStack();
                 } catch (Exception $e) {
-                    consoleBug($e -> getMessage());
+                    consoleBug($e->getMessage());
                     throwAlert("registered failed: user already in a team for this event");
                     return;
                 }

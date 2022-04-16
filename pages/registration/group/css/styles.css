@@ -5176,6 +5176,10 @@ body.search-is-visible .s-header__search-inner {
     .entry-wrap {
         --text-multiplier: 0.55;
     }
+
+    .entry__title {
+        margin-top: 60px;
+    }
 }
 
 @media screen and (max-width: 500px) {

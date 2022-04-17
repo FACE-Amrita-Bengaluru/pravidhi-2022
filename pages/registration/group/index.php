@@ -119,7 +119,7 @@ session_start();
                                                     foreach ($_SESSION["index1"] as $k => $v) {
 
 
-                                                        echo ('<option value=' . "'" . $v[0] . "'" . '>' . $v[1] . '</option>');
+                                                        echo ('<option value=' . "'" . $v[0] . "'" . '>' . $v[2] . ' - ' . $v[1] . '</option>');
 
                                                         $i = $i + 1;
                                                     }
@@ -248,7 +248,7 @@ function pushRegistration(): void
         "description", //3
         "start", //4
         "end", //5
-        "teamsize" //6
+        "tmax" //6
     );
 
     $queryFetch = new MySQL_Query_Capsule($eventFetch);

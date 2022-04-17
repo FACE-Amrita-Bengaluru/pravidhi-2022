@@ -241,7 +241,7 @@ function pushRegistration(): void
         "description", //3
         "start", //4
         "end", //5
-        "teamsize" //6
+        "tmax" //6
     );
 
     $query = new MySQL_Query_Capsule($select);

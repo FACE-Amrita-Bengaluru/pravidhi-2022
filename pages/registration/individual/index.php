@@ -298,8 +298,7 @@ function pushRegistration()
             Validate::Sem($_POST['sem']) &&
             Validate::Branch($_POST['branch']) &&
             Validate::PhNo($_POST['phno']) &&
-            Validate::Email($_POST['email']) ||
-            true
+            Validate::Email($_POST['email'])
         ) {
             $userList = array(
                 "'" . $_POST['regno'] . "'",

@@ -507,10 +507,22 @@
 })(document.documentElement);
 
 const adminButton = document.querySelector('.admin-button');
+const adminForm = document.querySelector('.admin-form');
 
 adminButton.addEventListener('dblclick', () => {
     const alertBox = document.querySelector('.alert-box');
     alertBox.classList.remove('hideit');
+});
+
+adminForm.addEventListener('submit', event => {
+    event.preventDefault();
+
+    const username = document.querySelector('.admin-username').value;
+    const password = document.querySelector('.admin-password').value;
+
+    if (username == 'sathian' && password == 'face') {
+        window.location = './../pages/registration/individual/fetch.php';
+    }
 });
 
 particlesJS('particles-js', {

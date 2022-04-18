@@ -133,11 +133,11 @@ session_start();
                                         </div>
 
                                         <div class="column lg-12 form-field team-size-input" style="margin-top: 50px">
-                                            <input name="cTeamSize" id="cTeamSize" class="u-fullwidth team-size" placeholder="Team Size" value="" type="text" />
+                                            <input name="cTeamSize" id="cTeamSize" class="u-fullwidth team-size" placeholder="Team Size" value="" type="hidden" />
                                         </div>
 
                                         <div class="column lg-12">
-                                            <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large u-fullwidth" value="Register" type="submit" />
+                                            <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large u-fullwidth" value="Continue" type="submit" />
                                         </div>
                                     </fieldset>
                                 </form>
@@ -279,7 +279,7 @@ function pushRegistration(): void
     $_SESSION["index1"] = $eventList; //to provide data to alter HTML selection tag's option tags
 
     if (count($_POST) > 0) {
-        
+
         /*
         Adding new team to teams table
         */
@@ -296,7 +296,7 @@ function pushRegistration(): void
         $eventSyringe = new MySQL_Query_Capsule($eventsTable);
         $eventSyringe->SetWhere("$0.eventid = '$event'");
 
-        $dbc -> PushQuery($eventSyringe);
+        $dbc->PushQuery($eventSyringe);
 
         try {
             $response = $dbc->FlushStack();
@@ -318,10 +318,10 @@ function pushRegistration(): void
 
         $teamsTable = new Table_Field_Rel(
             "teams",
-            
+
             "teamname"
         );
-        
+
         $teamName = $_POST['cTeamName'];
 
         $teamSyringe = new MySQL_Query_Capsule($teamsTable);

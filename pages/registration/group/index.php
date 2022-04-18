@@ -231,7 +231,7 @@ session_start();
 
 <?php
 
-function pushRegistration(): void
+function pushRegistration()
 {
     $_INCLUDE_DIR = $_SERVER['DOCUMENT_ROOT'] . '/pravidhi-2022/includes/';
     require_once $_INCLUDE_DIR . 'dependencies.php';

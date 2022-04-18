@@ -1,5 +1,5 @@
 <?php
-function throwAlert($message) : void {
+function throwAlert($message) {
     echo "<script>alert('$message')</script>";
 }
 

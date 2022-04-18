@@ -1,7 +1,7 @@
 <?php
     class DB_Relay
     {
-        function Stack(): string
+        function Stack()
         {
             return $this -> _query_stack;
         }
@@ -18,7 +18,7 @@
                 @mysqli_close($this->GetLink());
         }
 
-        public function RelayQuery(string $query): mysqli_result
+        public function RelayQuery(string $query)
         {
             try {
                 $result = mysqli_query($this->GetLink(), $this->CleanQuery($query));
@@ -38,7 +38,7 @@
             return $result;
         }
 
-        public function PrepareQuery(string $query): mysqli_stmt
+        public function PrepareQuery(string $query)
         {
             $result = mysqli_prepare($this->GetLink(), $this->CleanQuery($query));
             
@@ -48,7 +48,7 @@
             return $result;
         }
 
-        public function PrepareStack(): mysqli_stmt
+        public function PrepareStack()
         {
             $result = mysqli_prepare($this->GetLink(), $this->_query_stack);
             
@@ -58,12 +58,12 @@
             return $result;
         }
 
-        public function PushQuery(string $query): void
+        public function PushQuery(string $query)
         {
             $this->_query_stack .= $this->CleanQuery($query);
         }
 
-        public function PopQuery(): string
+        public function PopQuery()
         {
             $popped = "";
 
@@ -80,7 +80,7 @@
             return $popped;
         }
       
-        public function EmptyStack(): void
+        public function EmptyStack()
         {
             $this->_query_stack = "";
         }
@@ -97,17 +97,17 @@
             }
         }
 
-        public function isEmptyStack(): bool
+        public function isEmptyStack()
         {
             return $this->_query_stack == "";
         }
         
-        public function GetLink(): mysqli
+        public function GetLink()
         {
             return $this->_db_link;
         }
 
-        public function isLinked(): bool
+        public function isLinked()
         {
             if(isset($this->_db_link))
                 return $this->_db_link !== false;
@@ -121,7 +121,7 @@
             $database = null,
             $port = null,
             $socket = null
-        ): void
+        )
         { 
             $connect = mysqli_connect(
                 $host,
@@ -131,12 +131,12 @@
                 $port,
                 $socket
                 )
-                OR die('MySQL connection failed: ' . mysqli_connect_error());
-            
+                OR die('MySQL connection failed:' . mysqli_connect_error());
+
             $this->_db_link = $connect;
         }
 
-        private function CleanQuery($query): string
+        private function CleanQuery($query)
         {
             return preg_replace("/[\s]{2,}/", " ", rtrim(trim($query, " \t\n\r\0\x0B"), "\;") . ";");
         }
@@ -144,4 +144,3 @@
         private mysqli $_db_link;
         private string $_query_stack;
     }
-?>

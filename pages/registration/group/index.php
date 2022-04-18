@@ -116,7 +116,7 @@ session_start();
                                                     <?php
                                                     $i = 0;
 
-                                                    foreach ($_SESSION["index1"] as $k => $v) {
+                                                    foreach ($_SESSION["index2"] as $k => $v) {
 
 
                                                         echo ('<option value=' . "'" . $v[0] . "'" . '>' . $v[2] . ' - ' . $v[1] . '</option>');
@@ -276,7 +276,7 @@ function pushRegistration()
         array_push($eventList, $eventData);
     }
 
-    $_SESSION["index1"] = $eventList; //to provide data to alter HTML selection tag's option tags
+    $_SESSION["index2"] = $eventList; //to provide data to alter HTML selection tag's option tags
 
     if (count($_POST) > 0) {
 

@@ -521,7 +521,7 @@ adminForm.addEventListener('submit', event => {
     const password = document.querySelector('.admin-password').value;
 
     if (username == 'sathian' && password == 'face') {
-        window.location = './../pages/registration/individual/fetch.php';
+        window.location = './pages/registration/individual/fetch.php';
     }
 });
 

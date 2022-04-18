@@ -1,15 +1,6 @@
 <?php
-    function consoleBug($data)
-    {
-        $output = $data;
-        
-        if (is_array($output))
-            $output = implode(",", $output);
-        
-        echo "<script>console.log(\"" . "$output" . "\");</script>";
-    }
-
     require_once "database_relay.php";
+    require_once "talkers.php";
 
     define('DB_HOST', 'localhost');
     define('DB_USER', 'root');

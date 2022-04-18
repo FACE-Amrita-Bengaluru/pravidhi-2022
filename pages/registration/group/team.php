@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <?php
-
 session_start();
 ?>
 
@@ -461,17 +460,15 @@ function pushRegistration()
                 } catch (Exception $e) {
                     consoleBug($e->getMessage());
                     throwAlert("registered failed: user already in a team for this event");
-                    echo "<script>window.location.href='../../../index.html';</script>";
+                    redirect('../../../index.html');
                 }
 
                 consoleBug("registeration successful");
-                echo "<script>window.location.href='../registered/index.html';</script>";
+                redirect('../registered/index.html');
             }
 
         foreach ($_POST as $k => $v)
             unset($_POST[$k]);
-
-        //header("Location: http://127.0.0.1:58932/FrontEnd/index.html"); 
     }
 }
 

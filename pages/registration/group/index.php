@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <?php
-
-use function PHPSTORM_META\type;
-
 session_start();
 ?>
 
@@ -262,7 +259,7 @@ function pushRegistration()
         $_SESSION['event'] = $_POST['event'];
         $_SESSION['cTeamName'] = $_POST['cTeamName'];
 
-        echo "<script>window.location.href='team.php';</script>";
+        redirect('team.php');
     }
 }
 

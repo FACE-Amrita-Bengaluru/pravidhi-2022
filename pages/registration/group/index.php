@@ -279,23 +279,50 @@ function pushRegistration(): void
     $_SESSION["index1"] = $eventList; //to provide data to alter HTML selection tag's option tags
 
     if (count($_POST) > 0) {
-
-        foreach ($_POST as $k => $v)
-            consoleBug("$k:$v");
-
+        
+        /*
+        Adding new team to teams table
+        */
+        $event = $_POST['event'];
         $size = $_POST['cTeamSize'];
 
-        /*
-            Adding new team to teams table
-        */
-        $teamsTable = new Table_Field_Rel(
-            "teams",
+        $eventsTable = new Table_Field_Rel(
+            "events",
 
-            "teamname"
+            "tmin",
+            "tmax"
         );
 
+        $eventSyringe = new MySQL_Query_Capsule($eventsTable);
+        $eventSyringe->SetWhere("$0.eventid = '$event'");
+
+        $dbc -> PushQuery($eventSyringe);
+
+        try {
+            $response = $dbc->FlushStack();
+            $minSize = $response[0][0];
+            $maxSize = $response[0][1];
+
+            if ($maxSize < $size) {
+                consoleBug('Team size exceeded');
+                throwAlert("maximum team size allowed for this event is $maxSize. Please try again");
+            } else if ($minSize > $size) {
+                consoleBug('Team size too small');
+                throwAlert("minimum team size allowed for this event is $minSize. Please try again");
+            }
+
+            consoleBug($response);
+        } catch (Exception $e) {
+            consoleBug($e->getMessage());
+        }
+
+        $teamsTable = new Table_Field_Rel(
+            "teams",
+            
+            "teamname"
+        );
+        
         $teamName = $_POST['cTeamName'];
-        $event = $_POST['event'];
 
         $teamSyringe = new MySQL_Query_Capsule($teamsTable);
         $injection = $teamSyringe->InsertValuesQuery("'$teamName'");

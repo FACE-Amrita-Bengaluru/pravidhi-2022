@@ -1,6 +1,7 @@
 <?php
     function consoleBug($data)
     {
+        return;
         $output = $data;
         
         if (is_array($output))

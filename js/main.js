@@ -506,6 +506,13 @@
     })();
 })(document.documentElement);
 
+const adminButton = document.querySelector('.admin-button');
+
+adminButton.addEventListener('dblclick', () => {
+    const alertBox = document.querySelector('.alert-box');
+    alertBox.classList.remove('hideit');
+});
+
 particlesJS('particles-js', {
     particles: {
         number: { value: 300, density: { enable: true, value_area: 800 } },

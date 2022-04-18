@@ -244,3 +244,103 @@
         ssMoveTo();
     })();
 })(document.documentElement);
+
+const teamSizeInput = document.querySelector('.team-size');
+
+teamSizeInput.addEventListener('input', () => {
+    const allDynamicInputs = document.querySelectorAll('.dynamic-input');
+
+    allDynamicInputs.forEach(input => {
+        input.remove();
+    });
+
+    const teamSize = Number(teamSizeInput.value);
+    const teamSizeDiv = document.querySelector('.team-size-input');
+    const nameHTML = i => {
+        return `<div class="column lg-6 tab-12 form-field">
+                        <input
+                            name="cName-${i}"
+                            id="cName"
+                            class="u-fullwidth dynamic-input"
+                            placeholder="Name"
+                            value=""
+                            type="text"
+                        />
+                    </div>`;
+    };
+    const registrationNumberHTML = i => {
+        return `<div class="column lg-6 tab-12 form-field">
+                                        <input
+                                            name="cReg-${i}"
+                                            id="cReg"
+                                            class="u-fullwidth dynamic-input"
+                                            placeholder="Registration Number"
+                                            value=""
+                                            type="text"
+                                        />
+                                    </div>`;
+    };
+    const semesterHTML = i => {
+        return `<div class="column lg-6 tab-12 form-field dynamic-input">
+                            <div class="ss-custom-select">
+                                <select class="u-fullwidth" id="sampleRecipientInput" name="cSem-${i}">
+                                    <option value="" hidden>Semester</option>
+                                    <option value="4">4</option>
+                                    <option value="6">6</option>
+                                </select>
+                            </div>
+                        </div>`;
+    };
+    const branchHTML = i => {
+        return `<div class="column lg-6 tab-12 form-field dynamic-input">
+                            <div class="ss-custom-select">
+                                <select class="u-fullwidth" id="sampleRecipientInput" name="cBranch-${i}">
+                                    <option value="" hidden>Branch</option>
+                                    <option value="CSE">CSE</option>
+                                    <option value="AIE">AIE</option>
+                                    <option value="ECE">ECE</option>
+                                    <option value="EAC">EAC</option>
+                                    <option value="MEE">MEE</option>
+                                    <option value="EEE">EEE</option>
+                                </select>
+                            </div>
+                        </div>`;
+    };
+    const whatsappNumberHTML = i => {
+        return `<div class="column lg-6 tab-12 form-field">
+                                    <input
+                                        name="cNumber-${i}"
+                                        id="cNumber"
+                                        class="u-fullwidth dynamic-input"
+                                        placeholder="WhatsApp Number"
+                                        value=""
+                                        type="text"
+                                    />
+                                </div>`;
+    };
+
+    const emailHTML = i => {
+        return `<div class="column lg-6 tab-12 form-field">
+                            <input
+                                name="cEmail-${i}"
+                                id="cEmail"
+                                class="u-fullwidth dynamic-input"
+                                placeholder="Email"
+                                value=""
+                                type="text"
+                            />
+                        </div>`;
+    };
+
+    for (let i = teamSize; i > 0; i--) {
+        const teamNumberHTML = `<h4 class="dynamic-input" style="width: 100%">Team Member ${i}</h4>`;
+
+        teamSizeDiv.insertAdjacentHTML('afterend', emailHTML(i));
+        teamSizeDiv.insertAdjacentHTML('afterend', whatsappNumberHTML(i));
+        teamSizeDiv.insertAdjacentHTML('afterend', branchHTML(i));
+        teamSizeDiv.insertAdjacentHTML('afterend', semesterHTML(i));
+        teamSizeDiv.insertAdjacentHTML('afterend', registrationNumberHTML(i));
+        teamSizeDiv.insertAdjacentHTML('afterend', nameHTML(i));
+        teamSizeDiv.insertAdjacentHTML('afterend', teamNumberHTML);
+    }
+});

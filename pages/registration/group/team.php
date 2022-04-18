@@ -199,7 +199,7 @@ session_start();
     <!-- Java Script
     ================================================== -->
     <script src="js/plugins.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/team.js"></script>
 </body>
 
 </html>
@@ -214,7 +214,7 @@ function pushRegistration()
     foreach ($_POST as $k => $v) {
         consoleBug("post $k : $v");
     }
-    
+
     foreach ($_SESSION as $k => $v) {
         consoleBug("session $k : $v");
     }
@@ -224,42 +224,42 @@ function pushRegistration()
         Adding new team to teams table
         */
         $event = $_SESSION['event'];
-    
+
         $eventsTable = new Table_Field_Rel(
             "events",
-            
+
             "tmin",
             "tmax"
         );
-        
+
         $eventSyringe = new MySQL_Query_Capsule($eventsTable);
         $eventSyringe->SetWhere("$0.eventid = '$event'");
-        
+
         consoleBug($eventSyringe);
-        
+
         $dbc->PushQuery($eventSyringe);
-        
+
         try {
             $response = $dbc->FlushStack();
         } catch (Exception $e) {
-            consoleBug($e -> getMessage()); 
+            consoleBug($e->getMessage());
         }
-        
+
         $aggr = array();
 
         foreach ($response as $k => $v)
-            foreach($v as $_trivial => $b)
+            foreach ($v as $_trivial => $b)
                 array_push($aggr, $b);
-        
+
         $minSize = $aggr[0];
         $maxSize = $aggr[1];
-        
+
         consoleBug("min: $minSize");
         consoleBug("max: $maxSize");
 
         $size = $_POST['cTeamSize'];
         consoleBug("fetched max: $maxSize, min: $minSize; current size: $size");
-        
+
         if ($maxSize < $size) {
             consoleBug('Team size exceeded');
             throwAlert("maximum team size allowed for this event is $maxSize. Please try again");
@@ -267,7 +267,7 @@ function pushRegistration()
         } else if ($minSize > $size) {
             consoleBug('Team size too small');
             throwAlert("minimum team size allowed for this event is $minSize. Please try again");
-            return; 
+            return;
         }
 
         $teamsTable = new Table_Field_Rel(
@@ -466,7 +466,7 @@ function pushRegistration()
 
                 consoleBug("registeration successful");
                 echo "<script>window.location.href='../registered/index.html';</script>";
-        }
+            }
 
         foreach ($_POST as $k => $v)
             unset($_POST[$k]);

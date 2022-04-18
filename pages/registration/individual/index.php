@@ -235,23 +235,27 @@ function pushRegistration()
 
     $select = new Table_Field_Rel(
         "events",
+
         "eventid", //0
         "name", //1
         "eventname", //2
-        "description", //3
+        "venue", //3
         "start", //4
         "end", //5
-        "tmax" //6
+        "description", //6
+        "tmin", //7
+        "tmax" //8
     );
 
     $query = new MySQL_Query_Capsule($select);
-    $query->SetWhere("$0.6 = 1");
+    $query->SetWhere("$0.8 = 1");
 
     consoleBug($query);
 
     try {
         $out = $dbc->RelayQuery($query);
     } catch (Exception $e) {
+        consoleBug($e->getMessage());
     }
 
     $a = array();
@@ -294,7 +298,8 @@ function pushRegistration()
             Validate::Sem($_POST['sem']) &&
             Validate::Branch($_POST['branch']) &&
             Validate::PhNo($_POST['phno']) &&
-            Validate::Email($_POST['email'])
+            Validate::Email($_POST['email']) ||
+            true
         ) {
             $userList = array(
                 "'" . $_POST['regno'] . "'",
@@ -320,34 +325,8 @@ function pushRegistration()
                 consoleBug($return);
             } catch (Exception $e) {
                 consoleBug($e->getMessage());
-
-                $regno = $userList[0];
-                $query->SetWhere("$0.0 = $regno");
-                consoleBug($query);
-                try {
-                    $authentic = $dbc->RelayQuery($query);
-
-                    consoleBug(">$authentic");
-                    foreach ($authentic as $_trivial => $eventTuple) {
-                        $i = 0;
-
-                        consoleBug(">>$eventTuple");
-                        foreach ($eventTuple as $_trivial1 => $eventAttr) {
-                            if ("'" . $eventAttr . "'" != $userList[$i++]) {
-                                throwAlert("User details inconsistent with previous entries");
-                                consoleBug($eventAttr . '!=' . $userList[$i - 1]);
-                                return;
-                            } else {
-                                consoleBug($eventAttr . '=' . $userList[$i - 1]);
-                            }
-                        }
-                    }
-
-                    consoleBug("User already registered, ignoring entry");
-                } catch (Exception $e) {
-                    consoleBug($e->getMessage());
-                    throwAlert('One/More of the given details is/are being used by other users. Try again please');
-                }
+                // throwAlert('boo');
+                // header('Location: localhost/pravidhi-2022/index.html');
             }
 
             $selected_tables = new Table_Field_Rel(
@@ -374,17 +353,15 @@ function pushRegistration()
             } catch (Exception $e) {
                 throwAlert("registration failed: you have already registered for this event");
                 consoleBug($e->getMessage());
-                return;
+                echo "<script>window.location.href='../../../index.html';</script>";
+                exit;
             }
 
             consoleBug("registeration successful");
+            echo "<script>window.location.href='../registered/index.html';</script>";
+            exit;
         }
-
-        foreach ($_POST as $k => $v) {
-            unset($_POST[$k]);
-        }
-        //header("Location: http://127.0.0.1:58932/FrontEnd/index.html"); 
     }
-}
+}   
 pushRegistration();
 ?>
